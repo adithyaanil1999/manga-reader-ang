@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "deploy": "ng build --prod --baseHref=\"https://adithyaanil1999.github.io/manga-reader-ang/\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
