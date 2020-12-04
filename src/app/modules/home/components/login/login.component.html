@@ -1,0 +1,29 @@
+<div class="login-container animate__animated animate__fadeIn">
+    <div class="login-box">
+        <div *ngIf="!checkMobile" class="login-box-left">
+            <img src="../../../../../assets/imgs/loginBG.png" alt="loginBg">
+        </div>
+        <div [ngClass]="{'mobileBox' : checkMobile}" class="login-box-right">
+            <div class="login-main">
+                <div class="login-header-cont">
+                    <h1>Manga Reader</h1>
+                </div>
+                <div *ngIf="!signUpBool" (keyup.enter)="handleSignIn(username.value,password.value)" class="login-form-cont animate__animated animate__fadeIn">
+                    <input #username class="login-input" placeholder="Username" type="text" id="username">
+                    <input #password class="login-input" placeholder="Password" type="password" id="password">
+                    <button (click)='handleSignIn(username.value,password.value)' class="login-btn">Sign In</button>
+                </div>
+                <div *ngIf="signUpBool" class="signup-form-cont animate__animated animate__fadeIn">
+                    <input #usernameSignUp class="login-input" placeholder="Username" type="text" id="username-signUp">
+                    <input #passwordSignUp class="login-input" placeholder="Password" type="password" id="password-signUp">
+                    <input #confirmPassword class="login-input" placeholder="Confirm Password" type="password" id="confirmPassword">
+                    <button (click)='handleSignUp(usernameSignUp.value,passwordSignUp.value,confirmPassword.value)' class="login-btn">Sign Up</button>
+                </div>
+                <div class="signup-nav-cont">
+                    <span [innerHTML]="errorString" style="height:10%;color:red"></span>
+                    <p>Click <a (click)="toggleSignUp()">Here</a> to Sign <span *ngIf="!signUpBool">Up</span><span *ngIf="signUpBool">In</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

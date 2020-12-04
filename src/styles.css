@@ -1,9 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 *{
     margin: 0;
+    -webkit-tap-highlight-color: transparent;
 }
-
+.grecaptcha-badge { 
+    visibility: hidden;
+}
 html,body{
     width: 100%;
     height: 100%;
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
+    background: #000000;
+
 }
