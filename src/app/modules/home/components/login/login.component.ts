@@ -6,6 +6,7 @@ import { take } from 'rxjs/operators';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 import {BeURL} from '../../../../../global'
+import { checklogin } from '../../../../store/actions/app.actions'
 
 import md5 from 'md5';
 @Component({
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   checkMobile : Boolean = false;
   signUpBool : Boolean = false;
   errorString : string = '';
+  showSpinner: Boolean = false;
 
   constructor(private recaptchaV3Service: ReCaptchaV3Service,private _router: Router,private store:Store) {
    }
@@ -55,9 +57,11 @@ export class LoginComponent implements OnInit {
     }).then((data) =>{
         console.log(data);
         if(data.message === 'failed'){
+          this.showSpinner = false;
           this.errorString = 'Wrong Password';
         }else{
           this.errorString = '';
+          this.showSpinner = false;
           //REDIRECT
           Cookies.set('username', uid);
           this._router.navigate(['dashboard']);
@@ -79,6 +83,7 @@ export class LoginComponent implements OnInit {
           this.errorString = 'Password is too short';
         }
         else{
+          this.showSpinner = true;
           this.errorString = '';
           this.handleToken(token,uid,pass)
         }
@@ -98,6 +103,8 @@ export class LoginComponent implements OnInit {
       this.errorString = 'Password is too short';
     }else{
       this.errorString = '';
+      this.showSpinner = true;
+      this.showSpinner = false;
       this.recaptchaV3Service.execute('submitSignUp')
       .subscribe(
       (token) => {
@@ -116,9 +123,11 @@ export class LoginComponent implements OnInit {
         }).then((data) =>{
             console.log(data)
             if(data.message === 'failed'){
+              this.showSpinner = false;
               this.errorString = 'User Name exist,Try again';
             }else{
               this.errorString = '';
+              this.showSpinner = false;
               //Create user
               Cookies.set('username', uid);
               this._router.navigate(['dashboard']);
@@ -133,6 +142,13 @@ export class LoginComponent implements OnInit {
     let currentState = this.getState(this.store);
     this.checkMobile = currentState.mobileBool;
     console.log("PROTECTED BY reCAPTCHAv3")
+
+    let username = Cookies.get('username');
+    if(username == '' || username == undefined ){
+    }else{
+      this.store.dispatch(checklogin({ isLoggedIn: true }));
+      this._router.navigate(['dashboard']);
+    }
 
   }
 

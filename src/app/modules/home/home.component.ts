@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import Cookies from 'js-cookie';
 import { Router } from '@angular/router';
 import { Store,select} from '@ngrx/store';
 import { take } from 'rxjs/operators';
@@ -29,12 +29,23 @@ export class HomeComponent implements OnInit {
     e.preventDefault();
   }
   ngOnInit(): void {
-    let currentState = this.getState(this.store)
-    if(!currentState.loginBool){
-      this._router.navigate(['login']);
+    let username = Cookies.get('username');
+    if(username == '' || username == undefined ){
+      // if(!currentState.loginBool){
+        this._router.navigate(['login']);
+      // }
+    }else{
+      this.store.dispatch(checklogin({ isLoggedIn: true }));
+      this._router.navigate(['dashboard']);
     }
+
+    // let currentState = this.getState(this.store)
+    // if(!currentState.loginBool){
+    //   this._router.navigate(['login']);
+    // }
+
     console.log('v1.2')
-    this.store.dispatch(checklogin({ isLoggedIn: true }));
+    
   }
 
 }

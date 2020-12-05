@@ -20,8 +20,15 @@
                     <button (click)='handleSignUp(usernameSignUp.value,passwordSignUp.value,confirmPassword.value)' class="login-btn">Sign Up</button>
                 </div>
                 <div class="signup-nav-cont">
-                    <span [innerHTML]="errorString" style="height:10%;color:red"></span>
-                    <p>Click <a (click)="toggleSignUp()">Here</a> to Sign <span *ngIf="!signUpBool">Up</span><span *ngIf="signUpBool">In</span></p>
+                    <div class="spinner-cont-box">
+                        <div *ngIf="showSpinner" class="spinner-cont">
+                            <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                        </div>
+                    </div>
+                    <div class="signup-nav-cont-text">
+                        <span [innerHTML]="errorString" style="height:50%;color:red"></span>
+                        <p>Click <a (click)="toggleSignUp()">Here</a> to Sign <span *ngIf="!signUpBool">Up</span><span *ngIf="signUpBool">In</span></p>
+                    </div>
                 </div>
             </div>
         </div>
