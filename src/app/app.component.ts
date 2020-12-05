@@ -12,10 +12,10 @@ export class AppComponent implements OnInit{
   constructor(private deviceService: DeviceDetectorService,private store:Store) { }
 
   ngOnInit() {
-    window.addEventListener("scroll", (e) => {
-      e.preventDefault();
-      window.scrollTo(0, 0);
-    });
+    // window.addEventListener("scroll", (e) => {
+    //   e.preventDefault();
+    //   window.scrollTo(0, 0);
+    // });
     this.store.dispatch(checkMobile({isMobile:this.deviceService.isMobile()}));
   }
 }
