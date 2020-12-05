@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
           this.errorString = '';
           this.showSpinner = false;
           //REDIRECT
-          Cookies.set('username', uid);
+          Cookies.set('username', uid,{ expires: 7 });
           this._router.navigate(['dashboard']);
         }
     });
@@ -129,7 +129,7 @@ export class LoginComponent implements OnInit {
               this.errorString = '';
               this.showSpinner = false;
               //Create user
-              Cookies.set('username', uid);
+              Cookies.set('username', uid,{ expires: 7 });
               this._router.navigate(['dashboard']);
             }
         });
