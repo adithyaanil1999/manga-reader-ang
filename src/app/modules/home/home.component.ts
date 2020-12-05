@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
     if(!currentState.loginBool){
       this._router.navigate(['login']);
     }
-    console.log('here')
+    console.log('v1')
     this.store.dispatch(checklogin({ isLoggedIn: true }));
   }
 
