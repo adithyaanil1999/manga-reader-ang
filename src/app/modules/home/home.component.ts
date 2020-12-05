@@ -23,13 +23,17 @@ export class HomeComponent implements OnInit {
     );
     
     return state.reducer;
- }
+  }
+  handleScroll(e){
+    console.log("move");
+    e.preventDefault();
+  }
   ngOnInit(): void {
     let currentState = this.getState(this.store)
     if(!currentState.loginBool){
       this._router.navigate(['login']);
     }
-    console.log('v1')
+    console.log('v1.1')
     this.store.dispatch(checklogin({ isLoggedIn: true }));
   }
 
