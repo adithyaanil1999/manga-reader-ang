@@ -1,5 +1,7 @@
 <div *ngIf="isMobile" class="mobile-main">
     <div *ngIf="!isSpinner" class="image-wrapper">
         <img *ngFor="let i of data" src="{{i}}" alt="">
+
+        <!-- <img src="{{this.data[0]}}" alt=""> -->
     </div>
 </div>

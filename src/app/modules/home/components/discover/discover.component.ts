@@ -52,7 +52,7 @@ export class DiscoverComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.src = "MGK";
+    this.src = "MGPK";
     console.log('Discover Mounted!')
     this.getHotManga(this.pageNo);
   }

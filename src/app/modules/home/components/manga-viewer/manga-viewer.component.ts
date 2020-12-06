@@ -31,7 +31,13 @@ export class MangaViewerComponent implements OnInit {
     return state.reducer;
   }
 
+
+
   getImages(link){
+    // link = 'https://mangapark.net/manga/gosu/i2613978/c205/'
+    console.log(link)
+    link = link.substring(0,link.lastIndexOf('/'))
+    console.log(link)
     console.log(link)
     fetch(scaperURL+"getImageList",{
       method: 'POST',
@@ -40,58 +46,10 @@ export class MangaViewerComponent implements OnInit {
     }).then(res=>{return res.json()})
       .then(data=>{
         this.data = data.imageList;
-        console.log(this.data)
+        console.log(data.imageList)
         this.isSpinner = false;
         console.log(this.isSpinner)
       })
-
-    let url = link;
-    let imageList = []
-
-    // if(url.indexOf('manganelo') !== -1){
-    //     console.log('scrap')
-      // MANGAKAKALOT SCRAPER
-
-      // http.get(url, (resp) => {
-      //     let html = '';
-  
-      //     resp.on('data', chunk => {
-      //         html += chunk;
-      //     });
-  
-      //     resp.on('end', () => {
-      //         const $ = cheerio.load(html);
-              
-      //         $('.vung-doc').children('img').each(function(i, el) {
-      //             imageList.push($(el));
-      //         });
-      //         console.log(imageList);
-              
-      //     });
-      // });
-        // var myHeaders = new Headers();
-        // myHeaders.append('Content-Type', 'text/html');
-        // fetch(url,{
-        //   mode: 'no-cors',
-        //   method: 'get',
-        //   headers: myHeaders}).then((res)=>{
-        //     const html = res;
-        //     console.log(html);
-        //   // html = str(res);
-        //   // const 
-        // }).then(data=>{
-        //   // const $ = cheerio.load(html);
-        //   console.log(data)
-        //   // const $ = cheerio.load(data);
-        //   // $('.container-chapter-reader').children('img').each(function(i, el) {
-        //   //   imageList.push($(el));
-        //   // });
-        //   // console.log(imageList)
-        // });
-
-
-
-    // }
 
   }
 

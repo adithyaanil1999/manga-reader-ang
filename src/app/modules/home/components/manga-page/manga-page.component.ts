@@ -23,6 +23,7 @@ export class MangaPageComponent implements OnInit {
   }
   
   getMangaDetails(link){
+    console.log(link)
     fetch(scaperURL+"getMangaInfo",{
       method: 'POST',
       headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },

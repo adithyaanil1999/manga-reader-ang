@@ -49,9 +49,9 @@ export class DashboardComponent implements OnInit {
     let username = Cookies.get('username');
     console.log(username)
     if(username == '' || username == undefined ){
-      // if(!currentState.loginBool){
+      // if(!currentState.loginBool){ 
         console.log('here')
-        // this._router.navigate(['login']);
+        this._router.navigate(['login']);
       // }
     }else{
       this.store.dispatch(checklogin({ isLoggedIn: true }));

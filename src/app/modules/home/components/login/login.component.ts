@@ -63,12 +63,12 @@ export class LoginComponent implements OnInit {
         }else{
           this.errorString = '';
           this.showSpinner = false;
-          //REDIRECT
-          // if(prodBool){
-          //   Cookies.set('username', uid,{ expires: 7 ,domain: 'localhost'});
-          // }else{
-          //   Cookies.set('username', uid,{ expires: 7 ,domain: 'adithyaanil1999.github.io'});
-          // }
+          // REDIRECT
+          if(prodBool){
+            Cookies.set('username', uid,{ expires: 7 ,domain: 'localhost'});
+          }else{
+            Cookies.set('username', uid,{ expires: 7 ,domain: 'adithyaanil1999.github.io'});
+          }
           this._router.navigate(['dashboard/discover']);
         }
     });
