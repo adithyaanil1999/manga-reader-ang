@@ -8,4 +8,9 @@ export const checklogin = createAction(
 export const checkMobile = createAction(
     '[appModule] checkMobile',
     props<{ isMobile: boolean}>()
-  );
+);
+
+export const currentMangaLink = createAction(
+  '[mangaModule] getLink',
+  props<{ currentMangaLink: string}>()
+);

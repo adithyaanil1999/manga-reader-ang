@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from '@ngrx/store';
-import { checklogin,checkMobile } from '../actions/app.actions';
+import { checklogin,checkMobile,currentMangaLink } from '../actions/app.actions';
 
 export const userFeatureKey = 'AppState';
 
@@ -17,6 +17,10 @@ const reducerFunc = createReducer(
   on(checkMobile, (state,{isMobile}) => ({
     ...state,
     mobileBool: isMobile
+  })),
+  on(currentMangaLink, (state,{currentMangaLink}) => ({
+    ...state,
+    currentMangaLink: currentMangaLink
   })),
 );
 

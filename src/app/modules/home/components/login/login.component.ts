@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
           this.showSpinner = false;
           //REDIRECT
           Cookies.set('username', uid,{ expires: 7 });
-          this._router.navigate(['dashboard']);
+          this._router.navigate(['dashboard/discover']);
         }
     });
   }
@@ -130,7 +130,7 @@ export class LoginComponent implements OnInit {
               this.showSpinner = false;
               //Create user
               Cookies.set('username', uid,{ expires: 7 });
-              this._router.navigate(['dashboard']);
+              this._router.navigate(['dashboard/discover']);
             }
         });
 

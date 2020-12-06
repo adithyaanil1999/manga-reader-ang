@@ -1,0 +1,10 @@
+<div class="disc-wrapper">
+    <div (scroll)="handleScroll()" style="cursor:pointer" #scrollCont class="grid-wrap">
+        <div  *ngFor="let i of dataArr" class="grid-item">
+            <div (click)="handleMangaClick(i)" class="item-thumb">
+                <img src="{{i.thumb}}" alt="">
+            </div>
+            <p>{{i.title}}</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="manga-view-wrap">
+    <div *ngIf="!setSpinner" class="manga-grid">
+        <div class="grid-left">
+            <div class="thumb-wrap">
+                <div>
+                    <img src="{{this.data.thumb}}" alt="thumbnail">
+                </div>
+            </div>
+            <div class="desc-wrap">
+                <div class="desc-flex-wrap">
+                    <p class="text-wrap"><span style="text-decoration: underline;">Author:</span><br><br>{{this.data.author}}</p>
+                    <p class="text-wrap"><br><span style="text-decoration: underline;">Status:</span><br><br>{{this.data.status}}</p>
+                    <p class="text-wrap"><br><span style="text-decoration: underline;">Last Updated:</span><br><br>{{this.data.lastUpdate}}</p>
+                    <p class="text-wrap"><br><span style="text-decoration: underline;">Description:</span><br><br>{{this.data.desc}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="grid-right">
+            <div class="chap-list-wrap">
+                <div class="chap-inner-wrap">
+                    <a (click)="handleLink(i.chapterLink)" *ngFor="let i of this.data.chaperList">
+                        <div #items class="chap-item">
+                            <div class="chap-item-left">
+                                <h2>{{i.chapterTitle}}</h2>
+                            </div>
+                            <div class="chap-item-right">
+                                <p>{{i.chapDate}}</p>
+                            </div>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

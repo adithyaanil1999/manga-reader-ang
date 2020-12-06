@@ -1,1 +1,63 @@
-<p>dashboard works!</p>
+<div class="dashboard-outer-cont">
+    <div class="top-nav-dash">
+        <div class="search-btn-cont">
+            <div class="search-icon-cont">
+                <div class="search-border">
+                    <i style="cursor: pointer" class="fas fa-search"></i>
+                </div>
+            </div>
+            <div class="search-text-cont">
+                <input placeholder="Search" type="text" class="search-inp">
+            </div>
+        </div>
+    </div>
+    <div class="dash-body">
+        <div class="dash-body-wrapper">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <div class="bottom-nav-dash">
+        <div class="bottom-dash-cont">
+            <div [class.selected-nav]="isDiscover" class="nav-item-cont">
+                <div class="nav-border">
+                    <div class="nav-icon-cont">
+                        <a (click)="selectItem(0)" routerLink="discover" routerLinkActive="active"><i class="far fa-compass"></i></a>
+                    </div>
+                    <!-- <div class="nav-icon-title-cont">
+                        <p>Discover</p>
+                    </div> -->
+                </div>
+            </div>
+            <div [class.selected-nav]="isHome" class="nav-item-cont">
+                <div class="nav-border">
+                    <div class="nav-icon-cont">
+                        <a (click)="selectItem(1)" routerLink="home" routerLinkActive="active"><i class="fas fa-home"></i></a>
+                    </div>
+                    <!-- <div class="nav-icon-title-cont">
+                        <p>Home</p>
+                    </div> -->
+                </div>
+            </div>
+            <div [class.selected-nav]="isGenre" class="nav-item-cont">
+                <div class="nav-border">
+                    <div class="nav-icon-cont">
+                        <a (click)="selectItem(2)" routerLink="genre" routerLinkActive="active"><i class="fas fa-tag"></i></a>
+                    </div>
+                    <!-- <div class="nav-icon-title-cont">
+                        <p>Genre</p>
+                    </div> -->
+                </div>
+            </div>
+            <div [class.selected-nav]="isAccount" class="nav-item-cont">
+                <div class="nav-border">
+                    <div class="nav-icon-cont">
+                        <a (click)="selectItem(3)" routerLink="account" routerLinkActive="active"><i class="fas fa-user-circle"></i></a>
+                    </div>
+                    <!-- <div class="nav-icon-title-cont">
+                        <p>Account</p>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

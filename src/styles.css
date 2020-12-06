@@ -2,6 +2,11 @@
 *{
     margin: 0;
     -webkit-tap-highlight-color: transparent;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+*::-webkit-scrollbar {
+    display: none;
 }
 .grecaptcha-badge { 
     visibility: hidden;
