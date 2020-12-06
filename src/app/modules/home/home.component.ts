@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
     //   this._router.navigate(['login']);
     // }
 
-    console.log('v1.2')
+    console.log('v1.3 BETA')
     
   }
 

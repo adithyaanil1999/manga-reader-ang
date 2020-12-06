@@ -5,7 +5,7 @@ import { ActivatedRoute} from '@angular/router';
 import { scaperURL } from '../../../../../global';
 // import {https} from 'node'; 
 
-import cheerio from 'cheerio'
+// import cheerio from '@types/cheerio'
 
 @Component({
   selector: 'app-manga-viewer',
@@ -17,6 +17,7 @@ export class MangaViewerComponent implements OnInit {
   isMobile:boolean = false;
   sub;
   data;
+  isSpinner:boolean = true;
   
   constructor(private route: ActivatedRoute,private store:Store) { }
 
@@ -31,22 +32,24 @@ export class MangaViewerComponent implements OnInit {
   }
 
   getImages(link){
-    // console.log(link)
-    // fetch(scaperURL+"getImageList",{
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
-    //   body: JSON.stringify({url:link})
-    // }).then(res=>{return res.json()})
-    //   .then(data=>{
-    //     this.data = data.imageList;
-    //     console.log(this.data)
-    //   })
+    console.log(link)
+    fetch(scaperURL+"getImageList",{
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify({url:link})
+    }).then(res=>{return res.json()})
+      .then(data=>{
+        this.data = data.imageList;
+        console.log(this.data)
+        this.isSpinner = false;
+        console.log(this.isSpinner)
+      })
 
     let url = link;
     let imageList = []
 
-    if(url.indexOf('manganelo') !== -1){
-        console.log('scrap')
+    // if(url.indexOf('manganelo') !== -1){
+    //     console.log('scrap')
       // MANGAKAKALOT SCRAPER
 
       // http.get(url, (resp) => {
@@ -66,27 +69,29 @@ export class MangaViewerComponent implements OnInit {
               
       //     });
       // });
-        var myHeaders = new Headers();
-        myHeaders.append('Content-Type', 'text/html');
-        fetch(url,{
-          mode: 'no-cors',
-          method: 'get',
-          headers: myHeaders}).then((res)=>{
-          return res.text();
-          // html = str(res);
-          // const 
-        }).then(data=>{
-          console.log(data)
-          // const $ = cheerio.load(data);
-          // $('.container-chapter-reader').children('img').each(function(i, el) {
-          //   imageList.push($(el));
-          // });
-          // console.log(imageList)
-        });
+        // var myHeaders = new Headers();
+        // myHeaders.append('Content-Type', 'text/html');
+        // fetch(url,{
+        //   mode: 'no-cors',
+        //   method: 'get',
+        //   headers: myHeaders}).then((res)=>{
+        //     const html = res;
+        //     console.log(html);
+        //   // html = str(res);
+        //   // const 
+        // }).then(data=>{
+        //   // const $ = cheerio.load(html);
+        //   console.log(data)
+        //   // const $ = cheerio.load(data);
+        //   // $('.container-chapter-reader').children('img').each(function(i, el) {
+        //   //   imageList.push($(el));
+        //   // });
+        //   // console.log(imageList)
+        // });
 
 
 
-    }
+    // }
 
   }
 

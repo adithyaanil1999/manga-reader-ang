@@ -5,8 +5,9 @@ import { Store,select} from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
 
-import {BeURL} from '../../../../../global'
-import { checklogin } from '../../../../store/actions/app.actions'
+import {BeURL,prodBool} from '../../../../../global'
+import { checklogin } from '../../../../store/actions/app.actions';
+
 
 import md5 from 'md5';
 @Component({
@@ -63,7 +64,11 @@ export class LoginComponent implements OnInit {
           this.errorString = '';
           this.showSpinner = false;
           //REDIRECT
-          Cookies.set('username', uid,{ expires: 7 });
+          // if(prodBool){
+          //   Cookies.set('username', uid,{ expires: 7 ,domain: 'localhost'});
+          // }else{
+          //   Cookies.set('username', uid,{ expires: 7 ,domain: 'adithyaanil1999.github.io'});
+          // }
           this._router.navigate(['dashboard/discover']);
         }
     });
@@ -129,7 +134,11 @@ export class LoginComponent implements OnInit {
               this.errorString = '';
               this.showSpinner = false;
               //Create user
-              Cookies.set('username', uid,{ expires: 7 });
+              if(prodBool){
+                Cookies.set('username', uid,{ expires: 7 ,domain: 'localhost'});
+              }else{
+                Cookies.set('username', uid,{ expires: 7 ,domain: 'adithyaanil1999.github.io'});
+              }
               this._router.navigate(['dashboard/discover']);
             }
         });

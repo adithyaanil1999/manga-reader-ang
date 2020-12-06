@@ -23,7 +23,6 @@
     "@angular/service-worker": "~9.1.0",
     "@ngrx/store": "^10.1.0",
     "@ngrx/store-devtools": "^10.1.0",
-    "cheerio": "^1.0.0-rc.3",
     "js-cookie": "^2.2.1",
     "md5": "^2.3.0",
     "ng-recaptcha": "^6.1.0",

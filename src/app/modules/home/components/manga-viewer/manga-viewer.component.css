@@ -1,12 +1,12 @@
 .mobile-main{
     width: 100%;
-    min-height: 100%;
+    height: 100%;
+    overflow: scroll;
     background: black;
 }
 
 .image-wrapper{
     width: 100%;
-    height: 25%;
 }
 
 .image-wrapper>img{

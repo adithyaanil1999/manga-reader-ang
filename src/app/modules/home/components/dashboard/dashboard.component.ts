@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit {
     if(username == '' || username == undefined ){
       // if(!currentState.loginBool){
         console.log('here')
-        this._router.navigate(['login']);
+        // this._router.navigate(['login']);
       // }
     }else{
       this.store.dispatch(checklogin({ isLoggedIn: true }));
