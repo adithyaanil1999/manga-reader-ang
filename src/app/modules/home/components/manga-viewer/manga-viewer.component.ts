@@ -35,10 +35,7 @@ export class MangaViewerComponent implements OnInit {
 
   getImages(link){
     // link = 'https://mangapark.net/manga/gosu/i2613978/c205/'
-    console.log(link)
     link = link.substring(0,link.lastIndexOf('/'))
-    console.log(link)
-    console.log(link)
     fetch(scaperURL+"getImageList",{
       method: 'POST',
       headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },

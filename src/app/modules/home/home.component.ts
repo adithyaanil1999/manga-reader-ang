@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Store,select} from '@ngrx/store';
 import { take } from 'rxjs/operators';
 
+import {version} from '../../../global'
+
 import { checklogin } from '../../store/actions/app.actions'
 
 
@@ -44,7 +46,7 @@ export class HomeComponent implements OnInit {
     //   this._router.navigate(['login']);
     // }
 
-    console.log('v1.3 BETA')
+    console.log(version)
     
   }
 
