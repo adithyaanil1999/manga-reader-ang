@@ -2,7 +2,7 @@
     width: 100%;
     height: 100%;
     overflow: scroll;
-    background: black;
+    /* background: black; */
 }
 
 .image-wrapper{
@@ -13,4 +13,5 @@
 .image-wrapper>img{
     width: 100%;
     height: 100%;
+    display: block;
 }

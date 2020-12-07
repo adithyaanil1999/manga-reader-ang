@@ -1,4 +1,7 @@
 <div class="manga-view-wrap">
+    <div *ngIf="setSpinner" class="spinner-cont">
+        <div class="loader">Loading...</div>
+    </div>
     <div *ngIf="!setSpinner" class="manga-grid">
         <div class="grid-left">
             <div class="thumb-wrap">

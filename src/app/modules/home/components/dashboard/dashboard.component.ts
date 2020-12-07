@@ -59,13 +59,19 @@ export class DashboardComponent implements OnInit {
 
     let currentUrl = window.location.href;
     if(currentUrl.indexOf('discover') !== -1 ){
-      this.selectItem(0)
+      this.selectItem(0);
     }else if(currentUrl.indexOf('home') !== -1 ){
-      this.selectItem(1)
+      this.selectItem(1);
     }else if(currentUrl.indexOf('genre') !== -1 ){
-      this.selectItem(2)
+      this.selectItem(2);
     }else if(currentUrl.indexOf('account') !== -1 ) {
-      this.selectItem(3)
+      this.selectItem(3);
+    }else if(currentUrl.indexOf('mangaView') !== -1 || currentUrl.indexOf('chapViewer') !== -1 ){
+      //skip
+    }else{
+      this._router.navigate(['/dashboard/discover']);
+      this.selectItem(0);
+
     }
 
   }

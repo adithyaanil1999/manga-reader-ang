@@ -3,7 +3,10 @@ import { scaperURL } from '../../../../../global';
 import { currentMangaLink } from '../../../../store/actions/app.actions';
 import { Store,select} from '@ngrx/store';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
+
+import { latestMangaList } from '../../../../store/actions/app.actions'
 
 @Component({
   selector: 'app-discover',
@@ -15,6 +18,17 @@ export class DiscoverComponent implements OnInit {
   src : string = '';
   dataArr = [];
   pageNo:number = 1;
+  state: {};
+
+  getState(){
+    let state;
+    this.store.select(state => state).pipe(take(1)).subscribe(
+       s => {
+         state = s
+       }
+    );
+    return state.reducer;
+  }
 
   @ViewChild('scrollCont') scrollCont: any;
 
@@ -32,8 +46,9 @@ export class DiscoverComponent implements OnInit {
     }).then((res)=>{
       return res.json();
     }).then((data)=>{
-      this.pageNo+=1;
       this.dataArr = this.dataArr.concat(data.LatestManga);
+      this.store.dispatch(latestMangaList({latestList:this.dataArr}))
+      this.pageNo+=1;
     })
   }
 
@@ -54,7 +69,12 @@ export class DiscoverComponent implements OnInit {
   ngOnInit(): void {
     this.src = "MGPK";
     console.log('Discover Mounted!')
-    this.getHotManga(this.pageNo);
+    this.state = this.getState();
+    if(this.state['latestObject']){
+      this.dataArr = this.state['latestObject']
+    }else{
+      this.getHotManga(this.pageNo);
+    }
   }
 
 }

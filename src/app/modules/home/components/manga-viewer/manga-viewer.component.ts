@@ -3,9 +3,6 @@ import { Store} from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { ActivatedRoute} from '@angular/router';
 import { scaperURL } from '../../../../../global';
-// import {https} from 'node'; 
-
-// import cheerio from '@types/cheerio'
 
 @Component({
   selector: 'app-manga-viewer',

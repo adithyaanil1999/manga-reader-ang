@@ -37,9 +37,9 @@
     align-items: center;
     width: 80%;
     height: 80%;
-    background: linear-gradient(145deg, #3C3C3C, #2A2A2A);
+    /* background: linear-gradient(145deg, #3C3C3C, #2A2A2A); */
     border-radius: 3%;
-    box-shadow: inset 5px 4px 17px #1D1D1D, inset -14.41px -14.41px 17px #494949;
+    /* box-shadow: inset 5px 4px 17px #1D1D1D, inset -14.41px -14.41px 17px #494949; */
 }
 
 .item-thumb>img{

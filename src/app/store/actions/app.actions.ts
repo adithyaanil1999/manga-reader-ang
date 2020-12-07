@@ -14,3 +14,13 @@ export const currentMangaLink = createAction(
   '[mangaModule] getLink',
   props<{ currentMangaLink: string}>()
 );
+
+export const currentMangaDetails = createAction(
+  '[mangaModule] mangaDetails',
+  props<{ mangaDetails: {}}>()
+);
+
+export const latestMangaList = createAction(
+  '[mangaModule] mangaLatestList',
+  props<{ latestList: {}}>()
+);

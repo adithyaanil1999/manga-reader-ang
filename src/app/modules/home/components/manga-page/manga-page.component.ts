@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { scaperURL } from '../../../../../global';
+import { currentMangaDetails } from '../../../../store/actions/app.actions'
+import { Store} from '@ngrx/store';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -13,13 +16,25 @@ export class MangaPageComponent implements OnInit {
   sub;
   data;
   setSpinner:boolean = false;
+  state: Object;
+  substate:boolean = false;
 
-  constructor(private route: ActivatedRoute,private router: Router) { }
+  constructor(private store:Store,private route: ActivatedRoute,private router: Router) { }
 
   handleLink(link){
     console.log(link);
     this.router.navigate(['chapViewer'],{ queryParams: { link: link } });
 
+  }
+
+  getState(){
+    let state;
+    this.store.select(state => state).pipe(take(1)).subscribe(
+       s => {
+         state = s
+       }
+    );
+    return state.reducer;
   }
   
   getMangaDetails(link){
@@ -31,22 +46,33 @@ export class MangaPageComponent implements OnInit {
     }).then(res=>{return res.json()})
       .then(data=>{
         this.data = data.mangaInfo;
-        console.log(this.data)
+        this.store.dispatch(currentMangaDetails({mangaDetails:{...this.data}}));
         this.setSpinner = false;
         this.data.desc = this.data.desc.split(':')[1];
       })
   }
   ngOnInit(): void {
     this.setSpinner = true;
-    this.sub = this.route
+    this.state = this.getState();
+    console.log(this.state)
+    if(this.state['mangaObject']){
+      this.data = this.state['mangaObject'];
+      this.setSpinner = false;
+    }else{
+      this.substate = true;
+      this.sub = this.route
       .queryParams
       .subscribe(params => {
         this.getMangaDetails(params.link)
-      });
+    });
+    }
+    
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    if(this.substate){
+      this.sub.unsubscribe();
+    }
   }
 
 }
