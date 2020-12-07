@@ -11,20 +11,21 @@
             </div>
             <div class="desc-wrap">
                 <div class="desc-flex-wrap">
-                    <p class="text-wrap"><span style="text-decoration: underline;">Author:</span><br><br>{{this.data.author}}</p>
-                    <p class="text-wrap"><br><span style="text-decoration: underline;">Status:</span><br><br>{{this.data.status}}</p>
-                    <p class="text-wrap"><br><span style="text-decoration: underline;">Last Updated:</span><br><br>{{this.data.lastUpdate}}</p>
-                    <p class="text-wrap"><br><span style="text-decoration: underline;">Description:</span><br><br>{{this.data.desc}}</p>
+                    <div (click)="handleBookmark()" class="bookmark-wrapper"><i class="fas fa-bookmark"></i><span>Bookmark this page</span></div>
+                    <p *ngIf="this.data.author" class="text-wrap"><span style="text-decoration: underline;">Author:</span><br><br>{{this.data.author}}</p>
+                    <p *ngIf="this.data.status" class="text-wrap"><br><span style="text-decoration: underline;">Status:</span><br><br>{{this.data.status}}</p>
+                    <p *ngIf="this.data.lastUpdate" class="text-wrap"><br><span style="text-decoration: underline;">Last Updated:</span><br><br>{{this.data.lastUpdate}}</p>
+                    <p *ngIf="this.data.desc" class="text-wrap"><br><span style="text-decoration: underline;">Description:</span><br><br>{{this.data.desc}}</p>
                 </div>
             </div>
         </div>
         <div class="grid-right">
             <div class="chap-list-wrap">
                 <div class="chap-inner-wrap">
-                    <a (click)="handleLink(i.chapterLink)" *ngFor="let i of this.data.chapterList">
-                        <div #items class="chap-item">
-                            <div class="chap-item-left">
-                                <h2>{{i.chapterTitle}}</h2>
+                    <a (click)="handleLink(i.chapterLink,i.chapterTitle)" *ngFor="let i of this.data.chapterList">
+                        <div [class.last-read-item]="i.chapterTitle === lastRead" class="chap-item">
+                            <div  class="chap-item-left">
+                                <h2 #chapterTitle >{{i.chapterTitle}}</h2>
                             </div>
                             <div class="chap-item-right">
                                 <p>{{i.chapDate}}</p>

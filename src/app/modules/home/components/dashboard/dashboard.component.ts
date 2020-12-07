@@ -47,7 +47,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     let username = Cookies.get('username');
-    console.log(username)
     if(username == '' || username == undefined ){
       // if(!currentState.loginBool){ 
         console.log('here')

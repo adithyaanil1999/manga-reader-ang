@@ -3,6 +3,7 @@ import { Store} from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { ActivatedRoute} from '@angular/router';
 import { scaperURL } from '../../../../../global';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-manga-viewer',
@@ -16,7 +17,7 @@ export class MangaViewerComponent implements OnInit {
   data;
   isSpinner:boolean = true;
   
-  constructor(private route: ActivatedRoute,private store:Store) { }
+  constructor(private location: Location,private route: ActivatedRoute,private store:Store) { }
 
   getState(){
     let state;
@@ -31,7 +32,6 @@ export class MangaViewerComponent implements OnInit {
 
 
   getImages(link){
-    // link = 'https://mangapark.net/manga/gosu/i2613978/c205/'
     link = link.substring(0,link.lastIndexOf('/'))
     fetch(scaperURL+"getImageList",{
       method: 'POST',
@@ -40,16 +40,16 @@ export class MangaViewerComponent implements OnInit {
     }).then(res=>{return res.json()})
       .then(data=>{
         this.data = data.imageList;
-        console.log(data.imageList)
         this.isSpinner = false;
-        console.log(this.isSpinner)
+      }).catch(e=>{
+        console.log(e);
+        this.location.back();
       })
 
   }
 
   ngOnInit(): void {
     this.isMobile = this.getState().mobileBool;
-    console.log(this.isMobile);
     this.sub = this.route
       .queryParams
       .subscribe(params => {

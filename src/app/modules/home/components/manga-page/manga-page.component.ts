@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { scaperURL } from '../../../../../global';
+import { scaperURL,BeURL } from '../../../../../global';
 import { currentMangaDetails } from '../../../../store/actions/app.actions'
 import { Store} from '@ngrx/store';
 import { take } from 'rxjs/operators';
+import { refreshMangaPage } from '../../../../store/actions/app.actions';
 
 
 @Component({
@@ -18,15 +19,50 @@ export class MangaPageComponent implements OnInit {
   setSpinner:boolean = false;
   state: Object;
   substate:boolean = false;
+  lastRead:string = '';
 
   constructor(private store:Store,private route: ActivatedRoute,private router: Router) { }
 
-  handleLink(link){
-    console.log(link);
-    this.router.navigate(['chapViewer'],{ queryParams: { link: link } });
+  handleLink(link,title){
+    this.setSpinner = true;
+    let data = {
+      username: this.state['userDetailObject']['username'],
+      src: this.getSourceFromUrl(),
+      mangaTitle: this.data.title,
+      chapTitle: title,
+    }
 
+    fetch(BeURL+"updateHistory",{
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify(data)
+    }).then(res=>{return res.json()})
+    .then(data=>{
+      if(data.message === "sucesss"){
+        this.setSpinner = false;
+        this.router.navigate(['chapViewer'],{ queryParams: { link: link } });
+      }else{
+        alert('Some error has occured');
+        location.reload();
+      }
+    });
   }
 
+  highlightLastRead(){
+
+    let dataSent = {
+      username: this.state['userDetailObject']['username'],
+      src: this.getSourceFromUrl(),
+      mangaTitle: this.data.title,
+    }
+    fetch(BeURL+"getLastReadChapter",{method: 'POST',
+    headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+    body: JSON.stringify(dataSent)
+    }).then(res=>{return res.json()})
+    .then(data=>{
+      this.lastRead = data.message;
+    });
+  }
   getState(){
     let state;
     this.store.select(state => state).pipe(take(1)).subscribe(
@@ -36,9 +72,19 @@ export class MangaPageComponent implements OnInit {
     );
     return state.reducer;
   }
+
+  getSourceFromUrl(){
+    let currentUrl = window.location.href;
+    if(currentUrl.indexOf('mangapark') !== -1 ){
+      return "MGPK";
+    }
+  }
+
+  handleBookmark(){
+    
+  }
   
   getMangaDetails(link){
-    console.log(link)
     fetch(scaperURL+"getMangaInfo",{
       method: 'POST',
       headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
@@ -48,25 +94,51 @@ export class MangaPageComponent implements OnInit {
         this.data = data.mangaInfo;
         this.store.dispatch(currentMangaDetails({mangaDetails:{...this.data}}));
         this.setSpinner = false;
-        this.data.desc = this.data.desc.split(':')[1];
+        this.highlightLastRead()
+        if(this.data.desc.indexOf(':') !== -1){
+          this.data.desc = this.data.desc.split(':')[1];
+        }
       })
   }
   ngOnInit(): void {
     this.setSpinner = true;
     this.state = this.getState();
-    console.log(this.state)
-    if(this.state['mangaObject']){
-      this.data = this.state['mangaObject'];
-      this.setSpinner = false;
-    }else{
+    if(this.state['refreshMangaPageBool'] === true){
+      this.store.dispatch(refreshMangaPage({refreshMangaPage:false}));
       this.substate = true;
       this.sub = this.route
       .queryParams
       .subscribe(params => {
         this.getMangaDetails(params.link)
-    });
-    }
-    
+      });
+    }else{
+      if(this.state['mangaObject']){
+
+        let dataSent = {
+          username: this.state['userDetailObject']['username'],
+          src: this.getSourceFromUrl(),
+          mangaTitle: this.state['mangaObject']['title'],
+        }
+
+        fetch(BeURL+"getLastReadChapter",{method: 'POST',
+        headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+        body: JSON.stringify(dataSent)
+        }).then(res=>{return res.json()})
+        .then(data=>{
+          this.highlightLastRead();
+        });
+
+
+        this.data = this.state['mangaObject'];
+        this.setSpinner = false;
+      }else{
+        this.sub = this.route
+        .queryParams
+        .subscribe(params => {
+        this.getMangaDetails(params.link)
+        });
+      }
+    }    
   }
 
   ngOnDestroy() {

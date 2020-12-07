@@ -4,14 +4,19 @@ import {
   checkMobile,
   currentMangaLink,
   currentMangaDetails,
-  latestMangaList
+  latestMangaList,
+  refreshMangaPage,
+  userDetails,
   } from '../actions/app.actions';
 
 export const userFeatureKey = 'AppState';
 
 const initalState ={
     loginBool : false,
-    mobileBool : false
+    mobileBool : false,
+    refreshMangaPageBool: true,
+    latestObject : {},
+    userDetailObject: {}
 }
 
 const reducerFunc = createReducer(
@@ -35,6 +40,14 @@ const reducerFunc = createReducer(
   on(latestMangaList, (state,{latestList}) => ({
     ...state,
     latestObject: latestList
+  })),
+  on(refreshMangaPage, (state,{refreshMangaPage}) => ({
+    ...state,
+    refreshMangaPageBool: refreshMangaPage
+  })),
+  on(userDetails, (state,{userDetails}) => ({
+    ...state,
+    userDetailObject: userDetails
   })),
 );
 

@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
 
-import { latestMangaList } from '../../../../store/actions/app.actions'
+import { latestMangaList,refreshMangaPage } from '../../../../store/actions/app.actions'
 
 @Component({
   selector: 'app-discover',
@@ -62,18 +62,20 @@ export class DiscoverComponent implements OnInit {
   handleMangaClick(link){
     link = link.link;
     this.store.dispatch(currentMangaLink({currentMangaLink:link}))
+    this.store.dispatch(refreshMangaPage({refreshMangaPage:true}));
     this._router.navigate(['dashboard/mangaView'],{ queryParams: { link: link } });
-
   }
 
   ngOnInit(): void {
     this.src = "MGPK";
     console.log('Discover Mounted!')
     this.state = this.getState();
-    if(this.state['latestObject']){
-      this.dataArr = this.state['latestObject']
-    }else{
+    if(Object.keys(this.state['latestObject']).length === 0){
+      console.log('getting list from api');
       this.getHotManga(this.pageNo);
+    }else{
+      console.log('getting data from nrgx')
+      this.dataArr = this.state['latestObject']
     }
   }
 

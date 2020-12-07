@@ -8,6 +8,20 @@
 
 }
 
+.bookmark-wrapper{
+    width: 97%;
+    margin-bottom: 15px;
+    margin-left: auto;
+    height: 62px;
+    background: #351d1d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ff8b8b;
+    border-radius: 20px;
+
+}
+
 .manga-grid{
     display: grid;
     grid-template-columns: 30% 1fr;
@@ -43,6 +57,7 @@
 .thumb-wrap > div > img{
     width: 75%;
     height: 88%;
+    border-radius: 20px;
 }
 .desc-wrap{
     width: 100%;
@@ -56,11 +71,8 @@
     width: 80%;
     height: 95%;
     border-radius: 3%;
-    overflow:scroll;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-    align-items: center;
+    overflow-y:scroll;
+    overflow-x: hidden;
 }
 .text-wrap{
     width: 80%;
@@ -132,9 +144,9 @@
     display: flex;
     align-items: center;
 }
+
 .last-read-item{
-    background: linear-gradient(145deg, #282828, #3E3E3E);
-    box-shadow: inset -3px -4px 41px #1A1A1A, inset -26.73px -26.73px 41px #4D4D4D;
+    background: linear-gradient(145deg, #4c4c4c, #3E3E3E);
 }
 
 @media screen and (max-width: 1028px) {

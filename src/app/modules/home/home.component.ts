@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Store,select} from '@ngrx/store';
 import { take } from 'rxjs/operators';
 
-import {version} from '../../../global'
 
 import { checklogin } from '../../store/actions/app.actions'
 
@@ -33,21 +32,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     let username = Cookies.get('username');
     if(username == '' || username == undefined ){
-      // if(!currentState.loginBool){
         this._router.navigate(['login']);
-      // }
     }else{
       this.store.dispatch(checklogin({ isLoggedIn: true }));
       this._router.navigate(['dashboard']);
     }
-
-    // let currentState = this.getState(this.store)
-    // if(!currentState.loginBool){
-    //   this._router.navigate(['login']);
-    // }
-
-    console.log(version)
-    
   }
 
 }

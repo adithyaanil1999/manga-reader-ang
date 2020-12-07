@@ -47,6 +47,7 @@
     width: 81%;
     filter: brightness(80%);
     pointer-events: none;
+    border-radius: 12px;
 }
 
 

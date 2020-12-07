@@ -24,3 +24,14 @@ export const latestMangaList = createAction(
   '[mangaModule] mangaLatestList',
   props<{ latestList: {}}>()
 );
+
+export const userDetails = createAction(
+  '[mangaModule] userDetails',
+  props<{ userDetails: {}}>()
+);
+
+export const refreshMangaPage = createAction(
+  '[mangaModule] refreshMangaPage',
+  props<{ refreshMangaPage: boolean}>()
+);
+

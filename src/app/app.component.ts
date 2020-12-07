@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Store} from '@ngrx/store';
-import { checkMobile } from './store/actions/app.actions';
+import { checkMobile,userDetails } from './store/actions/app.actions';
+import {version} from '../global';
+import Cookies from 'js-cookie';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,10 +15,8 @@ export class AppComponent implements OnInit{
   constructor(private deviceService: DeviceDetectorService,private store:Store) { }
 
   ngOnInit() {
-    // window.addEventListener("scroll", (e) => {
-    //   e.preventDefault();
-    //   window.scrollTo(0, 0);
-    // });
+    console.log(version)
+    this.store.dispatch(userDetails({userDetails:{username:Cookies.get('username')}}));
     this.store.dispatch(checkMobile({isMobile:this.deviceService.isMobile()}));
   }
 }
