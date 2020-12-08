@@ -11,8 +11,17 @@
             </div>
             <div class="desc-wrap">
                 <div class="desc-flex-wrap">
-                    <div (click)="handleBookmark()" class="bookmark-wrapper"><i class="fas fa-bookmark"></i><span>Bookmark this page</span></div>
-                    <p *ngIf="this.data.author" class="text-wrap"><span style="text-decoration: underline;">Author:</span><br><br>{{this.data.author}}</p>
+                    <div (click)="handleBookmark()" class="bookmark-wrapper">
+                        <i class="fas fa-bookmark"></i>
+                        <span *ngIf="isBookmarked === undefined || isBookmarked === 'NO' ">
+                            &nbsp;Bookmark this page
+                        </span>
+                        <span *ngIf="isBookmarked === 'YES' ">
+                            &nbsp;Unbookmark this page
+                        </span>
+                    </div>
+                    <p *ngIf="this.data.title" class="text-wrap"><span style="text-decoration: underline;">Title:</span><br><br>{{this.data.title}}</p>
+                    <p *ngIf="this.data.author" class="text-wrap"><br><span style="text-decoration: underline;">Author:</span><br><br>{{this.data.author}}</p>
                     <p *ngIf="this.data.status" class="text-wrap"><br><span style="text-decoration: underline;">Status:</span><br><br>{{this.data.status}}</p>
                     <p *ngIf="this.data.lastUpdate" class="text-wrap"><br><span style="text-decoration: underline;">Last Updated:</span><br><br>{{this.data.lastUpdate}}</p>
                     <p *ngIf="this.data.desc" class="text-wrap"><br><span style="text-decoration: underline;">Description:</span><br><br>{{this.data.desc}}</p>
@@ -22,6 +31,18 @@
         <div class="grid-right">
             <div class="chap-list-wrap">
                 <div class="chap-inner-wrap">
+                    <a *ngIf="this.lastIndex !== data.chapterList.length - 1" (click)="handleLink(data.chapterList[lastIndex+1].chapterLink,data.chapterList[lastIndex+1].chapterTitle)" style="margin-bottom: 20px;">
+                        <div class="continue-button">
+                            <div class="chap-item cont-item prev-button">
+                                <div  class="chap-item-left">
+                                    <h2 #chapterTitle >Previous</h2>
+                                </div>
+                                <div class="chap-item-right cont-title">
+                                    <p class="title-wrap">{{ data.chapterList[lastIndex+1].chapterTitle }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                     <a (click)="handleLastRead()" style="margin-bottom: 20px;">
                         <div class="continue-button">
                             <div class="chap-item cont-item">
@@ -31,6 +52,18 @@
                                 <div class="chap-item-right cont-title">
                                     {{ lastRead.toString() === '0' ? getLastChapLink(data.chapterList[data.chapterList.length-1].chapterLink,data.chapterList[data.chapterList.length-1].chapterTitle) : null}}
                                     <p class="title-wrap">{{ lastRead.toString() === '0' ? 'Start' : lastRead }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a *ngIf="this.lastIndex != 0" (click)="handleLink(data.chapterList[lastIndex-1].chapterLink,data.chapterList[lastIndex-1].chapterTitle)"  style="margin-bottom: 20px;">
+                        <div class="continue-button">
+                            <div class="chap-item cont-item next-button">
+                                <div  class="chap-item-left">
+                                    <h2 #chapterTitle >Next</h2>
+                                </div>
+                                <div class="chap-item-right cont-title">
+                                    <p class="title-wrap">{{ data.chapterList[lastIndex-1].chapterTitle }}</p>
                                 </div>
                             </div>
                         </div>

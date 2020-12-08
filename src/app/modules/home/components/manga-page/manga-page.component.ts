@@ -22,6 +22,8 @@ export class MangaPageComponent implements OnInit {
   lastRead:string = '';
   lastChapLink: string = '';
   lastChapTitle: string = '';
+  isBookmarked : string = '';
+  lastIndex:number = 0;
 
   constructor(private store:Store,private route: ActivatedRoute,private router: Router) { }
 
@@ -29,8 +31,20 @@ export class MangaPageComponent implements OnInit {
     this.lastChapLink = link;
     this.lastChapTitle = title;
   }
+
+  findIndexLast(){
+    for(var i=0; i< this.data.chapterList.length; i++){
+      if(this.data.chapterList[i].chapterTitle == this.lastRead){
+        this.lastIndex = i;
+        break;
+      }
+    }
+  }
+
+
   handleLink(link,title){
     this.setSpinner = true;
+
     let data = {
       username: this.state['userDetailObject']['username'],
       src: this.getSourceFromUrl(),
@@ -72,6 +86,8 @@ export class MangaPageComponent implements OnInit {
     .then(data=>{
       this.setSpinner = false;
       this.lastRead = data.message;
+      this.isBookmarked = data.messageBookmarked;
+      this.findIndexLast();
     });
   }
   getState(){
@@ -93,7 +109,35 @@ export class MangaPageComponent implements OnInit {
   }
 
   handleBookmark(){
-    
+    let data = {
+      username: this.state['userDetailObject']['username'],
+      src: this.getSourceFromUrl(),
+      mangaTitle: this.data.title,
+      chapTitle: this.lastChapTitle,
+    }
+
+    console.log(data);
+
+    this.setSpinner = true;
+
+    fetch(BeURL+"addBookmark",{
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify(data)
+    }).then(res=>{return res.json()})
+    .then(data=>{
+      if(data.message === "success"){
+        this.setSpinner = false;
+        if(this.isBookmarked === 'YES'){
+          this.isBookmarked = 'NO';
+        }else{
+          this.isBookmarked = 'YES';
+        }
+      }else{
+        alert('Some error has occured');
+        location.reload();
+      }
+    });
   }
   
   getMangaDetails(link){

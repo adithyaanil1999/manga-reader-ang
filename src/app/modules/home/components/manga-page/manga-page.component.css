@@ -174,7 +174,12 @@
 .cont-title{
     width: 100%;
 }
-
+.prev-button{
+    background: #8c84f5 !important;
+}
+.next-button{
+    background: coral !important;
+}
 @media screen and (max-width: 1028px) {
     .manga-view-wrap{
         background: none;
