@@ -8,4 +8,4 @@ export const prodBool = false;
 
 // export const prodBool = true;
 
-export const version = "v0.2";
+export const version = "v0.3";

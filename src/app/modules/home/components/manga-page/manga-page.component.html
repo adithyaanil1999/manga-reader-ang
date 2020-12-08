@@ -22,15 +22,28 @@
         <div class="grid-right">
             <div class="chap-list-wrap">
                 <div class="chap-inner-wrap">
+                    <a (click)="handleLastRead()" style="margin-bottom: 20px;">
+                        <div class="continue-button">
+                            <div class="chap-item cont-item">
+                                <div  class="chap-item-left">
+                                    <h2 #chapterTitle >Continue Reading</h2>
+                                </div>
+                                <div class="chap-item-right cont-title">
+                                    <p class="title-wrap">{{ lastRead.toString() === '0' ? 'Start' : lastRead }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                     <a (click)="handleLink(i.chapterLink,i.chapterTitle)" *ngFor="let i of this.data.chapterList">
                         <div [class.last-read-item]="i.chapterTitle === lastRead" class="chap-item">
+                            {{i.chapterTitle === lastRead ? getLastChapLink(i.chapterLink,i.chapterTitle) : null }}
                             <div  class="chap-item-left">
                                 <h2 #chapterTitle >{{i.chapterTitle}}</h2>
                             </div>
                             <div class="chap-item-right">
                                 <p>{{i.chapDate}}</p>
                             </div>
-                    </div>
+                        </div>
                     </a>
                 </div>
             </div>

@@ -20,9 +20,15 @@ export class MangaPageComponent implements OnInit {
   state: Object;
   substate:boolean = false;
   lastRead:string = '';
+  lastChapLink: string = '';
+  lastChapTitle: string = '';
 
   constructor(private store:Store,private route: ActivatedRoute,private router: Router) { }
 
+  getLastChapLink(link,title){
+    this.lastChapLink = link;
+    this.lastChapTitle = title;
+  }
   handleLink(link,title){
     this.setSpinner = true;
     let data = {
@@ -48,8 +54,12 @@ export class MangaPageComponent implements OnInit {
     });
   }
 
-  highlightLastRead(){
+  handleLastRead(){
+    this.handleLink(this.lastChapLink,this.lastChapTitle);
+  }
 
+  highlightLastRead(){
+    this.setSpinner = true;
     let dataSent = {
       username: this.state['userDetailObject']['username'],
       src: this.getSourceFromUrl(),
@@ -60,6 +70,7 @@ export class MangaPageComponent implements OnInit {
     body: JSON.stringify(dataSent)
     }).then(res=>{return res.json()})
     .then(data=>{
+      this.setSpinner = false;
       this.lastRead = data.message;
     });
   }
@@ -74,8 +85,9 @@ export class MangaPageComponent implements OnInit {
   }
 
   getSourceFromUrl(){
+    //UPDATE THIS WITH SOURCES
     let currentUrl = window.location.href;
-    if(currentUrl.indexOf('mangapark') !== -1 ){
+    if(currentUrl.indexOf('mangapark.net') !== -1 ){
       return "MGPK";
     }
   }

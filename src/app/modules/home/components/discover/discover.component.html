@@ -1,4 +1,7 @@
 <div class="disc-wrapper">
+    <div *ngIf="setSpinner" class="spinner-cont">
+        <div class="loader">Loading...</div>
+    </div>
     <div (scroll)="handleScroll()" style="cursor:pointer" #scrollCont class="grid-wrap">
         <div  *ngFor="let i of dataArr" class="grid-item">
             <div (click)="handleMangaClick(i)" class="item-thumb">

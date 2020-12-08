@@ -19,6 +19,7 @@ export class DiscoverComponent implements OnInit {
   dataArr = [];
   pageNo:number = 1;
   state: {};
+  setSpinner:boolean = false;
 
   getState(){
     let state;
@@ -35,6 +36,7 @@ export class DiscoverComponent implements OnInit {
   constructor(private _router: Router,private store:Store) { }
 
   getHotManga(pageNo){
+    this.setSpinner = true;
     let data = {
       src : this.src,
       page: pageNo,
@@ -46,6 +48,7 @@ export class DiscoverComponent implements OnInit {
     }).then((res)=>{
       return res.json();
     }).then((data)=>{
+      this.setSpinner = false;
       this.dataArr = this.dataArr.concat(data.LatestManga);
       this.store.dispatch(latestMangaList({latestList:this.dataArr}))
       this.pageNo+=1;
