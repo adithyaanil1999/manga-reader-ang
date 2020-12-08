@@ -139,8 +139,6 @@ export class MangaPageComponent implements OnInit {
         .then(data=>{
           this.highlightLastRead();
         });
-
-
         this.data = this.state['mangaObject'];
         this.setSpinner = false;
       }else{

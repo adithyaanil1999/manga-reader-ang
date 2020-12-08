@@ -29,6 +29,7 @@
                                     <h2 #chapterTitle >Continue Reading</h2>
                                 </div>
                                 <div class="chap-item-right cont-title">
+                                    {{ lastRead.toString() === '0' ? getLastChapLink(data.chapterList[data.chapterList.length-1].chapterLink,data.chapterList[data.chapterList.length-1].chapterTitle) : null}}
                                     <p class="title-wrap">{{ lastRead.toString() === '0' ? 'Start' : lastRead }}</p>
                                 </div>
                             </div>

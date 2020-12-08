@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
 
-import { latestMangaList,refreshMangaPage } from '../../../../store/actions/app.actions'
+import { latestMangaList,refreshMangaPage,pageNoObject } from '../../../../store/actions/app.actions'
 
 @Component({
   selector: 'app-discover',
@@ -41,6 +41,7 @@ export class DiscoverComponent implements OnInit {
       src : this.src,
       page: pageNo,
     }
+    console.log(pageNo)
     fetch(scaperURL+"getMangaList",{
       method: 'POST',
       headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
@@ -52,6 +53,7 @@ export class DiscoverComponent implements OnInit {
       this.dataArr = this.dataArr.concat(data.LatestManga);
       this.store.dispatch(latestMangaList({latestList:this.dataArr}))
       this.pageNo+=1;
+      this.store.dispatch(pageNoObject({pageNoObj:{discover:this.pageNo}}))
     })
   }
 
@@ -78,6 +80,7 @@ export class DiscoverComponent implements OnInit {
       this.getHotManga(this.pageNo);
     }else{
       console.log('getting data from nrgx')
+      this.pageNo = this.state['pageNoObject']['discover']
       this.dataArr = this.state['latestObject']
     }
   }

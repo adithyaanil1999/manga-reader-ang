@@ -30,6 +30,11 @@ export const userDetails = createAction(
   props<{ userDetails: {}}>()
 );
 
+export const pageNoObject = createAction(
+  '[mangaModule] pageNumbers',
+  props<{ pageNoObj:{}} >()
+);
+
 export const refreshMangaPage = createAction(
   '[mangaModule] refreshMangaPage',
   props<{ refreshMangaPage: boolean}>()

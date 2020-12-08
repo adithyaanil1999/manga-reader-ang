@@ -7,6 +7,7 @@ import {
   latestMangaList,
   refreshMangaPage,
   userDetails,
+  pageNoObject
   } from '../actions/app.actions';
 
 export const userFeatureKey = 'AppState';
@@ -48,6 +49,10 @@ const reducerFunc = createReducer(
   on(userDetails, (state,{userDetails}) => ({
     ...state,
     userDetailObject: userDetails
+  })),
+  on(pageNoObject, (state,{pageNoObj}) => ({
+    ...state,
+    pageNoObject: pageNoObj
   })),
 );
 
