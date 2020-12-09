@@ -70,7 +70,6 @@
 .desc-flex-wrap{
     width: 80%;
     height: 95%;
-    border-radius: 3%;
     overflow-y:scroll;
     overflow-x: hidden;
 }
@@ -189,11 +188,20 @@
         margin-left: 20px;
     }
     .manga-grid{
-        grid-template-columns: 1fr;
-        grid-template-rows: 100% 100%;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+    }
+    .desc-wrap{
+        margin-top: 20px;
+    }
+    .grid-right{
+        height: 100%;
     }
     .chap-list-wrap{
-        width: 82%;
+        width: 82%; 
+        height: 64vh;
+        margin-top: 20px; 
     }
     .chap-inner-wrap{
         width: 98%;
