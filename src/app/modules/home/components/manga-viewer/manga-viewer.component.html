@@ -2,6 +2,9 @@
     <div *ngIf="isSpinner" class="spinner-cont">
         <div class="loader">Loading...</div>
     </div>
+    <div *ngIf="!isSpinner" class="back-btn-cont">
+        <i (click)="handleBackBtn()" class="fas fa-arrow-circle-left"></i>
+    </div>
     <div *ngIf="!isSpinner" class="image-wrapper">
         <img *ngFor="let i of data" src="{{i}}" alt="">
     </div>

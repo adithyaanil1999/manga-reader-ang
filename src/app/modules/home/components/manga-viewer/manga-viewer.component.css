@@ -5,6 +5,21 @@
     /* background: black; */
 }
 
+.back-btn-cont{
+    display: flex;
+    color: #ffffff6b;
+    font-size: 3rem;
+    width: 10%;
+    height: 100%;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-btn-cont > i{
+    cursor: none;
+}
+
 .image-wrapper{
     width: 100%;
     display: flex;

@@ -29,6 +29,9 @@ export class MangaViewerComponent implements OnInit {
     return state.reducer;
   }
 
+  handleBackBtn(){
+    this.location.back();
+  }
 
 
   getImages(link){
