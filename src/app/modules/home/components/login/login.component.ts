@@ -6,7 +6,7 @@ import { take } from 'rxjs/operators';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 import {BeURL,prodBool} from '../../../../../global'
-import { checklogin } from '../../../../store/actions/app.actions';
+import { checklogin,userDetails } from '../../../../store/actions/app.actions';
 
 
 import md5 from 'md5';
@@ -64,6 +64,7 @@ export class LoginComponent implements OnInit {
           this.errorString = '';
           this.showSpinner = false;
           // REDIRECT
+          this.store.dispatch(userDetails({userDetails:{username:uid}}));
           if(prodBool){
             Cookies.set('username', uid,{ expires: 7 ,domain: 'localhost'});
           }else{
@@ -156,6 +157,7 @@ export class LoginComponent implements OnInit {
     if(username == '' || username == undefined ){
     }else{
       this.store.dispatch(checklogin({ isLoggedIn: true }));
+      this.store.dispatch(userDetails({userDetails:{username:username}}));
       this._router.navigate(['dashboard']);
     }
 
