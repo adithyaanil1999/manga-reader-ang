@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
         this._router.navigate(['login']);
     }else{
       this.store.dispatch(checklogin({ isLoggedIn: true }));
-      this._router.navigate(['dashboard']);
+      this._router.navigate(['dashboard/home']);
     }
   }
 

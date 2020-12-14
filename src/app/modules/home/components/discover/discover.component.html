@@ -2,8 +2,8 @@
     <div *ngIf="setSpinner" class="spinner-cont">
         <div class="loader">Loading...</div>
     </div>
-    <div (scroll)="handleScroll()" style="cursor:pointer" #scrollCont class="grid-wrap">
-        <div  *ngFor="let i of dataArr" class="grid-item">
+    <div (scroll)="handleScroll()" #scrollCont class="grid-wrap">
+        <div style="cursor:pointer" *ngFor="let i of dataArr" class="grid-item">
             <div style="background-image: url({{i.thumb}});" (click)="handleMangaClick(i)" class="item-thumb">
                 <div class="title-background">
                     <p>{{i.title}}</p>

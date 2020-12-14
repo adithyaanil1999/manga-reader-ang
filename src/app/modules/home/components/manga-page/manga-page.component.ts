@@ -4,7 +4,7 @@ import { scaperURL,BeURL } from '../../../../../global';
 import { currentMangaDetails } from '../../../../store/actions/app.actions'
 import { Store} from '@ngrx/store';
 import { take } from 'rxjs/operators';
-import { refreshMangaPage } from '../../../../store/actions/app.actions';
+import { refreshMangaPage,refreshHomePage } from '../../../../store/actions/app.actions';
 
 
 @Component({
@@ -24,6 +24,7 @@ export class MangaPageComponent implements OnInit {
   lastChapTitle: string = '';
   isBookmarked : string = '';
   lastIndex:number = 0;
+  link:string = '';
 
   constructor(private store:Store,private route: ActivatedRoute,private router: Router) { }
 
@@ -51,7 +52,6 @@ export class MangaPageComponent implements OnInit {
       mangaTitle: this.data.title,
       chapTitle: title,
     }
-
     fetch(BeURL+"updateHistory",{
       method: 'POST',
       headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
@@ -60,6 +60,7 @@ export class MangaPageComponent implements OnInit {
     .then(data=>{
       if(data.message === "sucesss"){
         this.setSpinner = false;
+        this.store.dispatch(refreshHomePage({refreshHomePageBool:true}))
         this.router.navigate(['chapViewer'],{ queryParams: { link: link } });
       }else{
         alert('Some error has occured');
@@ -90,6 +91,8 @@ export class MangaPageComponent implements OnInit {
       this.findIndexLast();
     });
   }
+
+
   getState(){
     let state;
     this.store.select(state => state).pipe(take(1)).subscribe(
@@ -113,10 +116,13 @@ export class MangaPageComponent implements OnInit {
       username: this.state['userDetailObject']['username'],
       src: this.getSourceFromUrl(),
       mangaTitle: this.data.title,
+      mangaLink: this.link,
+      thumbLink:this.data.thumb,
       chapTitle: this.lastChapTitle,
+      latestTitle: this.data.chapterList[0].chapterTitle
     }
 
-    console.log(data);
+    console.log(this.data);
 
     this.setSpinner = true;
 
@@ -128,6 +134,7 @@ export class MangaPageComponent implements OnInit {
     .then(data=>{
       if(data.message === "success"){
         this.setSpinner = false;
+        this.store.dispatch(refreshHomePage({refreshHomePageBool:true}))
         if(this.isBookmarked === 'YES'){
           this.isBookmarked = 'NO';
         }else{
@@ -157,6 +164,7 @@ export class MangaPageComponent implements OnInit {
       })
   }
   ngOnInit(): void {
+
     this.setSpinner = true;
     this.state = this.getState();
     if(this.state['refreshMangaPageBool'] === true){
@@ -165,6 +173,7 @@ export class MangaPageComponent implements OnInit {
       this.sub = this.route
       .queryParams
       .subscribe(params => {
+        this.link = params.link;
         this.getMangaDetails(params.link)
       });
     }else{

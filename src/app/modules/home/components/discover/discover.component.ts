@@ -1,12 +1,11 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { scaperURL } from '../../../../../global';
-import { currentMangaLink } from '../../../../store/actions/app.actions';
 import { Store,select} from '@ngrx/store';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
 
-import { latestMangaList,refreshMangaPage,pageNoObject } from '../../../../store/actions/app.actions'
+import { currentMangaLink,latestMangaList,refreshMangaPage,pageNoObject } from '../../../../store/actions/app.actions'
 
 @Component({
   selector: 'app-discover',

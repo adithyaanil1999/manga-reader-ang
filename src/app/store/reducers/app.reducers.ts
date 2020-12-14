@@ -7,7 +7,9 @@ import {
   latestMangaList,
   refreshMangaPage,
   userDetails,
-  pageNoObject
+  pageNoObject,
+  bookmarkedList,
+  refreshHomePage
   } from '../actions/app.actions';
 
 export const userFeatureKey = 'AppState';
@@ -17,7 +19,9 @@ const initalState ={
     mobileBool : false,
     refreshMangaPageBool: true,
     latestObject : {},
-    userDetailObject: {}
+    bookMarkedObj:{},
+    userDetailObject: {},
+    refreshHomePageBool:false
 }
 
 const reducerFunc = createReducer(
@@ -53,6 +57,14 @@ const reducerFunc = createReducer(
   on(pageNoObject, (state,{pageNoObj}) => ({
     ...state,
     pageNoObject: pageNoObj
+  })),
+  on(bookmarkedList, (state,{bookMarkedList}) => ({
+    ...state,
+    bookMarkedObj: bookMarkedList
+  })),
+  on(refreshHomePage, (state,{refreshHomePageBool}) => ({
+    ...state,
+    refreshHomePageBool: refreshHomePageBool
   })),
 );
 
