@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChildren } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { scaperURL,BeURL } from '../../../../../global';
 import { currentMangaDetails } from '../../../../store/actions/app.actions'

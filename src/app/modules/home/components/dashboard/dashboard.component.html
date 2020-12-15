@@ -1,13 +1,24 @@
 <div class="dashboard-outer-cont">
     <div class="top-nav-dash">
-        <div class="search-btn-cont">
+        <div [class.search-open]="focusBool" class="search-btn-cont">
             <div class="search-icon-cont">
                 <div class="search-border">
                     <i style="cursor: pointer" class="fas fa-search"></i>
                 </div>
             </div>
             <div class="search-text-cont">
-                <input placeholder="Search" type="text" class="search-inp">
+                <input (blur)="isNotFocused()" (focus)= "isFocused()" (keyup)="getAutoCompleteResults()" #searchInp placeholder="Search" type="text" class="search-inp">
+            </div>
+            <div *ngIf="focusBool" class="auto-wrap">
+                    <div *ngIf="data.length === 0" class="search-spinner">
+                        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                    </div>
+                    <div *ngFor="let i of data"  class="suggest-wrap">
+                        <div class="search-thumb-wrap">
+                            <img src="{{i.image_url}}" alt="">
+                        </div>
+                        <p (click)="handleSearchRedirect(i.name)">{{i.name}}</p>
+                    </div>
             </div>
         </div>
     </div>

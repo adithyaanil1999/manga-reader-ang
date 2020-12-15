@@ -1,11 +1,11 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { scaperURL } from '../../../../../global';
-import { Store,select} from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
 
-import { currentMangaLink,latestMangaList,refreshMangaPage,pageNoObject } from '../../../../store/actions/app.actions'
+import { currentSource,currentMangaLink,latestMangaList,refreshMangaPage,pageNoObject } from '../../../../store/actions/app.actions'
 
 @Component({
   selector: 'app-discover',
@@ -40,7 +40,6 @@ export class DiscoverComponent implements OnInit {
       src : this.src,
       page: pageNo,
     }
-    console.log(pageNo)
     fetch(scaperURL+"getMangaList",{
       method: 'POST',
       headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
@@ -71,9 +70,14 @@ export class DiscoverComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.src = "MGPK";
-    console.log('Discover Mounted!')
+  
     this.state = this.getState();
+    if(this.state['currentSource'] === ''){
+      this.store.dispatch(currentSource({currentSource:'MGPK'}));
+      this.state = this.getState();
+    } 
+    this.src = this.state['currentSource'];
+
     if(Object.keys(this.state['latestObject']).length === 0){
       console.log('getting list from api');
       this.getHotManga(this.pageNo);

@@ -66,6 +66,14 @@ export class HomePageComponent implements OnInit {
     }
   }
 
+  getSourceFromCode(code){
+    if(code === 'MGPK'){
+      return 'Manga Park'
+    }else{
+      return 'Unknown Source'
+    }
+  }
+
   getAllBookmarked(){
     fetch(BeURL+"getBookmarked",{
       method: 'POST',

@@ -17,7 +17,7 @@
 }
 
 .back-btn-cont > i{
-    cursor: none;
+    cursor: pointer;
 }
 
 .image-wrapper{
@@ -36,6 +36,9 @@
 @media screen and (max-width: 1028px) {
     .image-wrapper>img{
         width: 100%;
+    }
+    .back-btn-cont{
+        display: none;
     }
 
 }
