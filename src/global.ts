@@ -2,10 +2,13 @@
 export const BeURL = 'https://manga-reader-be.herokuapp.com/';
 
 export const scaperURL = 'https://manga-reader-express.herokuapp.com/'
+// export const scaperURL= 'http://localhost:4000/';
+
 
 export const prodBool = false;
 
 
+
 // export const prodBool = true;
 
-export const version = "v0.201";
+export const version = "v0.300";

@@ -9,7 +9,8 @@ import {
   userDetails,
   pageNoObject,
   bookmarkedList,
-  refreshHomePage
+  refreshHomePage,
+  currentSource
   } from '../actions/app.actions';
 
 export const userFeatureKey = 'AppState';
@@ -21,6 +22,7 @@ const initalState ={
     latestObject : {},
     bookMarkedObj:{},
     userDetailObject: {},
+    currentSource: '',
     refreshHomePageBool:false
 }
 
@@ -65,6 +67,10 @@ const reducerFunc = createReducer(
   on(refreshHomePage, (state,{refreshHomePageBool}) => ({
     ...state,
     refreshHomePageBool: refreshHomePageBool
+  })),
+  on(currentSource, (state,{currentSource}) => ({
+    ...state,
+    currentSource: currentSource
   })),
 );
 

@@ -50,3 +50,8 @@ export const refreshHomePage = createAction(
   props<{ refreshHomePageBool: boolean}>()
 );
 
+export const currentSource = createAction(
+  '[homeModule] currentSource',
+  props<{ currentSource: string}>()
+);
+

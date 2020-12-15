@@ -18,6 +18,7 @@ import { AccountComponent } from './modules/home/components/account/account.comp
 import { HomePageComponent } from './modules/home/components/home-page/home-page.component';
 import { MangaPageComponent } from './modules/home/components/manga-page/manga-page.component';
 import { MangaViewerComponent } from './modules/home/components/manga-viewer/manga-viewer.component';
+import { SearchComponent } from './modules/home/components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MangaViewerComponent } from './modules/home/components/manga-viewer/man
     AccountComponent,
     HomePageComponent,
     MangaPageComponent,
-    MangaViewerComponent
+    MangaViewerComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
