@@ -1,7 +1,7 @@
 import { Component, OnInit,ViewChild,ElementRef} from '@angular/core';
 import Cookies from 'js-cookie';
 import { Store} from '@ngrx/store';
-import { Router } from '@angular/router';
+import { Router,NavigationEnd } from '@angular/router';
 
 
 import { checklogin } from '../../../../store/actions/app.actions';
@@ -87,14 +87,7 @@ export class DashboardComponent implements OnInit {
     },200);
   }
 
-  ngOnInit(): void {
-    let username = Cookies.get('username');
-    if(username == '' || username == undefined ){
-        this._router.navigate(['login']);
-    }else{
-      this.store.dispatch(checklogin({ isLoggedIn: true }));
-    }
-
+  selectButton(){
     let currentUrl = window.location.href;
     if(currentUrl.indexOf('discover') !== -1 ){
       this.selectItem(0);
@@ -104,14 +97,29 @@ export class DashboardComponent implements OnInit {
       this.selectItem(2);
     }else if(currentUrl.indexOf('account') !== -1 ) {
       this.selectItem(3);
-    }else if(currentUrl.indexOf('search?') !== -1 || currentUrl.indexOf('mangaView') !== -1 || currentUrl.indexOf('chapViewer') !== -1 ){
+    }else if(currentUrl.indexOf('login') !== -1 || currentUrl.indexOf('search?') !== -1 || currentUrl.indexOf('mangaView') !== -1 || currentUrl.indexOf('chapViewer') !== -1 ){
       //skip
     }else{
-      this._router.navigate(['/dashboard/discover']);
+      this._router.navigate(['/dashboard/discover'],{ queryParams: { type: 'latest' }});
       this.selectItem(0);
-
     }
-
   }
 
+
+  ngOnInit(): void {
+    let username = Cookies.get('username');
+    if(username == '' || username == undefined ){
+        this._router.navigate(['login']);
+    }else{
+      this.store.dispatch(checklogin({ isLoggedIn: true }));
+    }
+
+    this._router.events.forEach((event) => {
+      if(event instanceof NavigationEnd) {
+        this.selectButton();
+      }
+    });
+
+    this.selectButton();
+  }
 }

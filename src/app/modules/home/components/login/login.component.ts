@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Cookies from 'js-cookie';
 import { Router } from '@angular/router';
-import { Store,select} from '@ngrx/store';
+import { Store} from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
 
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
           }else{
             Cookies.set('username', uid,{ expires: 7 ,domain: 'adithyaanil1999.github.io'});
           }
-          this._router.navigate(['dashboard/discover']);
+          this._router.navigate(['dashboard/home']);
         }
     });
   }
@@ -140,7 +140,7 @@ export class LoginComponent implements OnInit {
               }else{
                 Cookies.set('username', uid,{ expires: 7 ,domain: 'adithyaanil1999.github.io'});
               }
-              this._router.navigate(['dashboard/discover']);
+              this._router.navigate(['dashboard/home']);
             }
         });
 
@@ -154,8 +154,11 @@ export class LoginComponent implements OnInit {
     console.log("PROTECTED BY reCAPTCHAv3")
 
     let username = Cookies.get('username');
+    console.log(username);
     if(username == '' || username == undefined ){
+      
     }else{
+      console.log('redirect')
       this.store.dispatch(checklogin({ isLoggedIn: true }));
       this.store.dispatch(userDetails({userDetails:{username:username}}));
       this._router.navigate(['dashboard']);

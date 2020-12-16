@@ -55,3 +55,7 @@ export const currentSource = createAction(
   props<{ currentSource: string}>()
 );
 
+export const genreObject = createAction(
+  '[mangaModule] genreObject',
+  props<{ genreObj:{}} >()
+);

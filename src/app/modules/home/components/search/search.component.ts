@@ -15,9 +15,12 @@ export class SearchComponent implements OnInit {
   sub;
   getParams;
   data;
+  setSpinner:boolean = false;
+
   constructor(private store:Store,private route: ActivatedRoute,private _router: Router) { }
 
   getResults(){
+    this.setSpinner = true;
     fetch(scaperURL+"search",{
       method: 'POST',
       headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
@@ -27,6 +30,7 @@ export class SearchComponent implements OnInit {
       })
     }).then(res => res.json())
       .then(data => {
+        this.setSpinner = false;
         this.data = data.searchArray;
       })
   }

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { BeURL } from '../../../../../global';
+import { BeURL,getSourceFromCode } from '../../../../../global';
 import { Store} from '@ngrx/store';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { currentMangaLink,refreshMangaPage,bookmarkedList,refreshHomePage } from '../../../../store/actions/app.actions'
+
+
 
 @Component({
   selector: 'app-home-page',
@@ -18,6 +20,7 @@ export class HomePageComponent implements OnInit {
   data = [];
   unreadArr = [];
   readArr = [];
+  getSourceFromCode = getSourceFromCode;
 
 
   constructor(private store:Store,private _router: Router) { }
@@ -66,13 +69,7 @@ export class HomePageComponent implements OnInit {
     }
   }
 
-  getSourceFromCode(code){
-    if(code === 'MGPK'){
-      return 'Manga Park'
-    }else{
-      return 'Unknown Source'
-    }
-  }
+  
 
   getAllBookmarked(){
     fetch(BeURL+"getBookmarked",{
@@ -109,11 +106,9 @@ export class HomePageComponent implements OnInit {
     this.setSpinner = true;
     this.state = this.getState();
     if(Object.keys(this.state['bookMarkedObj']).length === 0 || this.state['refreshHomePageBool'] === true){
-      console.log('getting list from api');
       this.store.dispatch(refreshHomePage({refreshHomePageBool:false}))
       this.getAllBookmarked();
     }else{
-      console.log('getting list from ngrx');
       this.data = this.state['bookMarkedObj'];
       this.splitData();
       this.setSpinner = false;

@@ -1,4 +1,7 @@
 <div class="search-wrapper">
+    <div *ngIf="setSpinner" class="spinner-cont">
+        <div class="loader">Loading...</div>
+    </div>
     <div class="search-inner-wrapper">
         <h1>Search Results</h1>
         <div #scrollCont class="grid-wrap">

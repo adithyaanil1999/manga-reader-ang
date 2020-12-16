@@ -3,22 +3,31 @@
         <div [class.search-open]="focusBool" class="search-btn-cont">
             <div class="search-icon-cont">
                 <div class="search-border">
-                    <i style="cursor: pointer" class="fas fa-search"></i>
+                    <i [class.search-icon-selected]="focusBool" style="cursor: pointer" class="fas fa-search"></i>
                 </div>
             </div>
             <div class="search-text-cont">
-                <input (blur)="isNotFocused()" (focus)= "isFocused()" (keyup)="getAutoCompleteResults()" #searchInp placeholder="Search" type="text" class="search-inp">
+                <input (blur)="isNotFocused()" (focus)="isFocused()" (keyup)="getAutoCompleteResults()" #searchInp placeholder="Search" type="text" class="search-inp">
             </div>
             <div *ngIf="focusBool" class="auto-wrap">
-                    <div *ngIf="data.length === 0" class="search-spinner">
-                        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                <div *ngIf="data.length === 0" class="search-spinner">
+                    <div class="lds-roller">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
                     </div>
-                    <div *ngFor="let i of data"  class="suggest-wrap">
-                        <div class="search-thumb-wrap">
-                            <img src="{{i.image_url}}" alt="">
-                        </div>
-                        <p (click)="handleSearchRedirect(i.name)">{{i.name}}</p>
+                </div>
+                <div *ngFor="let i of data" class="suggest-wrap">
+                    <div class="search-thumb-wrap">
+                        <img src="{{i.image_url}}" alt="">
                     </div>
+                    <p (click)="handleSearchRedirect(i.name)">{{i.name}}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -32,39 +41,39 @@
             <div [class.selected-nav]="isDiscover" class="nav-item-cont">
                 <div class="nav-border">
                     <div class="nav-icon-cont">
-                        <a (click)="selectItem(0)" routerLink="discover" routerLinkActive="active"><i class="far fa-compass"></i></a>
+                        <a (click)="selectItem(0)" [routerLink]="['discover']" [queryParams]="{type:'latest'} " routerLinkActive="active "><i class="far fa-compass "></i></a>
                     </div>
-                    <!-- <div class="nav-icon-title-cont">
+                    <!-- <div class="nav-icon-title-cont ">
                         <p>Discover</p>
                     </div> -->
                 </div>
             </div>
-            <div [class.selected-nav]="isHome" class="nav-item-cont">
-                <div class="nav-border">
-                    <div class="nav-icon-cont">
-                        <a (click)="selectItem(1)" routerLink="home" routerLinkActive="active"><i class="fas fa-home"></i></a>
+            <div [class.selected-nav]="isHome " class="nav-item-cont ">
+                <div class="nav-border ">
+                    <div class="nav-icon-cont ">
+                        <a (click)="selectItem(1) " routerLink="home" routerLinkActive="active "><i class="fas fa-home "></i></a>
                     </div>
-                    <!-- <div class="nav-icon-title-cont">
+                    <!-- <div class="nav-icon-title-cont ">
                         <p>Home</p>
                     </div> -->
                 </div>
             </div>
-            <div [class.selected-nav]="isGenre" class="nav-item-cont">
-                <div class="nav-border">
-                    <div class="nav-icon-cont">
-                        <a (click)="selectItem(2)" routerLink="genre" routerLinkActive="active"><i class="fas fa-tag"></i></a>
+            <div [class.selected-nav]="isGenre " class="nav-item-cont ">
+                <div class="nav-border ">
+                    <div class="nav-icon-cont ">
+                        <a (click)="selectItem(2) " routerLink="genre" routerLinkActive="active "><i class="fas fa-tag "></i></a>
                     </div>
-                    <!-- <div class="nav-icon-title-cont">
+                    <!-- <div class="nav-icon-title-cont ">
                         <p>Genre</p>
                     </div> -->
                 </div>
             </div>
-            <div [class.selected-nav]="isAccount" class="nav-item-cont">
-                <div class="nav-border">
-                    <div class="nav-icon-cont">
-                        <a (click)="selectItem(3)" routerLink="account" routerLinkActive="active"><i class="fas fa-user-circle"></i></a>
+            <div [class.selected-nav]="isAccount " class="nav-item-cont ">
+                <div class="nav-border ">
+                    <div class="nav-icon-cont ">
+                        <a (click)="selectItem(3) " routerLink="account" routerLinkActive="active "><i class="fas fa-user-circle "></i></a>
                     </div>
-                    <!-- <div class="nav-icon-title-cont">
+                    <!-- <div class="nav-icon-title-cont ">
                         <p>Account</p>
                     </div> -->
                 </div>
