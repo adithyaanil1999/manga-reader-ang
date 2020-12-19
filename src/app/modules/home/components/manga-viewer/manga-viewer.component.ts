@@ -35,7 +35,11 @@ export class MangaViewerComponent implements OnInit {
 
 
   getImages(link){
-    link = link.substring(0,link.lastIndexOf('/'))
+    if(link.indexOf('fanfox.net') == -1 ){
+      console.log(link);
+    }else{
+      // link = link.substring(0,link.lastIndexOf('/'))
+    }
     fetch(scaperURL+"getImageList",{
       method: 'POST',
       headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
@@ -43,6 +47,7 @@ export class MangaViewerComponent implements OnInit {
     }).then(res=>{return res.json()})
       .then(data=>{
         this.data = data.imageList;
+        console.log(data);
         this.isSpinner = false;
       }).catch(e=>{
         console.log(e);

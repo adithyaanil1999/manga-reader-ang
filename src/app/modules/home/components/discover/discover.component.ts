@@ -1,11 +1,12 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { scaperURL } from '../../../../../global';
+import { defaultSRC, getSourceFromCode, scaperURL } from '../../../../../global';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute,Router } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { pluck } from 'rxjs/operators';
 
 
-import { currentSource,currentMangaLink,latestMangaList,refreshMangaPage,pageNoObject } from '../../../../store/actions/app.actions'
+import { currentSource,currentMangaLink,latestMangaList,refreshMangaPage,pageNoObject, refreshHomePage } from '../../../../store/actions/app.actions'
 
 @Component({
   selector: 'app-discover',
@@ -15,6 +16,7 @@ import { currentSource,currentMangaLink,latestMangaList,refreshMangaPage,pageNoO
 export class DiscoverComponent implements OnInit {
 
   sub;
+  statesub;
   src : string = '';
   dataArr = [];
   pageNo:number = 1;
@@ -24,6 +26,7 @@ export class DiscoverComponent implements OnInit {
   end:boolean = false;
   params;
   mode:string = '';
+  getsrc = getSourceFromCode;
 
 
   @ViewChild('scrollCont') scrollCont: any;
@@ -53,7 +56,6 @@ export class DiscoverComponent implements OnInit {
     }).then((res)=>{
       return res.json();
     }).then((data)=>{
-      console.log(data)
       if(data.LatestManga === 'end'){
         this.setSpinner = false;
         this.end = true;
@@ -107,41 +109,47 @@ export class DiscoverComponent implements OnInit {
     this._router.navigate(['dashboard/mangaView'],{ queryParams: { link: link } });
   }
 
-  ngOnInit(): void {
-    this.state = this.getState();
-    
-    if(this.state['currentSource'] === ''){
-      this.store.dispatch(currentSource({currentSource:'MGPK'}));
-      this.state = this.getState();
+  initPage(){
+    if('type' in this.params){
+      this.mode = 'latest';
+      this.end = false;
+      this.dataArr = [];
+      if(Object.keys(this.state['latestObject']).length === 0 || this.state['refreshHomePageBool'] === true){
+        console.log('getting list from api');
+        this.store.dispatch(refreshHomePage({refreshHomePageBool:false}))
+        this.getHotManga(this.pageNo);
+      }else{
+        console.log('getting data from nrgx')
+        this.pageNo = this.state['pageNoObject']['discover']
+        this.dataArr = this.state['latestObject']
+      }
+
+    }else{
+      this.mode = 'genre';
+      this.dataArr = [];
+      this.getGenreManga();
     }
-    this.src = this.state['currentSource'];
+  }
+
+  ngOnInit(): void {
+    this.src = ''
     this.sub = this.route
     .queryParams
     .subscribe(params => {
           this.params = params;
-          if('type' in this.params){
-            this.mode = 'latest';
-            this.end = false;
-            this.dataArr = [];
-            if(Object.keys(this.state['latestObject']).length === 0){
-              console.log('getting list from api');
-              this.getHotManga(this.pageNo);
-            }else{
-              console.log('getting data from nrgx')
-              this.pageNo = this.state['pageNoObject']['discover']
-              this.dataArr = this.state['latestObject']
-            }
-      
-          }else{
-            this.mode = 'genre';
-            this.dataArr = [];
-            this.getGenreManga();
-          }
+          this.statesub = this.store.select(state => state['reducer']['currentSource']).subscribe((currentSource)=>{
+              if(currentSource !== ''){
+                this.state = this.getState()
+                this.src = currentSource;
+                this.initPage();
+              }
+          })
     })
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.statesub.unsubscribe();
   }
 
 }

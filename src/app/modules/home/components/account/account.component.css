@@ -59,9 +59,16 @@
     cursor: pointer;
 }
 
+.src-option:focus {
+    outline: none;
+}
+
 @media screen and (max-width: 1028px) {
     .logout-btn-wrap {
         width: 47%;
         height: 10%;
+    }
+    .account-option-flex-wrap>select {
+        width: 35%;
     }
 }

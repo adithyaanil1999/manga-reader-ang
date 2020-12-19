@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store} from '@ngrx/store';
-import { scaperURL } from '../../../../../global';
+import { scaperURL,getSourceFromCode } from '../../../../../global';
 import { currentMangaLink,refreshMangaPage } from '../../../../store/actions/app.actions'
 
 
@@ -16,6 +16,7 @@ export class SearchComponent implements OnInit {
   getParams;
   data;
   setSpinner:boolean = false;
+  getSrc = getSourceFromCode;
 
   constructor(private store:Store,private route: ActivatedRoute,private _router: Router) { }
 

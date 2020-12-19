@@ -1,11 +1,11 @@
-.mobile-main{
+.mobile-main {
     width: 100%;
     height: 100%;
     overflow: scroll;
     /* background: black; */
 }
 
-.back-btn-cont{
+.back-btn-cont {
     display: flex;
     color: #ffffff6b;
     font-size: 3rem;
@@ -16,11 +16,11 @@
     align-items: center;
 }
 
-.back-btn-cont > i{
+.back-btn-cont>i {
     cursor: pointer;
 }
 
-.image-wrapper{
+.image-wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -28,17 +28,17 @@
     flex-direction: column;
 }
 
-.image-wrapper>img{
+.image-wrapper>img {
     height: 100%;
+    width: 50%;
     display: block;
 }
 
 @media screen and (max-width: 1028px) {
-    .image-wrapper>img{
+    .image-wrapper>img {
         width: 100%;
     }
-    .back-btn-cont{
+    .back-btn-cont {
         display: none;
     }
-
 }

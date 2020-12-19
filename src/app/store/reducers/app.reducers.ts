@@ -11,7 +11,8 @@ import {
   bookmarkedList,
   refreshHomePage,
   currentSource,
-  genreObject
+  genreObject,
+  refreshGenrePage
   } from '../actions/app.actions';
 
 export const userFeatureKey = 'AppState';
@@ -25,6 +26,7 @@ const initalState ={
     userDetailObject: {},
     currentSource: '',
     refreshHomePageBool:false,
+    refreshGenrePageBool:false,
     genreObj:{}
 }
 
@@ -77,6 +79,10 @@ const reducerFunc = createReducer(
   on(genreObject, (state,{genreObj}) => ({
     ...state,
     genreObj: genreObj
+  })),
+  on(refreshGenrePage, (state,{refreshGenrePageBool}) => ({
+    ...state,
+    refreshGenrePageBool: refreshGenrePageBool
   })),
 );
 

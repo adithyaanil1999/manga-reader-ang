@@ -2,7 +2,7 @@
     <div *ngIf="setSpinner" class="spinner-cont">
         <div class="loader">Loading...</div>
     </div>
-    <div class="genre-wrap">
+    <div *ngIf="!setSpinner" class="animate__animated animate__fadeIn genre-wrap">
         <div class="genre-flex-wrap">
             <div *ngFor="let i of data" class="anchor-wrap">
                 <p (click)="handleTag(i.link)"><i style="color: rgb(255, 145, 0);" class="fas fa-tags"></i>&nbsp;{{i.title}}</p>

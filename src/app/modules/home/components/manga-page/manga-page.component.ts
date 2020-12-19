@@ -108,6 +108,8 @@ export class MangaPageComponent implements OnInit {
     let currentUrl = window.location.href;
     if(currentUrl.indexOf('mangapark.net') !== -1 ){
       return "MGPK";
+    }if(currentUrl.indexOf('fanfox.net') !== -1 ){
+      return "MGFX";
     }
   }
 

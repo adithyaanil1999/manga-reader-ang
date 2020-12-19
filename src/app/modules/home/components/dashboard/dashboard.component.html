@@ -1,13 +1,13 @@
 <div class="dashboard-outer-cont">
     <div class="top-nav-dash">
-        <div [class.search-open]="focusBool" class="search-btn-cont">
+        <div [class.search-open]="focusBool" class="slideInDown2 search-btn-cont">
             <div class="search-icon-cont">
                 <div class="search-border">
                     <i [class.search-icon-selected]="focusBool" style="cursor: pointer" class="fas fa-search"></i>
                 </div>
             </div>
             <div class="search-text-cont">
-                <input (blur)="isNotFocused()" (focus)="isFocused()" (keyup)="getAutoCompleteResults()" #searchInp placeholder="Search" type="text" class="search-inp">
+                <input (keyup.enter)="handleSearchRedirect(searchInp.value)" (blur)="isNotFocused()" (focus)="isFocused()" (keyup)="getAutoCompleteResults()" #searchInp placeholder="Search" type="text" class="search-inp">
             </div>
             <div *ngIf="focusBool" class="auto-wrap">
                 <div *ngIf="data.length === 0" class="search-spinner">
@@ -36,7 +36,7 @@
             <router-outlet></router-outlet>
         </div>
     </div>
-    <div class="bottom-nav-dash">
+    <div class="animate__animated animate__slideInUp bottom-nav-dash">
         <div class="bottom-dash-cont">
             <div [class.selected-nav]="isDiscover" class="nav-item-cont">
                 <div class="nav-border">

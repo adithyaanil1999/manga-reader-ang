@@ -4,8 +4,8 @@ import { Store} from '@ngrx/store';
 import { Router,NavigationEnd } from '@angular/router';
 
 
-import { checklogin } from '../../../../store/actions/app.actions';
-import { scaperURL } from '../../../../../global';
+import { checklogin,currentSource, refreshGenrePage, refreshHomePage } from '../../../../store/actions/app.actions';
+import { scaperURL,BeURL } from '../../../../../global';
 
 @Component({
   selector: 'app-dashboard',
@@ -55,7 +55,6 @@ export class DashboardComponent implements OnInit {
     let title = this.searchInp.nativeElement.value;
     if(title.length>=2){
       if(this.mode === 'manga'){
-        console.log(title)
         fetch(scaperURL+"autocomplete",{
           method: 'POST',
           headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
@@ -72,6 +71,7 @@ export class DashboardComponent implements OnInit {
     }
   }
   handleSearchRedirect(name){
+    this.isNotFocused();
     this._router.navigate(['dashboard/search'],{ queryParams: {type:'manga', title: name } });
   }
 
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
       this.focusBool = false;
       this.searchInp.nativeElement.value = '';
       this.data = [];
-    },200);
+    },100);
   }
 
   selectButton(){
@@ -105,6 +105,22 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  getSourceFromDb(){
+    fetch(BeURL+"getDefaultSrc",{
+      method:'POST',
+      headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify({
+        username : Cookies.get('username')
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      this.store.dispatch(currentSource({currentSource:data.message.src}));
+      this.store.dispatch(refreshHomePage({refreshHomePageBool:true}));
+      this.store.dispatch(refreshGenrePage({refreshGenrePageBool:true}));
+    })
+  }
+
 
   ngOnInit(): void {
     let username = Cookies.get('username');
@@ -112,8 +128,9 @@ export class DashboardComponent implements OnInit {
         this._router.navigate(['login']);
     }else{
       this.store.dispatch(checklogin({ isLoggedIn: true }));
+      this.getSourceFromDb();
     }
-
+  
     this._router.events.forEach((event) => {
       if(event instanceof NavigationEnd) {
         this.selectButton();

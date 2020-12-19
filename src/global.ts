@@ -8,10 +8,14 @@ export const scaperURL = 'https://manga-reader-express.herokuapp.com/'
 // export const prodBool = true;
 export const prodBool = false;
 
+export const defaultSRC = 'MGPK';
+
 
 export const getSourceFromCode = function(code){
     if(code === 'MGPK'){
       return 'Manga Park'
+    }else if(code === 'MGFX'){
+        return 'Manga Fox'
     }else{
       return 'Unknown Source'
     }

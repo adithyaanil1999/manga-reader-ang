@@ -1,8 +1,8 @@
-<div class="manga-view-wrap">
-    <div *ngIf="setSpinner" class="spinner-cont">
-        <div class="loader">Loading...</div>
-    </div>
-    <div *ngIf="!setSpinner" class="manga-grid">
+<div *ngIf="setSpinner" class="spinner-cont">
+    <div class="loader">Loading...</div>
+</div>
+<div *ngIf="!setSpinner" class="animate__animated animate__fadeIn manga-view-wrap">
+    <div class="manga-grid">
         <div class="grid-left">
             <div class="thumb-wrap">
                 <div>
@@ -34,8 +34,8 @@
                     <a *ngIf="this.lastIndex !== data.chapterList.length - 1" (click)="handleLink(data.chapterList[lastIndex+1].chapterLink,data.chapterList[lastIndex+1].chapterTitle)" style="margin-bottom: 20px;">
                         <div class="continue-button">
                             <div class="chap-item cont-item prev-button">
-                                <div  class="chap-item-left">
-                                    <h2 #chapterTitle >Previous</h2>
+                                <div class="chap-item-left">
+                                    <h2 #chapterTitle>Previous</h2>
                                 </div>
                                 <div class="chap-item-right cont-title">
                                     <p class="title-wrap">{{ data.chapterList[lastIndex+1].chapterTitle }}</p>
@@ -46,8 +46,8 @@
                     <a (click)="handleLastRead()" style="margin-bottom: 20px;">
                         <div class="continue-button">
                             <div class="chap-item cont-item">
-                                <div  class="chap-item-left">
-                                    <h2 #chapterTitle >Continue Reading</h2>
+                                <div class="chap-item-left">
+                                    <h2 #chapterTitle>Continue Reading</h2>
                                 </div>
                                 <div class="chap-item-right cont-title">
                                     {{ lastRead.toString() === '0' ? getLastChapLink(data.chapterList[data.chapterList.length-1].chapterLink,data.chapterList[data.chapterList.length-1].chapterTitle) : null}}
@@ -56,11 +56,11 @@
                             </div>
                         </div>
                     </a>
-                    <a *ngIf="this.lastIndex != 0" (click)="handleLink(data.chapterList[lastIndex-1].chapterLink,data.chapterList[lastIndex-1].chapterTitle)"  style="margin-bottom: 20px;">
+                    <a *ngIf="this.lastIndex != 0" (click)="handleLink(data.chapterList[lastIndex-1].chapterLink,data.chapterList[lastIndex-1].chapterTitle)" style="margin-bottom: 20px;">
                         <div class="continue-button">
                             <div class="chap-item cont-item next-button">
-                                <div  class="chap-item-left">
-                                    <h2 #chapterTitle >Next</h2>
+                                <div class="chap-item-left">
+                                    <h2 #chapterTitle>Next</h2>
                                 </div>
                                 <div class="chap-item-right cont-title">
                                     <p class="title-wrap">{{ data.chapterList[lastIndex-1].chapterTitle }}</p>
@@ -71,8 +71,8 @@
                     <a (click)="handleLink(i.chapterLink,i.chapterTitle)" *ngFor="let i of this.data.chapterList">
                         <div [class.last-read-item]="i.chapterTitle === lastRead" class="chap-item">
                             {{i.chapterTitle === lastRead ? getLastChapLink(i.chapterLink,i.chapterTitle) : null }}
-                            <div  class="chap-item-left">
-                                <h2 #chapterTitle >{{i.chapterTitle}}</h2>
+                            <div class="chap-item-left">
+                                <h2 #chapterTitle>{{i.chapterTitle}}</h2>
                             </div>
                             <div class="chap-item-right">
                                 <p>{{i.chapDate}}</p>

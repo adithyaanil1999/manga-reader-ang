@@ -16,6 +16,7 @@ export class HomePageComponent implements OnInit {
 
   state;
   setSpinner:boolean = false;
+  showNoBookmarks:boolean = false;
   dataArr = [];
   data = [];
   unreadArr = [];
@@ -93,7 +94,7 @@ export class HomePageComponent implements OnInit {
         this.mergeDataArrays(this.dataArr,data.message)
       });
       }else{
-        console.log('no bookmarks')
+        this.showNoBookmarks = true;
         this.setSpinner = false;
       }
   

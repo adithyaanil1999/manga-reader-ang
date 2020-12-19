@@ -1,10 +1,14 @@
-<div class="account-outer-wrap">
+<div class="animate__animated animate__fadeIn account-outer-wrap">
+    <div *ngIf="setSpinner" class="spinner-cont">
+        <div class="loader">Loading...</div>
+    </div>
     <div class="account-wrap">
         <div class="account-option-wrap">
             <div class="account-option-flex-wrap">
                 <h1>Manga Source</h1>
-                <select>
-                    <option value="MGPK">Manga Park</option>
+                <select class="src-option" (change)="changeSource()" #srcOptions>
+                    <option [selected]=" currentSrc == 'MGPK' ? true : false" value="MGPK">Manga Park</option>
+                    <option [selected]=" currentSrc == 'MGFX' ? true : false" value="MGFX">Manga Fox</option>
                 </select>
             </div>
         </div>

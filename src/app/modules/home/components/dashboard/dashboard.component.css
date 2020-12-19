@@ -16,6 +16,7 @@
 
 .selected-nav {
     color: #ff5400 !important;
+    transition: color 0.5s;
 }
 
 .search-icon-selected {
@@ -125,6 +126,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     /* background: blue; */
 }
 
@@ -163,6 +165,7 @@
     justify-content: center;
     align-items: center;
     color: #b5a2a2;
+    transition: color 0.5s;
 }
 
 .nav-border {
@@ -347,5 +350,22 @@
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+.slideInDown2 {
+    animation-name: slideInDown2;
+    animation-duration: 1s;
+}
+
+@keyframes slideInDown2 {
+    0% {
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+        visibility: visible;
+    }
+    100% {
+        -webkit-transform: none;
+        transform: none;
     }
 }

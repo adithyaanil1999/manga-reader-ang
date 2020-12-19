@@ -50,6 +50,11 @@ export const refreshHomePage = createAction(
   props<{ refreshHomePageBool: boolean}>()
 );
 
+export const refreshGenrePage = createAction(
+  '[mangaModule] refreshGenrePage',
+  props<{ refreshGenrePageBool: boolean}>()
+);
+
 export const currentSource = createAction(
   '[homeModule] currentSource',
   props<{ currentSource: string}>()

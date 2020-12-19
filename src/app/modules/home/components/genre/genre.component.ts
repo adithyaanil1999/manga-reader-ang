@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-import { genreObject } from '../../../../store/actions/app.actions'
+import { genreObject, refreshGenrePage } from '../../../../store/actions/app.actions'
 
 
 @Component({
@@ -17,6 +17,7 @@ export class GenreComponent implements OnInit {
   constructor(private _router: Router,private store:Store) { }
   data;
   state;
+  statesub;
   src:string = '';
   setSpinner:boolean = false;
 
@@ -50,14 +51,31 @@ export class GenreComponent implements OnInit {
       this.setSpinner = false;
     })
   }
-  ngOnInit(): void {
-    this.src = 'MGPK';
+  initPage(){
     this.state = this.getState();
-    if(Object.keys(this.state['genreObj']).length === 0){
+    console.log(Object.keys(this.state['genreObj']).length === 0);
+    console.log(this.state['refreshGenrePageBool'])
+    if(Object.keys(this.state['genreObj']).length === 0 || this.state['refreshGenrePageBool'] === true){
+      console.log('getting tags from api')
+      this.store.dispatch(refreshGenrePage({refreshGenrePageBool:false}));
       this.getGenreList();
     }else{
+      console.log('getting tags from ngrx')
       this.data = this.state['genreObj'];
     }
+  }
+  ngOnInit(): void {
+    this.state = this.getState();
+    this.statesub = this.store.select(state => state['reducer']['currentSource']).subscribe((currentSource)=>{
+    if(currentSource !== ''){
+      this.src = currentSource;
+      this.initPage();
+    }
+    });
+  }
+
+  ngOnDestroy() {
+    this.statesub.unsubscribe();
   }
 
 }
