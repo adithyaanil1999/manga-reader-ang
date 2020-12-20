@@ -115,9 +115,8 @@ export class MangaPageComponent implements OnInit {
       latestTitle: this.data.chapterList[0].chapterTitle
     }
 
-    console.log(this.data);
-
-    this.setSpinner = true;
+    // console.log(data);
+    // this.setSpinner = true;
 
     fetch(BeURL+"addBookmark",{
       method: 'POST',
@@ -138,6 +137,7 @@ export class MangaPageComponent implements OnInit {
         location.reload();
       }
     });
+
   }
   
   getMangaDetails(link){
@@ -163,24 +163,24 @@ export class MangaPageComponent implements OnInit {
 
     this.setSpinner = true;
     this.state = this.getState();
+    this.sub = this.route
+        .queryParams
+        .subscribe(params => {
+          this.link = params.link;
+        });
+
+
     if(this.state['refreshMangaPageBool'] === true){
       this.store.dispatch(refreshMangaPage({refreshMangaPage:false}));
       this.substate = true;
-      this.sub = this.route
-      .queryParams
-      .subscribe(params => {
-        this.link = params.link;
-        this.getMangaDetails(params.link)
-      });
+      this.getMangaDetails(this.link)
     }else{
       if(this.state['mangaObject']){
-
         let dataSent = {
           username: this.state['userDetailObject']['username'],
           src: this.getSourceFromUrl(),
           mangaTitle: this.state['mangaObject']['title'],
         }
-
         fetch(BeURL+"getLastReadChapter",{method: 'POST',
         headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
         body: JSON.stringify(dataSent)
@@ -191,12 +191,7 @@ export class MangaPageComponent implements OnInit {
         this.data = this.state['mangaObject'];
         this.setSpinner = false;
       }else{
-        this.sub = this.route
-        .queryParams
-        .subscribe(params => {
-          this.link = params.link;
-          this.getMangaDetails(params.link)
-        });
+          this.getMangaDetails(this.link)
       }
     }    
   }

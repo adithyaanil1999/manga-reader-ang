@@ -33,6 +33,7 @@ export class SearchComponent implements OnInit {
       .then(data => {
         this.setSpinner = false;
         this.data = data.searchArray;
+        console.log(this.data)
       })
   }
 

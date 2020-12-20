@@ -39,4 +39,4 @@ export const getsrcFromUrl = function(){
 
 // export const prodBool = true;
 
-export const version = "v1.01";
+export const version = "v1.1";
