@@ -37,11 +37,12 @@ export class MangaViewerComponent implements OnInit {
 
 
   getImages(link){
-    if(link.indexOf('mangadex') == -1 ){
-      console.log(link);
-    }else{
-      // link = link.substring(0,link.lastIndexOf('/'))
-    }
+    // if(link.indexOf('mangadex') == -1 ){
+    //   console.log(link);
+    // }else{
+    //   // link = link.substring(0,link.lastIndexOf('/'))
+    // }
+    console.log(link)
     fetch(scaperURL+"getImageList",{
       method: 'POST',
       headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },

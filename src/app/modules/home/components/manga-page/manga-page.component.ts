@@ -194,7 +194,8 @@ export class MangaPageComponent implements OnInit {
         this.sub = this.route
         .queryParams
         .subscribe(params => {
-        this.getMangaDetails(params.link)
+          this.link = params.link;
+          this.getMangaDetails(params.link)
         });
       }
     }    
