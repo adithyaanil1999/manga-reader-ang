@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { scaperURL,BeURL } from '../../../../../global';
+import { scaperURL,BeURL,getsrcFromUrl} from '../../../../../global';
 import { currentMangaDetails } from '../../../../store/actions/app.actions'
 import { Store} from '@ngrx/store';
 import { take } from 'rxjs/operators';
@@ -25,6 +25,7 @@ export class MangaPageComponent implements OnInit {
   isBookmarked : string = '';
   lastIndex:number = 0;
   link:string = '';
+  getSourceFromUrl = getsrcFromUrl;
 
   constructor(private store:Store,private route: ActivatedRoute,private router: Router) { }
 
@@ -103,16 +104,6 @@ export class MangaPageComponent implements OnInit {
     return state.reducer;
   }
 
-  getSourceFromUrl(){
-    //UPDATE THIS WITH SOURCES
-    let currentUrl = window.location.href;
-    if(currentUrl.indexOf('mangapark.net') !== -1 ){
-      return "MGPK";
-    }if(currentUrl.indexOf('fanfox.net') !== -1 ){
-      return "MGFX";
-    }
-  }
-
   handleBookmark(){
     let data = {
       username: this.state['userDetailObject']['username'],
@@ -157,6 +148,9 @@ export class MangaPageComponent implements OnInit {
     }).then(res=>{return res.json()})
       .then(data=>{
         this.data = data.mangaInfo;
+        if(link.indexOf('fanfox.net') && this.data.chapterList.length === 0){
+          alert("This content is removed because of copyright,try a different source")
+        }
         this.store.dispatch(currentMangaDetails({mangaDetails:{...this.data}}));
         this.setSpinner = false;
         this.highlightLastRead()

@@ -14,8 +14,10 @@ export class MangaViewerComponent implements OnInit {
 
   isMobile:boolean = false;
   sub;
-  data;
+  data = [];
+  dataBuffer;
   isSpinner:boolean = true;
+  limitRate:boolean = true;
   
   constructor(private location: Location,private route: ActivatedRoute,private store:Store) { }
 
@@ -35,7 +37,7 @@ export class MangaViewerComponent implements OnInit {
 
 
   getImages(link){
-    if(link.indexOf('fanfox.net') == -1 ){
+    if(link.indexOf('mangadex') == -1 ){
       console.log(link);
     }else{
       // link = link.substring(0,link.lastIndexOf('/'))
@@ -46,14 +48,25 @@ export class MangaViewerComponent implements OnInit {
       body: JSON.stringify({url:link})
     }).then(res=>{return res.json()})
       .then(data=>{
-        this.data = data.imageList;
-        console.log(data);
+        this.dataBuffer = data.imageList;
+        this.displayImages();
         this.isSpinner = false;
       }).catch(e=>{
         console.log(e);
         this.location.back();
       })
 
+  }
+
+  displayImages(){
+    let i = 0;
+    let interval = setInterval(()=>{
+      this.data.push(this.dataBuffer[i]);
+      i++;
+      if(i === this.dataBuffer.length - 1){
+        clearInterval(interval);
+      }
+    },1000);
   }
 
   ngOnInit(): void {
