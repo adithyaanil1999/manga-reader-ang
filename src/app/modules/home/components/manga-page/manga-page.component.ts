@@ -50,8 +50,8 @@ export class MangaPageComponent implements OnInit {
     let data = {
       username: this.state['userDetailObject']['username'],
       src: this.getSourceFromUrl(),
-      mangaTitle: this.data.title,
-      chapTitle: title,
+      mangaTitle: this.data.title.replace("'","''"),
+      chapTitle: title.replace("'","''"),
     }
     fetch(BeURL+"updateHistory",{
       method: 'POST',
@@ -64,6 +64,7 @@ export class MangaPageComponent implements OnInit {
         this.store.dispatch(refreshHomePage({refreshHomePageBool:true}))
         this.router.navigate(['chapViewer'],{ queryParams: { link: link } });
       }else{
+        console.log(data.message);
         alert('Some error has occured');
         location.reload();
       }
@@ -79,7 +80,7 @@ export class MangaPageComponent implements OnInit {
     let dataSent = {
       username: this.state['userDetailObject']['username'],
       src: this.getSourceFromUrl(),
-      mangaTitle: this.data.title,
+      mangaTitle: this.data.title.replace("'","''"),
     }
     fetch(BeURL+"getLastReadChapter",{method: 'POST',
     headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
@@ -109,10 +110,10 @@ export class MangaPageComponent implements OnInit {
     let data = {
       username: this.state['userDetailObject']['username'],
       src: this.getSourceFromUrl(),
-      mangaTitle: this.data.title,
+      mangaTitle: this.data.title.replace("'","''"),
       mangaLink: this.link,
       thumbLink:this.data.thumb,
-      chapTitle: this.lastChapTitle,
+      chapTitle: this.lastChapTitle.replace("'","''"),
       latestTitle: this.data.chapterList[0].chapterTitle
     }
 
@@ -142,6 +143,7 @@ export class MangaPageComponent implements OnInit {
   }
   
   getMangaDetails(link){
+    console.log(link)
     fetch(scaperURL+"getMangaInfo",{
       method: 'POST',
       headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
@@ -149,8 +151,11 @@ export class MangaPageComponent implements OnInit {
     }).then(res=>{return res.json()})
       .then(data=>{
         this.data = data.mangaInfo;
-        if(link.indexOf('fanfox.net') && this.data.chapterList.length === 0){
-          alert("This content is removed because of copyright,try a different source")
+        console.log(link)
+        // console.l
+        if(link.indexOf('fanfox.net') !== -1 && this.data.chapterList.length === 0){
+          console.log('here')
+          // alert("This content is removed because of copyright,try a different source")
         }
         this.store.dispatch(currentMangaDetails({mangaDetails:{...this.data}}));
         this.setSpinner = false;
@@ -180,7 +185,7 @@ export class MangaPageComponent implements OnInit {
         let dataSent = {
           username: this.state['userDetailObject']['username'],
           src: this.getSourceFromUrl(),
-          mangaTitle: this.state['mangaObject']['title'],
+          mangaTitle: this.state['mangaObject']['title'].replace("'","''"),
         }
         fetch(BeURL+"getLastReadChapter",{method: 'POST',
         headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
