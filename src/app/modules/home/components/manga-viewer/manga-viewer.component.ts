@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,OnInit,ViewChild,ElementRef } from '@angular/core';
 import { Store} from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { ActivatedRoute} from '@angular/router';
@@ -18,6 +18,10 @@ export class MangaViewerComponent implements OnInit {
   dataBuffer;
   isSpinner:boolean = true;
   limitRate:boolean = true;
+  isEnd:boolean = false;
+  @ViewChild('snackBar') snackBar: ElementRef;
+  @ViewChild('scrollCont') scrollCont: ElementRef;
+
   
   constructor(private location: Location,private route: ActivatedRoute,private store:Store) { }
 
@@ -37,11 +41,6 @@ export class MangaViewerComponent implements OnInit {
 
 
   getImages(link){
-    // if(link.indexOf('mangadex') == -1 ){
-    //   console.log(link);
-    // }else{
-    //   // link = link.substring(0,link.lastIndexOf('/'))
-    // }
     console.log(link)
     fetch(scaperURL+"getImageList",{
       method: 'POST',
@@ -59,18 +58,45 @@ export class MangaViewerComponent implements OnInit {
 
   }
 
+  handleScroll(){
+    const element = this.scrollCont.nativeElement;
+    const sb = this.snackBar.nativeElement;
+
+
+    function slideUpEnd(){
+      sb.removeEventListener('animationend',slideUpEnd);
+      this.isEnd = true;
+    }
+
+    // function slideDownEnd(){
+    //   this.isEnd = false;
+    //   sb.classList.remove('animate__animated', 'animate__slideOutDown');
+    //   sb.removeEventListener('animationend',slideDownEnd);
+    // }
+
+    if( Math.ceil(element.scrollHeight - element.scrollTop) === element.clientHeight){
+      this.isEnd = true;
+      sb.classList.add('animate__animated', 'animate__slideInUp');
+      sb.addEventListener('animationend', slideUpEnd.bind(this), {once : true});
+    }else{
+      this.isEnd = false;
+      sb.classList.remove('animate__animated', 'animate__slideInUp');
+    }
+  }
+  
+
   displayImages(){
     let i = 0;
     let interval = setInterval(()=>{
       this.data.push(this.dataBuffer[i]);
       i++;
-      if(i === this.dataBuffer.length - 1){
+      if(i === this.dataBuffer.length){
         clearInterval(interval);
       }
-    },1000);
+    },20);
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
     this.isMobile = this.getState().mobileBool;
     this.sub = this.route
       .queryParams

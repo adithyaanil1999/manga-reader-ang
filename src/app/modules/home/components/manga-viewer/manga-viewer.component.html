@@ -1,6 +1,16 @@
-<div class="mobile-main">
+<div #scrollCont (scroll)="handleScroll()" class="black mobile-main">
     <div *ngIf="isSpinner" class="spinner-cont">
         <div class="loader">Loading...</div>
+    </div>
+    <div #snackBar class="snackbar-outer">
+        <div *ngIf="isEnd" class="snackbar-wrap">
+            <div class="snackbar-left">
+                <p>No more Pages in Chapter!</p>
+            </div>
+            <div class="snackbar-right">
+                <p (click)="handleBackBtn()">Back</p>
+            </div>
+        </div>
     </div>
     <div *ngIf="!isSpinner" class="back-btn-cont">
         <i (click)="handleBackBtn()" class="fas fa-arrow-circle-left"></i>

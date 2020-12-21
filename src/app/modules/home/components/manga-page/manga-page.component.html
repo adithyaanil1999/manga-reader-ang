@@ -30,7 +30,7 @@
         </div>
         <div class="grid-right">
             <div class="chap-list-wrap">
-                <div class="chap-inner-wrap">
+                <div class="dark-chap-wrap chap-inner-wrap">
                     <a *ngIf="this.lastIndex !== data.chapterList.length - 1" (click)="handleLink(data.chapterList[lastIndex+1].chapterLink,data.chapterList[lastIndex+1].chapterTitle)" style="margin-bottom: 20px;">
                         <div class="continue-button">
                             <div class="chap-item cont-item prev-button">
@@ -47,7 +47,7 @@
                         <div class="continue-button">
                             <div class="chap-item cont-item">
                                 <div class="chap-item-left">
-                                    <h2 #chapterTitle>Continue Reading</h2>
+                                    <h2 #chapterTitle>Continue</h2>
                                 </div>
                                 <div class="chap-item-right cont-title">
                                     {{ lastRead.toString() === '0' ? getLastChapLink(data.chapterList[data.chapterList.length-1].chapterLink,data.chapterList[data.chapterList.length-1].chapterTitle) : null}}

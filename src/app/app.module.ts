@@ -19,6 +19,7 @@ import { HomePageComponent } from './modules/home/components/home-page/home-page
 import { MangaPageComponent } from './modules/home/components/manga-page/manga-page.component';
 import { MangaViewerComponent } from './modules/home/components/manga-viewer/manga-viewer.component';
 import { SearchComponent } from './modules/home/components/search/search.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { SearchComponent } from './modules/home/components/search/search.compone
     HomePageComponent,
     MangaPageComponent,
     MangaViewerComponent,
-    SearchComponent
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +41,8 @@ import { SearchComponent } from './modules/home/components/search/search.compone
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     StoreModule.forRoot({reducer}, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LdJC_kZAAAAACIaPRtUIB0M8Vd6u459oZGf3csY' },

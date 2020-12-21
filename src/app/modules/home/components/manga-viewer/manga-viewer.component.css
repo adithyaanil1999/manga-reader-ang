@@ -20,6 +20,53 @@
     cursor: pointer;
 }
 
+.snackbar-outer {
+    width: 44%;
+    height: 5%;
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto 3% auto;
+}
+
+.snackbar-wrap {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: #353535;
+    color: #aba7a7;
+    border-radius: 5px;
+}
+
+.snackbar-left {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.snackbar-left>p {
+    margin-left: 5%;
+    cursor: default;
+}
+
+.snackbar-right>p {
+    margin-right: 15%;
+    color: #ff5400;
+    cursor: pointer;
+}
+
+.snackbar-right {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 .image-wrapper {
     width: 100%;
     display: flex;
@@ -40,5 +87,9 @@
     }
     .back-btn-cont {
         display: none;
+    }
+    .snackbar-outer {
+        width: 91%;
+        height: 7%;
     }
 }

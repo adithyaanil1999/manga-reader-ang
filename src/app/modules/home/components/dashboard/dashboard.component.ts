@@ -70,9 +70,16 @@ export class DashboardComponent implements OnInit {
       }
     }
   }
-  handleSearchRedirect(name){
-    this.isNotFocused();
-    this._router.navigate(['dashboard/search'],{ queryParams: {type:'manga', title: name } });
+  handleSearchRedirect(e,name){
+    // console.log(e.keyCode)
+    if(e === null){
+      this.isNotFocused();
+      this._router.navigate(['dashboard/search'],{ queryParams: {type:'manga', title: name } });
+    }
+    else if(e.keyCode === 13 && name !==''){
+      this.isNotFocused();
+      this._router.navigate(['dashboard/search'],{ queryParams: {type:'manga', title: name } });
+    }
   }
 
   isFocused(){
@@ -84,12 +91,12 @@ export class DashboardComponent implements OnInit {
       this.focusBool = false;
       this.searchInp.nativeElement.value = '';
       this.data = [];
-    },100);
+    },150);
   }
 
   selectButton(){
     let currentUrl = window.location.href;
-    if(currentUrl.indexOf('discover') !== -1 ){
+    if(currentUrl.indexOf('discover') !== -1 || currentUrl.indexOf('mangaView') !== -1 || currentUrl.indexOf('chapViewer') !== -1 ){
       this.selectItem(0);
     }else if(currentUrl.indexOf('home') !== -1 ){
       this.selectItem(1);
@@ -97,7 +104,7 @@ export class DashboardComponent implements OnInit {
       this.selectItem(2);
     }else if(currentUrl.indexOf('account') !== -1 ) {
       this.selectItem(3);
-    }else if(currentUrl.indexOf('login') !== -1 || currentUrl.indexOf('search?') !== -1 || currentUrl.indexOf('mangaView') !== -1 || currentUrl.indexOf('chapViewer') !== -1 ){
+    }else if(currentUrl.indexOf('login') !== -1 || currentUrl.indexOf('search?') !== -1){
       //skip
     }else{
       this._router.navigate(['/dashboard/discover'],{ queryParams: { type: 'latest' }});
