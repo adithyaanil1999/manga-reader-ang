@@ -4,9 +4,13 @@ export const BeURL = 'https://manga-reader-be.herokuapp.com/';
 export const scaperURL = 'https://manga-reader-express.herokuapp.com/'
 // export const scaperURL= 'http://localhost:4000/';
 
+let currentUrl = window.location.href;
 
-export const prodBool = true;
-// export const prodBool = false;
+
+export const prodBool = currentUrl.indexOf('github.io') !== -1 ? false : true;
+
+export const version = "v1.2";
+
 
 export const defaultSRC = 'MGFX';
 
@@ -37,6 +41,3 @@ export const getsrcFromUrl = function(){
 
 
 
-// export const prodBool = true;
-
-export const version = "v1.2";

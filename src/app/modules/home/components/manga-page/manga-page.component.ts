@@ -105,6 +105,7 @@ export class MangaPageComponent implements OnInit {
   }
 
   handleBookmark(){
+    this.setSpinner = true;
     let data = {
       username: this.state['userDetailObject']['username'],
       src: this.getSourceFromUrl(),
