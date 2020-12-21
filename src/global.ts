@@ -1,8 +1,8 @@
 // export const BeURL = 'http://localhost:3000/';
 export const BeURL = 'https://manga-reader-be.herokuapp.com/';
 
-export const scaperURL = 'https://manga-reader-express.herokuapp.com/'
-// export const scaperURL= 'http://localhost:4000/';
+// export const scaperURL = 'https://manga-reader-express.herokuapp.com/'
+export const scaperURL= 'http://localhost:4000/';
 
 let currentUrl = window.location.href;
 
@@ -17,11 +17,13 @@ export const defaultSRC = 'MGFX';
 
 export const getSourceFromCode = function(code){
     if(code === 'MGPK'){
-      return 'Manga Park'
+      return 'MangaPark'
     }else if(code === 'MGFX'){
-        return 'Manga Fox'
+        return 'MangaFox'
     }else if(code === 'MGDX'){
       return 'MangaDex'
+    }else if(code === 'MGHR'){
+      return 'MangaHere'
     }else{
       return 'Unknown Source'
     }
@@ -36,6 +38,8 @@ export const getsrcFromUrl = function(){
     return "MGFX";
   }else if(currentUrl.indexOf('mangadex') !== -1 ){
     return "MGDX";
+  }else if(currentUrl.indexOf('mangahere') !== -1 ){
+    return "MGHR";
   }
 }
 
