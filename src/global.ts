@@ -44,7 +44,7 @@ export const getsrcFromUrl = function(){
     return "MGDX";
   }else if(currentUrl.indexOf('mangahere') !== -1 ){
     return "MGHR";
-  }else if(currentUrl.indexOf('readcomicsonline') !== -1 ){
+  }else if(currentUrl.indexOf('readcomiconline') !== -1 ){
     return "RCO";
   }
 }
