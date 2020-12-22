@@ -11,7 +11,7 @@ let currentUrl = window.location.href;
 
 export const prodBool = currentUrl.indexOf('github.io') !== -1 ? false : true;
 
-export const version = "v1.2";
+export const version = "v1.25";
 
 
 export const defaultSRC = 'MGFX';
@@ -26,6 +26,8 @@ export const getSourceFromCode = function(code){
       return 'MangaDex'
     }else if(code === 'MGHR'){
       return 'MangaHere'
+    }else if(code === 'RCO'){
+      return 'ReadComicsOnline'
     }else{
       return 'Unknown Source'
     }
@@ -42,6 +44,8 @@ export const getsrcFromUrl = function(){
     return "MGDX";
   }else if(currentUrl.indexOf('mangahere') !== -1 ){
     return "MGHR";
+  }else if(currentUrl.indexOf('readcomicsonline') !== -1 ){
+    return "RCO";
   }
 }
 

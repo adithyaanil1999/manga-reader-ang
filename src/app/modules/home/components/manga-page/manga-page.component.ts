@@ -46,7 +46,6 @@ export class MangaPageComponent implements OnInit {
 
   handleLink(link,title){
     this.setSpinner = true;
-
     let data = {
       username: this.state['userDetailObject']['username'],
       src: this.getSourceFromUrl(),
@@ -143,7 +142,7 @@ export class MangaPageComponent implements OnInit {
   }
   
   getMangaDetails(link){
-    console.log(link)
+    this.setSpinner = true;
     fetch(scaperURL+"getMangaInfo",{
       method: 'POST',
       headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
@@ -151,11 +150,9 @@ export class MangaPageComponent implements OnInit {
     }).then(res=>{return res.json()})
       .then(data=>{
         this.data = data.mangaInfo;
-        console.log(link)
-        // console.l
+        this.setSpinner = false;
         if(link.indexOf('fanfox.net') !== -1 && this.data.chapterList.length === 0){
-          console.log('here')
-          // alert("This content is removed because of copyright,try a different source")
+          alert("This content is removed because of copyright,try a different source")
         }
         this.store.dispatch(currentMangaDetails({mangaDetails:{...this.data}}));
         this.setSpinner = false;
@@ -175,12 +172,14 @@ export class MangaPageComponent implements OnInit {
           this.link = params.link;
         });
 
-
+        
     if(this.state['refreshMangaPageBool'] === true){
       this.store.dispatch(refreshMangaPage({refreshMangaPage:false}));
       this.substate = true;
       this.getMangaDetails(this.link)
     }else{
+      this.setSpinner = true;
+      console.log(this.setSpinner)
       if(this.state['mangaObject']){
         let dataSent = {
           username: this.state['userDetailObject']['username'],
@@ -192,13 +191,18 @@ export class MangaPageComponent implements OnInit {
         body: JSON.stringify(dataSent)
         }).then(res=>{return res.json()})
         .then(data=>{
-          this.highlightLastRead();
+          this.setSpinner = false;
+          this.lastRead = data.message;
+          this.isBookmarked = data.messageBookmarked;
+          this.findIndexLast();
         });
         this.data = this.state['mangaObject'];
-        this.setSpinner = false;
       }else{
           this.getMangaDetails(this.link)
       }
+
+
+
     }    
   }
 

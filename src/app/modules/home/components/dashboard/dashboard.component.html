@@ -1,4 +1,7 @@
 <div class="black dashboard-outer-cont">
+    <div *ngIf="setSpin" class="spinner-cont">
+        <div class="loader">Loading...</div>
+    </div>
     <div class="top-nav-dash">
         <div [class.search-open]="focusBool" class="slideInDown2 border-orange search-btn-cont">
             <div class="search-icon-cont">
@@ -32,7 +35,7 @@
         </div>
     </div>
     <div class="dash-body">
-        <div class="dash-body-wrapper">
+        <div *ngIf="!setSpin" class="dash-body-wrapper">
             <router-outlet></router-outlet>
         </div>
     </div>

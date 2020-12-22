@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
   mode: string = 'manga';
   focusBool: boolean = false;
   data = [];
+  setSpin = false;
   @ViewChild('searchInp') searchInp:ElementRef;
 
   constructor(private _router: Router,private store:Store) { }
@@ -113,6 +114,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getSourceFromDb(){
+    this.setSpin = true;
     fetch(BeURL+"getDefaultSrc",{
       method:'POST',
       headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
@@ -122,6 +124,7 @@ export class DashboardComponent implements OnInit {
     })
     .then(res => res.json())
     .then(data => {
+      this.setSpin = false;
       this.store.dispatch(currentSource({currentSource:data.message.src}));
       this.store.dispatch(refreshHomePage({refreshHomePageBool:true}));
       this.store.dispatch(refreshGenrePage({refreshGenrePageBool:true}));
