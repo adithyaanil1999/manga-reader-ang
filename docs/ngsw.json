@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1608641060549,
+  "timestamp": 1608756742728,
   "index": "https://adithyaanil1999.github.io/manga-reader-ang/index.html",
   "assetGroups": [
     {
@@ -9,8 +9,8 @@
       "updateMode": "prefetch",
       "urls": [
         "https://adithyaanil1999.github.io/manga-reader-ang/index.html",
-        "https://adithyaanil1999.github.io/manga-reader-ang/main-es2015.8242d837784b213229ac.js",
-        "https://adithyaanil1999.github.io/manga-reader-ang/main-es5.8242d837784b213229ac.js",
+        "https://adithyaanil1999.github.io/manga-reader-ang/main-es2015.3ac0a6a764dd233d2f9a.js",
+        "https://adithyaanil1999.github.io/manga-reader-ang/main-es5.3ac0a6a764dd233d2f9a.js",
         "https://adithyaanil1999.github.io/manga-reader-ang/manifest.webmanifest",
         "https://adithyaanil1999.github.io/manga-reader-ang/polyfills-es2015.f332a089ad1600448873.js",
         "https://adithyaanil1999.github.io/manga-reader-ang/polyfills-es5.177e85a9724683782539.js",
@@ -47,6 +47,8 @@
         "https://adithyaanil1999.github.io/manga-reader-ang/assets/icons/iphonex_splash.png",
         "https://adithyaanil1999.github.io/manga-reader-ang/assets/icons/iphonexr_splash.png",
         "https://adithyaanil1999.github.io/manga-reader-ang/assets/icons/iphonexsmax_splash.png",
+        "https://adithyaanil1999.github.io/manga-reader-ang/assets/icons/mangaicon.png",
+        "https://adithyaanil1999.github.io/manga-reader-ang/assets/icons/mangaicon2.jpg",
         "https://adithyaanil1999.github.io/manga-reader-ang/assets/imgs/loginBG.jpg"
       ],
       "patterns": []
@@ -76,10 +78,12 @@
     "https://adithyaanil1999.github.io/manga-reader-ang/assets/icons/iphonex_splash.png": "371060a5a9b5229beadadc77f34b17fe65e8394f",
     "https://adithyaanil1999.github.io/manga-reader-ang/assets/icons/iphonexr_splash.png": "46ecf251f86c89e7696ba90189e10550c439e7ef",
     "https://adithyaanil1999.github.io/manga-reader-ang/assets/icons/iphonexsmax_splash.png": "7b16284b6f9dabe26632a485316635df183b59b8",
+    "https://adithyaanil1999.github.io/manga-reader-ang/assets/icons/mangaicon.png": "6476d88f47c4ab62341291ea6de53b8b49333d4c",
+    "https://adithyaanil1999.github.io/manga-reader-ang/assets/icons/mangaicon2.jpg": "969325c662957fada2222a1e3928366f7a7b3c44",
     "https://adithyaanil1999.github.io/manga-reader-ang/assets/imgs/loginBG.jpg": "375366316c9533703dde5399ea4b1bd6a6dd2abb",
-    "https://adithyaanil1999.github.io/manga-reader-ang/index.html": "b2e14cd1fb9646b3105d50699a6eab8b8d39e107",
-    "https://adithyaanil1999.github.io/manga-reader-ang/main-es2015.8242d837784b213229ac.js": "763aa669329c5ba2ed32d138543dc41ee6ef3746",
-    "https://adithyaanil1999.github.io/manga-reader-ang/main-es5.8242d837784b213229ac.js": "7f78a4aba87b35fabe12c3f66dc4f68cf2e136fd",
+    "https://adithyaanil1999.github.io/manga-reader-ang/index.html": "056121fab7b55a0f4dc4fd548915b1784f054193",
+    "https://adithyaanil1999.github.io/manga-reader-ang/main-es2015.3ac0a6a764dd233d2f9a.js": "18722f59b4abbd435b5177d4b4a30b0477388368",
+    "https://adithyaanil1999.github.io/manga-reader-ang/main-es5.3ac0a6a764dd233d2f9a.js": "d6986ed7bbcda5059d05ab75c0d626580876873f",
     "https://adithyaanil1999.github.io/manga-reader-ang/manifest.webmanifest": "8a5fd313d674561bc7a6b062cd0e3fc13018a0ba",
     "https://adithyaanil1999.github.io/manga-reader-ang/polyfills-es2015.f332a089ad1600448873.js": "72ad4ccc0a3916ae4598199447cdeadd6d380570",
     "https://adithyaanil1999.github.io/manga-reader-ang/polyfills-es5.177e85a9724683782539.js": "8aa26ea87b9958c6bd13b7c257c0e9940438e684",

@@ -200,9 +200,6 @@ export class MangaPageComponent implements OnInit {
       }else{
           this.getMangaDetails(this.link)
       }
-
-
-
     }    
   }
 
