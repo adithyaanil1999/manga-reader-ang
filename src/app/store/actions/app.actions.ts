@@ -2,65 +2,70 @@ import { createAction, props } from '@ngrx/store';
 
 export const checklogin = createAction(
   '[loginModule] checkLogin',
-  props<{ isLoggedIn: boolean}>()
+  props<{ isLoggedIn: boolean }>()
 );
 
 export const checkMobile = createAction(
-    '[appModule] checkMobile',
-    props<{ isMobile: boolean}>()
+  '[appModule] checkMobile',
+  props<{ isMobile: boolean }>()
 );
 
 export const currentMangaLink = createAction(
   '[mangaModule] getLink',
-  props<{ currentMangaLink: string}>()
+  props<{ currentMangaLink: string }>()
 );
 
 export const currentMangaDetails = createAction(
   '[mangaModule] mangaDetails',
-  props<{ mangaDetails: {}}>()
+  props<{ mangaDetails: {} }>()
 );
 
 export const latestMangaList = createAction(
   '[mangaModule] mangaLatestList',
-  props<{ latestList: {}}>()
+  props<{ latestList: {} }>()
 );
 
 export const bookmarkedList = createAction(
   '[mangaModule] mangaBookmarkedList',
-  props<{ bookMarkedList: {}}>()
+  props<{ bookMarkedList: {} }>()
 );
 
 export const userDetails = createAction(
   '[mangaModule] userDetails',
-  props<{ userDetails: {}}>()
+  props<{ userDetails: {} }>()
 );
 
 export const pageNoObject = createAction(
   '[mangaModule] pageNumbers',
-  props<{ pageNoObj:{}} >()
+  props<{ pageNoObj: {} }>()
 );
 
 export const refreshMangaPage = createAction(
   '[mangaModule] refreshMangaPage',
-  props<{ refreshMangaPage: boolean}>()
+  props<{ refreshMangaPage: boolean }>()
 );
 
 export const refreshHomePage = createAction(
   '[mangaModule] refreshHomePage',
-  props<{ refreshHomePageBool: boolean}>()
+  props<{ refreshHomePageBool: boolean }>()
 );
 
 export const refreshGenrePage = createAction(
   '[mangaModule] refreshGenrePage',
-  props<{ refreshGenrePageBool: boolean}>()
+  props<{ refreshGenrePageBool: boolean }>()
 );
 
 export const currentSource = createAction(
   '[homeModule] currentSource',
-  props<{ currentSource: string}>()
+  props<{ currentSource: string }>()
 );
 
 export const genreObject = createAction(
   '[mangaModule] genreObject',
-  props<{ genreObj:{}} >()
+  props<{ genreObj: {} }>()
+);
+
+export const prevScrollHeight = createAction(
+  '[mangaModule] rememberScrollHeight',
+  props<{ prevScrollHeight: number }>()
 );

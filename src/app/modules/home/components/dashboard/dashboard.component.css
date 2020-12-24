@@ -278,6 +278,15 @@
   .dash-body-wrapper {
     overflow: scroll;
   }
+
+  .search-inp {
+    width: 70%;
+  }
+
+  .search-type-wrap {
+    width: 30%;
+    font-size: 1vh;
+  }
 }
 
 /* spinner */
