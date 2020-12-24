@@ -88,6 +88,7 @@ export class DiscoverComponent implements OnInit {
 
   getHotManga(pageNo) {
     this.setSpinner = true;
+    console.log(this.src);
     let data = {
       src: this.src,
       page: pageNo,
@@ -175,7 +176,7 @@ export class DiscoverComponent implements OnInit {
         this.dataArr = this.state['latestObject'];
         this.scrollTo(this.state['prevScrollHeight']);
       }
-    } else {
+    } else if ('genre' in this.params) {
       this.mode = 'genre';
       this.dataArr = [];
       this.getGenreManga();
