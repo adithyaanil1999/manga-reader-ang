@@ -22,6 +22,7 @@ export class MangaViewerComponent implements OnInit {
   errorBool: boolean = false;
   reliableMode: boolean = false;
   calledReliable: boolean = false;
+  showReliableMessage: boolean = false;
   @ViewChild('snackBar') snackBar: ElementRef;
   @ViewChild('scrollCont') scrollCont: ElementRef;
 
@@ -51,11 +52,14 @@ export class MangaViewerComponent implements OnInit {
     if ((src === 'MGFX' || src === 'MGHR') && this.calledReliable === false) {
       this.reliableMode = true;
       this.calledReliable = true;
+      this.isSpinner = true;
+      this.showSnackBarReliable();
       this.getImages();
     } else if (!(src == 'MGFX' || src === 'MGHR')) {
       this.location.back();
     }
   }
+
   getImages() {
     console.log(this.link);
     if (this.reliableMode === false) {
@@ -105,7 +109,32 @@ export class MangaViewerComponent implements OnInit {
     }
   }
 
+  showSnackBarReliable() {
+    function slideUpEnd() {
+      function slideDownEnd(that) {
+        sb.classList.remove('animate__animated', 'animate__slideOutDown');
+        sb.removeEventListener('animationend', slideDownEnd);
+        that.showReliableMessage = false;
+      }
+      sb.removeEventListener('animationend', slideUpEnd);
+      sb.classList.remove('animate__animated', 'animate__slideInUp');
+      sb.classList.add('animate__animated', 'animate__slideOutDown');
+      sb.addEventListener('animationend', slideDownEnd(this), {
+        once: true,
+      });
+    }
+    const sb = this.snackBar.nativeElement;
+    this.showReliableMessage = true;
+    sb.classList.add('animate__animated', 'animate__slideInUp');
+    sb.addEventListener('animationend', slideUpEnd.bind(this), {
+      once: true,
+    });
+  }
+
   handleScroll() {
+    // if (this.showReliableMessage === false) {
+    //   this.isEnd = false;
+    // }
     const element = this.scrollCont.nativeElement;
     const sb = this.snackBar.nativeElement;
 
@@ -113,13 +142,6 @@ export class MangaViewerComponent implements OnInit {
       sb.removeEventListener('animationend', slideUpEnd);
       this.isEnd = true;
     }
-
-    // function slideDownEnd(){
-    //   this.isEnd = false;
-    //   sb.classList.remove('animate__animated', 'animate__slideOutDown');
-    //   sb.removeEventListener('animationend',slideDownEnd);
-    // }
-
     if (
       Math.ceil(element.scrollHeight - element.scrollTop) ===
       element.clientHeight
@@ -137,14 +159,14 @@ export class MangaViewerComponent implements OnInit {
 
   displayImages() {
     let i = 0;
-    this.data = this.dataBuffer;
-    // let interval = setInterval(() => {
-    //   this.data.push(this.dataBuffer[i]);
-    //   i++;
-    //   if (i === this.dataBuffer.length) {
-    //     clearInterval(interval);
-    //   }
-    // }, 20);
+    // this.data = this.dataBuffer;
+    let interval = setInterval(() => {
+      this.data.push(this.dataBuffer[i]);
+      i++;
+      if (i === this.dataBuffer.length) {
+        clearInterval(interval);
+      }
+    }, 20);
   }
 
   ngOnInit(): void {

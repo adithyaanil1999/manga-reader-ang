@@ -11,16 +11,24 @@
         <p (click)="handleBackBtn()">Back</p>
       </div>
     </div>
+    <div *ngIf="showReliableMessage" class="snackbar-wrap">
+      <div class="snackbar-left">
+        <p>Images not found! Trying different algorithm</p>
+      </div>
+      <div class="snackbar-right">
+        <!-- <p>Back</p> -->
+      </div>
+    </div>
   </div>
   <div *ngIf="!isSpinner" class="back-btn-cont">
     <i (click)="handleBackBtn()" class="fas fa-arrow-circle-left"></i>
   </div>
   <div *ngIf="!isSpinner" class="image-wrapper">
     <img
-      (error)="handleImageError($event)"
+      #image
+      (error)="handleImageError($event); image.style.display = 'none'"
       *ngFor="let i of data"
       src="{{ i }}"
-      alt=""
     />
   </div>
 </div>
