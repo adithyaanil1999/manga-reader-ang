@@ -76,7 +76,7 @@ export class MangaPageComponent implements OnInit {
           this.store.dispatch(refreshHomePage({ refreshHomePageBool: true }));
           this.router.navigate(['chapViewer'], { queryParams: { link: link } });
         } else {
-          console.log(data.message);
+          // console.log(data.message);
           alert('Some error has occured');
           this.location.back();
         }
@@ -209,7 +209,7 @@ export class MangaPageComponent implements OnInit {
       this.getMangaDetails(this.link);
     } else {
       this.setSpinner = true;
-      console.log(this.setSpinner);
+      // console.log(this.setSpinner);
       if (this.state['mangaObject']) {
         let dataSent = {
           username: this.state['userDetailObject']['username'],

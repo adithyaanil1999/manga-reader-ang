@@ -217,6 +217,10 @@
   }
   .chap-item-left {
     margin-left: 20px;
+    font-size: inherit;
+  }
+  .chap-item {
+    font-size: 1.2vh !important;
   }
   .manga-grid {
     display: flex;
@@ -236,6 +240,9 @@
   }
   .chap-inner-wrap {
     width: 98%;
+  }
+  .title-wrap {
+    font-size: inherit;
   }
   .chap-inner-wrap > a {
     font-size: 1.2vh !important;

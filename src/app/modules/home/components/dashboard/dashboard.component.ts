@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
           })
           .then((data) => {
             this.data = data.message;
-            console.log(this.data);
+            // console.log(this.data);
           });
       } else {
         fetch(scaperURL + 'autocomplete', {

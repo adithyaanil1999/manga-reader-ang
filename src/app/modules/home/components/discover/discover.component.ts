@@ -77,7 +77,7 @@ export class DiscoverComponent implements OnInit {
         if (data.LatestManga === 'end') {
           this.setSpinner = false;
           this.end = true;
-          console.log('end');
+          // console.log('end');
         } else {
           this.setSpinner = false;
           this.dataArr = this.dataArr.concat(data.LatestManga);
@@ -88,7 +88,7 @@ export class DiscoverComponent implements OnInit {
 
   getHotManga(pageNo) {
     this.setSpinner = true;
-    console.log(this.src);
+    // console.log(this.src);
     let data = {
       src: this.src,
       page: pageNo,
@@ -167,11 +167,11 @@ export class DiscoverComponent implements OnInit {
         Object.keys(this.state['latestObject']).length === 0 ||
         this.state['refreshHomePageBool'] === true
       ) {
-        console.log('getting list from api');
+        // console.log('getting list from api');
         this.store.dispatch(refreshHomePage({ refreshHomePageBool: false }));
         this.getHotManga(this.pageNo);
       } else {
-        console.log('getting data from nrgx');
+        // console.log('getting data from nrgx');
         this.pageNo = this.state['pageNoObject']['discover'];
         this.dataArr = this.state['latestObject'];
         this.scrollTo(this.state['prevScrollHeight']);
