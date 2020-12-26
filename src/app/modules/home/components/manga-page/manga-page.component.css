@@ -134,6 +134,7 @@
   margin-bottom: 5px;
   border-radius: 5px;
   display: flex;
+  font-size: 1.2vh;
 }
 
 .chap-item-left {
@@ -150,7 +151,6 @@
 }
 
 .chap-item-left > h2 {
-  font-size: 1vw;
   width: 80%;
 }
 
@@ -202,7 +202,6 @@
   display: flex;
   justify-content: flex-end;
   margin-right: 20px;
-  font-size: 1vw;
 }
 
 .cont-title {
@@ -217,7 +216,6 @@
   }
   .chap-item-left {
     margin-left: 20px;
-    font-size: inherit;
   }
   .chap-item {
     font-size: 1.2vh !important;
@@ -240,11 +238,5 @@
   }
   .chap-inner-wrap {
     width: 98%;
-  }
-  .title-wrap {
-    font-size: inherit;
-  }
-  .chap-inner-wrap > a {
-    font-size: 1.2vh !important;
   }
 }

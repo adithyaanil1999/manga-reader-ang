@@ -1,23 +1,32 @@
 <div class="animate__animated animate__fadeIn account-outer-wrap">
-    <div *ngIf="setSpinner" class="spinner-cont">
-        <div class="loader">Loading...</div>
+  <div *ngIf="setSpinner" class="spinner-cont">
+    <div class="loader">Loading...</div>
+  </div>
+  <div class="account-wrap">
+    <div class="account-option-wrap">
+      <div class="account-option-flex-wrap">
+        <h1>Manga Source</h1>
+        <select class="src-option" (change)="changeSource()" #srcOptions>
+          <option [selected]="currentSrc == 'MGPK' ? true : false" value="MGPK">
+            MangaPark
+          </option>
+          <option [selected]="currentSrc == 'MGFX' ? true : false" value="MGFX">
+            MangaFox
+          </option>
+          <option [selected]="currentSrc == 'MGHR' ? true : false" value="MGHR">
+            MangaHere
+          </option>
+          <option [selected]="currentSrc == 'RCO' ? true : false" value="RCO">
+            ReadComicsOnline
+          </option>
+        </select>
+      </div>
     </div>
-    <div class="account-wrap">
-        <div class="account-option-wrap">
-            <div class="account-option-flex-wrap">
-                <h1>Manga Source</h1>
-                <select class="src-option" (change)="changeSource()" #srcOptions>
-                    <option [selected]=" currentSrc == 'MGPK' ? true : false" value="MGPK">MangaPark</option>
-                    <option [selected]=" currentSrc == 'MGFX' ? true : false" value="MGFX">MangaFox</option>
-                    <option [selected]=" currentSrc == 'MGHR' ? true : false" value="MGHR">MangaHere</option>
-                    <option [selected]=" currentSrc == 'RCO' ? true : false" value="RCO">ReadComicsOnline</option>
-                </select>
-            </div>
-        </div>
-        <div class="black border-orange logout-btn-wrap">
-            <div (click)="handleLogout()" class="logout-button">
-                <span>Logout</span>
-            </div>
-        </div>
+    <div class="black border-orange logout-btn-wrap">
+      <div (click)="handleLogout()" class="logout-button">
+        <span>Logout</span>
+      </div>
     </div>
+    <span style="color: #ff5400">Verison No: {{ vno }}</span>
+  </div>
 </div>
