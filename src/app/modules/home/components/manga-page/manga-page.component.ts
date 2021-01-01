@@ -5,6 +5,7 @@ import { currentMangaDetails } from '../../../../store/actions/app.actions';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { Location } from '@angular/common';
+// import MangaHere from '../../../models/MangaHere';
 
 import {
   refreshMangaPage,
@@ -31,6 +32,7 @@ export class MangaPageComponent implements OnInit {
   getSourceFromUrl = getsrcFromUrl;
 
   constructor(
+    // private mangaHereObj: MangaHere,
     private store: Store,
     private route: ActivatedRoute,
     private router: Router,
@@ -166,6 +168,17 @@ export class MangaPageComponent implements OnInit {
       });
   }
 
+  // testLocal() {
+  //   // console.log(this.data);
+  //   // console.log(th)
+  //   let testChap = this.data.chapterList[0].chapterLink;
+  //   console.log(testChap);
+  //   const mangaHereObj = new MangaHere();
+  //   mangaHereObj.getImageList(testChap).then((data) => {
+  //     console.log(data);
+  //   });
+  // }
+
   getMangaDetails(link) {
     this.setSpinner = true;
     fetch(scaperURL + 'getMangaInfo', {
@@ -181,6 +194,8 @@ export class MangaPageComponent implements OnInit {
       })
       .then((data) => {
         this.data = data.mangaInfo;
+        console.log(this.data);
+        // this.testLocal();
         this.setSpinner = false;
         if (this.data.chapterList.length === 0) {
           alert('This content is removed,try a different source');

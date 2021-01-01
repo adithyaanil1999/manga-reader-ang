@@ -2,6 +2,7 @@
 export const BeURL = 'https://manga-reader-be.herokuapp.com/';
 
 export const scaperURL = 'https://manga-reader-express.herokuapp.com/';
+// export const scaperURL = 'http://localhost:4000/';
 
 let currentUrl = window.location.href;
 

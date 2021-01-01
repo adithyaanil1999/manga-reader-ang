@@ -149,7 +149,6 @@ export class DiscoverComponent implements OnInit {
     this.setSpinner = true;
     setTimeout(() => {
       const element = this.scrollCont.nativeElement;
-      // element.scrollTo(0, top);
       element.scrollTo({
         top: top,
         behavior: 'smooth',

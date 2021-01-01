@@ -188,7 +188,6 @@
   width: 100%;
   height: 90%;
   display: flex;
-  /* background: red; */
 }
 
 .nav-item-cont {
@@ -278,14 +277,17 @@
   .dash-body-wrapper {
     overflow: scroll;
   }
-
+  .bottom-dash-cont {
+    margin-bottom: 2%;
+  }
   .search-inp {
-    width: 70%;
+    width: 65%;
   }
 
   .search-type-wrap {
     width: 30%;
     font-size: 1vh;
+    margin-right: 5%;
   }
 }
 
