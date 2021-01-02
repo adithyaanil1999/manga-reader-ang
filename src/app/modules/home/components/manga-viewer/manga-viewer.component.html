@@ -1,9 +1,17 @@
-<div #scrollCont (scroll)="handleScroll()" class="black mobile-main">
+<div
+  #scrollCont
+  (scroll)="handleScroll()"
+  [class.one-page-wrap]="viewerType === 'onePage'"
+  class="black mobile-main"
+>
   <div *ngIf="isSpinner" class="spinner-cont">
     <div class="loader">Loading...</div>
   </div>
   <div #snackBar class="snackbar-outer">
-    <div *ngIf="isEnd || isEndOnePage" class="snackbar-wrap">
+    <div
+      *ngIf="(isEnd || isEndOnePage) && viewerType === 'vertical'"
+      class="snackbar-wrap"
+    >
       <div class="snackbar-left">
         <p>No more Pages in Chapter!</p>
       </div>
@@ -24,17 +32,11 @@
     <i (click)="handleBackBtn()" class="fas fa-arrow-circle-left"></i>
   </div>
   <div *ngIf="!isSpinner && viewerType === 'vertical'" class="image-wrapper">
-    <img
-      #image
-      (error)="handleImageError($event); image.style.display = 'none'"
-      *ngFor="let i of data"
-      src="{{ i }}"
-    />
+    <img #image *ngFor="let i of data" src="{{ i }}" />
   </div>
   <div *ngIf="viewerType === 'onePage'" class="image-wrapper-one-page">
     <div class="one-page-viewer">
       <div (click)="decrementPageNo(data.length)" class="prev-img"></div>
-      <!-- <img (load)="checkLoad()" src="{{ data[pageNo] }}" alt="" /> -->
       <img
         #image
         *ngFor="let i of data; let ind = index"

@@ -4,6 +4,7 @@ import {
   scaperURL,
   BeURL,
   getsrcFromUrl,
+  prodBool,
   getSourceFromCode,
 } from '../../../../../global';
 import { currentMangaDetails } from '../../../../store/actions/app.actions';
@@ -85,7 +86,11 @@ export class MangaPageComponent implements OnInit {
         if (data.message === 'sucesss') {
           this.setSpinner = false;
           this.store.dispatch(refreshHomePage({ refreshHomePageBool: true }));
-          this.router.navigate(['chapViewer'], { queryParams: { link: link } });
+          this.router.navigate(['chapViewer'], {
+            queryParams: {
+              link: link,
+            },
+          });
         } else {
           // console.log(data.message);
           alert('Some error has occured');
@@ -222,7 +227,13 @@ export class MangaPageComponent implements OnInit {
 
   setViewerType() {
     if (Cookies.get('viewerType') === undefined) {
-      Cookies.set('viewerType', 'vertical');
+      if (prodBool) {
+        Cookies.set('viewerType', 'vertical', { domain: 'localhost' });
+      } else {
+        Cookies.set('viewerType', 'vertical', {
+          domain: 'adithyaanil1999.github.io',
+        });
+      }
       this.viewerType = 'vertical';
     } else {
       this.viewerType = Cookies.get('viewerType');
@@ -231,7 +242,13 @@ export class MangaPageComponent implements OnInit {
 
   toggleTypeTo(type) {
     this.viewerType = type;
-    Cookies.set('viewerType', type);
+    if (prodBool) {
+      Cookies.set('viewerType', type, { domain: 'localhost' });
+    } else {
+      Cookies.set('viewerType', type, {
+        domain: 'adithyaanil1999.github.io',
+      });
+    }
   }
 
   ngOnInit(): void {

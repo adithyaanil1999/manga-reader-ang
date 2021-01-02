@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { scaperURL, getsrcFromUrl } from '../../../../../global';
+import { scaperURL, getsrcFromUrl, prodBool } from '../../../../../global';
 import { Location } from '@angular/common';
 import Cookies from 'js-cookie';
 
@@ -201,7 +201,13 @@ export class MangaViewerComponent implements OnInit {
   ngOnInit(): void {
     this.isMobile = this.getState().mobileBool;
     if (Cookies.get('viewerType') === undefined) {
-      Cookies.set('viewerType', 'vertical');
+      if (prodBool) {
+        Cookies.set('viewerType', 'vertical', { domain: 'localhost' });
+      } else {
+        Cookies.set('viewerType', 'vertical', {
+          domain: 'adithyaanil1999.github.io',
+        });
+      }
       this.viewerType = 'vertical';
     } else {
       this.viewerType = Cookies.get('viewerType');
