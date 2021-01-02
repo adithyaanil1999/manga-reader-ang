@@ -24,6 +24,10 @@ export const latestMangaList = createAction(
   '[mangaModule] mangaLatestList',
   props<{ latestList: {} }>()
 );
+export const genreMangaList = createAction(
+  '[mangaModule] mangaGenreList',
+  props<{ genreList: {} }>()
+);
 
 export const bookmarkedList = createAction(
   '[mangaModule] mangaBookmarkedList',
@@ -43,6 +47,11 @@ export const pageNoObject = createAction(
 export const refreshMangaPage = createAction(
   '[mangaModule] refreshMangaPage',
   props<{ refreshMangaPage: boolean }>()
+);
+
+export const refreshGenreListPage = createAction(
+  '[mangaModule] refreshGenreListPage',
+  props<{ refreshGenreListBool: boolean }>()
 );
 
 export const refreshHomePage = createAction(

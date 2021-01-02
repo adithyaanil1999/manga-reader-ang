@@ -4,6 +4,7 @@ import { take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { scaperURL, getsrcFromUrl } from '../../../../../global';
 import { Location } from '@angular/common';
+import Cookies from 'js-cookie';
 
 @Component({
   selector: 'app-manga-viewer',
@@ -19,10 +20,13 @@ export class MangaViewerComponent implements OnInit {
   isSpinner: boolean = true;
   limitRate: boolean = true;
   isEnd: boolean = false;
+  isEndOnePage: boolean = false;
   errorBool: boolean = false;
   reliableMode: boolean = false;
   calledReliable: boolean = false;
   showReliableMessage: boolean = false;
+  viewerType: string;
+  pageNo = 0;
   @ViewChild('snackBar') snackBar: ElementRef;
   @ViewChild('scrollCont') scrollCont: ElementRef;
 
@@ -169,8 +173,38 @@ export class MangaViewerComponent implements OnInit {
     }, 20);
   }
 
+  decrementPageNo(len) {
+    if (this.pageNo >= 1) {
+      this.pageNo--;
+      this.isEndOnePage = false;
+    }
+  }
+
+  incrementPageNo(len) {
+    const sb = this.snackBar.nativeElement;
+    if (this.pageNo <= len - 2) {
+      this.pageNo++;
+    } else if (this.pageNo === len - 1) {
+      console.log('end');
+      function slideUpEnd() {
+        sb.removeEventListener('animationend', slideUpEnd);
+        sb.classList.remove('animate__animated', 'animate__slideInUp');
+      }
+      sb.classList.add('animate__animated', 'animate__slideInUp');
+      this.isEndOnePage = true;
+      sb.addEventListener('animationend', slideUpEnd.bind(this), {
+        once: true,
+      });
+    }
+  }
   ngOnInit(): void {
     this.isMobile = this.getState().mobileBool;
+    if (Cookies.get('viewerType') === undefined) {
+      Cookies.set('viewerType', 'vertical');
+      this.viewerType = 'vertical';
+    } else {
+      this.viewerType = Cookies.get('viewerType');
+    }
     this.sub = this.route.queryParams.subscribe((params) => {
       this.link = params.link;
       this.getImages();

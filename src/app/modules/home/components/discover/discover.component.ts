@@ -1,13 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  defaultSRC,
-  getSourceFromCode,
-  scaperURL,
-} from '../../../../../global';
+import { getSourceFromCode, scaperURL } from '../../../../../global';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { pluck } from 'rxjs/operators';
 
 import {
   prevScrollHeight,
@@ -16,6 +11,8 @@ import {
   refreshMangaPage,
   pageNoObject,
   refreshHomePage,
+  genreMangaList,
+  refreshGenreListPage,
 } from '../../../../store/actions/app.actions';
 
 @Component({
@@ -81,6 +78,7 @@ export class DiscoverComponent implements OnInit {
         } else {
           this.setSpinner = false;
           this.dataArr = this.dataArr.concat(data.LatestManga);
+          this.store.dispatch(genreMangaList({ genreList: this.dataArr }));
           this.pageNoGenre += 1;
         }
       });
@@ -178,7 +176,18 @@ export class DiscoverComponent implements OnInit {
     } else if ('genre' in this.params) {
       this.mode = 'genre';
       this.dataArr = [];
-      this.getGenreManga();
+      if (
+        Object.keys(this.state['genreMangaObject']).length === 0 ||
+        this.state['refreshGenreListBool'] === true
+      ) {
+        this.store.dispatch(
+          refreshGenreListPage({ refreshGenreListBool: false })
+        );
+        this.getGenreManga();
+      } else {
+        this.dataArr = this.state['genreMangaObject'];
+        this.scrollTo(this.state['prevScrollHeight']);
+      }
     }
   }
 

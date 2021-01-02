@@ -14,6 +14,8 @@ import {
   genreObject,
   refreshGenrePage,
   prevScrollHeight,
+  genreMangaList,
+  refreshGenreListPage,
 } from '../actions/app.actions';
 
 export const userFeatureKey = 'AppState';
@@ -23,11 +25,13 @@ const initalState = {
   mobileBool: false,
   refreshMangaPageBool: true,
   latestObject: {},
+  genreMangaObject: {},
   bookMarkedObj: {},
   userDetailObject: {},
   currentSource: '',
   refreshHomePageBool: false,
   refreshGenrePageBool: false,
+  refreshGenreListBool: false,
   genreObj: {},
   prevScrollHeight: 0,
 };
@@ -54,9 +58,17 @@ const reducerFunc = createReducer(
     ...state,
     latestObject: latestList,
   })),
+  on(genreMangaList, (state, { genreList }) => ({
+    ...state,
+    genreMangaObject: genreList,
+  })),
   on(refreshMangaPage, (state, { refreshMangaPage }) => ({
     ...state,
     refreshMangaPageBool: refreshMangaPage,
+  })),
+  on(refreshGenreListPage, (state, { refreshGenreListBool }) => ({
+    ...state,
+    refreshGenreListBool: refreshGenreListBool,
   })),
   on(userDetails, (state, { userDetails }) => ({
     ...state,

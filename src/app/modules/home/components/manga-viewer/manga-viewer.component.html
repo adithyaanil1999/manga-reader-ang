@@ -3,7 +3,7 @@
     <div class="loader">Loading...</div>
   </div>
   <div #snackBar class="snackbar-outer">
-    <div *ngIf="isEnd" class="snackbar-wrap">
+    <div *ngIf="isEnd || isEndOnePage" class="snackbar-wrap">
       <div class="snackbar-left">
         <p>No more Pages in Chapter!</p>
       </div>
@@ -23,12 +23,22 @@
   <div *ngIf="!isSpinner" class="back-btn-cont">
     <i (click)="handleBackBtn()" class="fas fa-arrow-circle-left"></i>
   </div>
-  <div *ngIf="!isSpinner" class="image-wrapper">
+  <div *ngIf="!isSpinner && viewerType === 'vertical'" class="image-wrapper">
     <img
       #image
       (error)="handleImageError($event); image.style.display = 'none'"
       *ngFor="let i of data"
       src="{{ i }}"
     />
+  </div>
+  <div
+    *ngIf="!isSpinner && viewerType === 'onePage'"
+    class="image-wrapper-one-page"
+  >
+    <div class="one-page-viewer">
+      <div (click)="decrementPageNo(data.length)" class="prev-img"></div>
+      <img src="{{ data[pageNo] }}" alt="" />
+      <div (click)="incrementPageNo(data.length)" class="next-img"></div>
+    </div>
   </div>
 </div>

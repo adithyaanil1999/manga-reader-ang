@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import {
   genreObject,
   refreshGenrePage,
+  refreshGenreListPage,
 } from '../../../../store/actions/app.actions';
 
 @Component({
@@ -23,6 +24,7 @@ export class GenreComponent implements OnInit {
   setSpinner: boolean = false;
 
   handleTag(link) {
+    this.store.dispatch(refreshGenreListPage({ refreshGenreListBool: true }));
     this._router.navigate(['dashboard/discover'], {
       queryParams: { genre: link },
     });

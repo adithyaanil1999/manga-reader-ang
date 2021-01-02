@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { scaperURL, BeURL, getsrcFromUrl } from '../../../../../global';
+import {
+  scaperURL,
+  BeURL,
+  getsrcFromUrl,
+  getSourceFromCode,
+} from '../../../../../global';
 import { currentMangaDetails } from '../../../../store/actions/app.actions';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { Location } from '@angular/common';
+import Cookies from 'js-cookie';
+
 // import MangaHere from '../../../models/MangaHere';
 
 import {
@@ -29,7 +36,9 @@ export class MangaPageComponent implements OnInit {
   isBookmarked: string = '';
   lastIndex: number = 0;
   link: string = '';
+  viewerType;
   getSourceFromUrl = getsrcFromUrl;
+  getsrcFromCode = getSourceFromCode;
 
   constructor(
     // private mangaHereObj: MangaHere,
@@ -194,7 +203,6 @@ export class MangaPageComponent implements OnInit {
       })
       .then((data) => {
         this.data = data.mangaInfo;
-        console.log(this.data);
         // this.testLocal();
         this.setSpinner = false;
         if (this.data.chapterList.length === 0) {
@@ -211,8 +219,24 @@ export class MangaPageComponent implements OnInit {
         }
       });
   }
+
+  setViewerType() {
+    if (Cookies.get('viewerType') === undefined) {
+      Cookies.set('viewerType', 'vertical');
+      this.viewerType = 'vertical';
+    } else {
+      this.viewerType = Cookies.get('viewerType');
+    }
+  }
+
+  toggleTypeTo(type) {
+    this.viewerType = type;
+    Cookies.set('viewerType', type);
+  }
+
   ngOnInit(): void {
     this.setSpinner = true;
+    this.setViewerType();
     this.state = this.getState();
     this.sub = this.route.queryParams.subscribe((params) => {
       this.link = params.link;
