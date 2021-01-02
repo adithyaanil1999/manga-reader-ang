@@ -26,7 +26,6 @@ export class MangaViewerComponent implements OnInit {
   calledReliable: boolean = false;
   showReliableMessage: boolean = false;
   viewerType: string;
-  canLoad: boolean = true;
   pageNo = 0;
   @ViewChild('snackBar') snackBar: ElementRef;
   @ViewChild('scrollCont') scrollCont: ElementRef;
@@ -175,40 +174,28 @@ export class MangaViewerComponent implements OnInit {
   }
 
   decrementPageNo(len) {
-    if (this.canLoad) {
-      this.isSpinner = true;
-      this.canLoad = false;
-      if (this.pageNo >= 1) {
-        this.pageNo--;
-        this.isEndOnePage = false;
-      }
+    if (this.pageNo >= 1) {
+      this.pageNo--;
+      this.isEndOnePage = false;
     }
   }
 
-  checkLoad() {
-    this.canLoad = true;
-    this.isSpinner = false;
-  }
-
   incrementPageNo(len) {
-    if (this.canLoad) {
-      this.isSpinner = true;
-      this.canLoad = false;
-      const sb = this.snackBar.nativeElement;
-      if (this.pageNo <= len - 2) {
-        this.pageNo++;
-      } else if (this.pageNo === len - 1) {
-        console.log('end');
-        function slideUpEnd() {
-          sb.removeEventListener('animationend', slideUpEnd);
-          sb.classList.remove('animate__animated', 'animate__slideInUp');
-        }
-        sb.classList.add('animate__animated', 'animate__slideInUp');
-        this.isEndOnePage = true;
-        sb.addEventListener('animationend', slideUpEnd.bind(this), {
-          once: true,
-        });
+    console.log(this.pageNo);
+    const sb = this.snackBar.nativeElement;
+    if (this.pageNo <= len - 2) {
+      this.pageNo++;
+    } else if (this.pageNo === len - 1) {
+      console.log('end');
+      function slideUpEnd() {
+        sb.removeEventListener('animationend', slideUpEnd);
+        sb.classList.remove('animate__animated', 'animate__slideInUp');
       }
+      sb.classList.add('animate__animated', 'animate__slideInUp');
+      this.isEndOnePage = true;
+      sb.addEventListener('animationend', slideUpEnd.bind(this), {
+        once: true,
+      });
     }
   }
   ngOnInit(): void {

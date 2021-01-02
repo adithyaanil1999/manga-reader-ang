@@ -96,12 +96,14 @@
 
 .one-page-viewer {
   max-width: 60%;
-  display: flex;
-  justify-content: center;
   position: relative;
 }
 .one-page-viewer > img {
   max-width: 100%;
+  display: none;
+}
+.showPage {
+  display: block !important;
 }
 .prev-img {
   width: 30%;

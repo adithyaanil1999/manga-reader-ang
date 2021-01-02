@@ -34,7 +34,14 @@
   <div *ngIf="viewerType === 'onePage'" class="image-wrapper-one-page">
     <div class="one-page-viewer">
       <div (click)="decrementPageNo(data.length)" class="prev-img"></div>
-      <img (load)="checkLoad()" src="{{ data[pageNo] }}" alt="" />
+      <!-- <img (load)="checkLoad()" src="{{ data[pageNo] }}" alt="" /> -->
+      <img
+        #image
+        *ngFor="let i of data; let ind = index"
+        src="{{ i }}"
+        (error)="handleImageError($event); image.style.display = 'none'"
+        [class.showPage]="ind === pageNo"
+      />
       <div (click)="incrementPageNo(data.length)" class="next-img"></div>
     </div>
   </div>
