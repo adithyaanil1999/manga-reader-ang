@@ -32,7 +32,12 @@
     <i (click)="handleBackBtn()" class="fas fa-arrow-circle-left"></i>
   </div>
   <div *ngIf="!isSpinner && viewerType === 'vertical'" class="image-wrapper">
-    <img #image *ngFor="let i of data" src="{{ i }}" />
+    <img
+      (error)="handleImageError($event); image.style.display = 'none'"
+      #image
+      *ngFor="let i of data"
+      src="{{ i }}"
+    />
   </div>
   <div *ngIf="viewerType === 'onePage'" class="image-wrapper-one-page">
     <div class="one-page-viewer">
