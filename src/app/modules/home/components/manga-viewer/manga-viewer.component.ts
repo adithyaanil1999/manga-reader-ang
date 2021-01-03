@@ -15,6 +15,7 @@ export class MangaViewerComponent implements OnInit {
   isMobile: boolean = false;
   link: string;
   sub;
+  state;
   data = [];
   dataBuffer;
   isSpinner: boolean = true;
@@ -52,7 +53,7 @@ export class MangaViewerComponent implements OnInit {
   }
 
   handleImageError(e) {
-    let src = getsrcFromUrl();
+    let src = getsrcFromUrl(this.state['srcOBJ']);
     if ((src === 'MGFX' || src === 'MGHR') && this.calledReliable === false) {
       this.reliableMode = true;
       this.calledReliable = true;
@@ -200,11 +201,16 @@ export class MangaViewerComponent implements OnInit {
   }
   ngOnInit(): void {
     this.isMobile = this.getState().mobileBool;
+    this.state = this.getState();
     if (Cookies.get('viewerType') === undefined) {
       if (prodBool) {
-        Cookies.set('viewerType', 'vertical', { domain: 'localhost' });
+        Cookies.set('viewerType', 'vertical', {
+          expires: 365,
+          domain: 'localhost',
+        });
       } else {
         Cookies.set('viewerType', 'vertical', {
+          expires: 365,
           domain: 'adithyaanil1999.github.io',
         });
       }

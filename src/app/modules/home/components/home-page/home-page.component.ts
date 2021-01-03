@@ -1,119 +1,137 @@
 import { Component, OnInit } from '@angular/core';
-import { BeURL,getSourceFromCode } from '../../../../../global';
-import { Store} from '@ngrx/store';
+import { BeURL, getSourceFromCode } from '../../../../../global';
+import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { currentMangaLink,refreshMangaPage,bookmarkedList,refreshHomePage } from '../../../../store/actions/app.actions'
-
-
+import {
+  currentMangaLink,
+  refreshMangaPage,
+  bookmarkedList,
+  refreshHomePage,
+} from '../../../../store/actions/app.actions';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css']
+  styleUrls: ['./home-page.component.css'],
 })
 export class HomePageComponent implements OnInit {
-
   state;
-  setSpinner:boolean = false;
-  showNoBookmarks:boolean = false;
+  setSpinner: boolean = false;
+  showNoBookmarks: boolean = false;
   dataArr = [];
   data = [];
   unreadArr = [];
   readArr = [];
+  srcObj = {};
   getSourceFromCode = getSourceFromCode;
 
+  constructor(private store: Store, private _router: Router) {}
 
-  constructor(private store:Store,private _router: Router) { }
-
-  getState(){
+  getState() {
     let state;
-    this.store.select(state => state).pipe(take(1)).subscribe(
-       s => {
-         state = s
-       }
-    );
+    this.store
+      .select((state) => state)
+      .pipe(take(1))
+      .subscribe((s) => {
+        state = s;
+      });
     return state.reducer;
   }
 
-  handleMangaClick(link){
-    this.store.dispatch(currentMangaLink({currentMangaLink:link}))
-    this.store.dispatch(refreshMangaPage({refreshMangaPage:true}));
-    this._router.navigate(['dashboard/mangaView'],{ queryParams: { link: link } });
+  handleMangaClick(link) {
+    this.store.dispatch(currentMangaLink({ currentMangaLink: link }));
+    this.store.dispatch(refreshMangaPage({ refreshMangaPage: true }));
+    this._router.navigate(['dashboard/mangaView'], {
+      queryParams: { link: link },
+    });
   }
 
-  mergeDataArrays(arr1,arr2){
-    function returnIndexOfMangaFromArr2(chapterTitle){
-      for(let i=0;i<arr2.length;i++){
-        if(arr2[i].manga_title === chapterTitle){
+  mergeDataArrays(arr1, arr2) {
+    function returnIndexOfMangaFromArr2(chapterTitle) {
+      for (let i = 0; i < arr2.length; i++) {
+        if (arr2[i].manga_title === chapterTitle) {
           return i;
         }
       }
     }
     let indexOfMangaFromArr2 = 0;
-    for(let i=0;i<arr1.length;i++){
-      indexOfMangaFromArr2 = returnIndexOfMangaFromArr2(arr1[i].manga_title)
-      this.data.push({...arr1[i],...arr2[indexOfMangaFromArr2]})
+    for (let i = 0; i < arr1.length; i++) {
+      indexOfMangaFromArr2 = returnIndexOfMangaFromArr2(arr1[i].manga_title);
+      this.data.push({ ...arr1[i], ...arr2[indexOfMangaFromArr2] });
     }
-    this.store.dispatch(bookmarkedList({bookMarkedList:this.data}))
+    this.store.dispatch(bookmarkedList({ bookMarkedList: this.data }));
     this.splitData();
     this.setSpinner = false;
   }
 
-  splitData(){
-    for(let i=0; i < this.data.length ; i++){
-      if(this.data[i].latest_chapter !== this.data[i].last_read_chapter){
+  splitData() {
+    for (let i = 0; i < this.data.length; i++) {
+      if (this.data[i].latest_chapter !== this.data[i].last_read_chapter) {
         this.unreadArr.push(this.data[i]);
-      }else{
+      } else {
         this.readArr.push(this.data[i]);
       }
     }
   }
 
-  
-
-  getAllBookmarked(){
-    fetch(BeURL+"getBookmarked",{
+  getAllBookmarked() {
+    fetch(BeURL + 'getBookmarked', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
       body: JSON.stringify({
         username: this.state['userDetailObject']['username'],
-      })
-    }).then(res=>{return res.json()})
-    .then(data=>{
-      if(data.message !== 0){
-        this.dataArr = data.message;
-        fetch(BeURL+"getBookmarkedInfo",{
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
-        body: JSON.stringify({
-        userIndex: this.dataArr
-        })
-      }).then(res=>{return res.json()})
-      .then(data=>{
-        this.mergeDataArrays(this.dataArr,data.message)
-      });
-      }else{
-        this.showNoBookmarks = true;
-        this.setSpinner = false;
-      }
-  
-    }).catch(e=>{
-      console.log(e);
+      }),
     })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        if (data.message !== 0) {
+          this.dataArr = data.message;
+          fetch(BeURL + 'getBookmarkedInfo', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify({
+              userIndex: this.dataArr,
+            }),
+          })
+            .then((res) => {
+              return res.json();
+            })
+            .then((data) => {
+              this.mergeDataArrays(this.dataArr, data.message);
+            });
+        } else {
+          this.showNoBookmarks = true;
+          this.setSpinner = false;
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   ngOnInit(): void {
     this.setSpinner = true;
     this.state = this.getState();
-    if(Object.keys(this.state['bookMarkedObj']).length === 0 || this.state['refreshHomePageBool'] === true){
-      this.store.dispatch(refreshHomePage({refreshHomePageBool:false}))
+    this.srcObj = this.state['srcOBJ'];
+    if (
+      Object.keys(this.state['bookMarkedObj']).length === 0 ||
+      this.state['refreshHomePageBool'] === true
+    ) {
+      this.store.dispatch(refreshHomePage({ refreshHomePageBool: false }));
       this.getAllBookmarked();
-    }else{
+    } else {
       this.data = this.state['bookMarkedObj'];
       this.splitData();
       this.setSpinner = false;
     }
   }
-
 }

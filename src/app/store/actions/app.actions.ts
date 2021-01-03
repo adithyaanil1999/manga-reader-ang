@@ -78,3 +78,8 @@ export const prevScrollHeight = createAction(
   '[mangaModule] rememberScrollHeight',
   props<{ prevScrollHeight: number }>()
 );
+
+export const sourceObject = createAction(
+  '[appModule] sourceOBJ',
+  props<{ srcObj: {} }>()
+);

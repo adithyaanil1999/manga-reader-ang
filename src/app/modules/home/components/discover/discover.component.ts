@@ -24,6 +24,7 @@ export class DiscoverComponent implements OnInit {
   sub;
   statesub;
   src: string = '';
+  srcOBJ = {};
   dataArr = [];
   pageNo: number = 1;
   pageNoGenre: number = 1;
@@ -200,6 +201,7 @@ export class DiscoverComponent implements OnInit {
         .subscribe((currentSource) => {
           if (currentSource !== '') {
             this.state = this.getState();
+            this.srcOBJ = this.state['srcOBJ'];
             this.src = currentSource;
             this.initPage();
           }

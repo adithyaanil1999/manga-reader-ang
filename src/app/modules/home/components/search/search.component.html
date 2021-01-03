@@ -1,18 +1,26 @@
 <div *ngIf="setSpinner" class="spinner-cont">
-    <div class="loader">Loading...</div>
+  <div class="loader">Loading...</div>
 </div>
-<div *ngIf="!setSpinner" class="animate__animated animate__fadeIn search-wrapper">
-    <div class="search-inner-wrapper">
-        <h1>Search Results</h1>
-        <div #scrollCont class="grid-wrap">
-            <div *ngFor="let i of data" class="grid-item">
-                <div style="cursor:pointer" (click)="handleMangaClick(i.link)" style="background-image: url({{i.thumb}});" class="item-thumb">
-                    <div class="title-background">
-                        <p>{{i.title}}</p>
-                    </div>
-                </div>
-                <span>{{getSrc(i.src)}}</span>
-            </div>
+<div
+  *ngIf="!setSpinner"
+  class="animate__animated animate__fadeIn search-wrapper"
+>
+  <div class="search-inner-wrapper">
+    <h1>Search Results</h1>
+    <div #scrollCont class="grid-wrap">
+      <div *ngFor="let i of data" class="grid-item">
+        <div
+          style="cursor: pointer"
+          (click)="handleMangaClick(i.link)"
+          style="background-image: url({{ i.thumb }});"
+          class="item-thumb"
+        >
+          <div class="title-background">
+            <p>{{ i.title }}</p>
+          </div>
         </div>
+        <span>{{ getSrc(i.src, this.state["srcOBJ"]) }}</span>
+      </div>
     </div>
+  </div>
 </div>

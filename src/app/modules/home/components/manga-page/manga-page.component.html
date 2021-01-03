@@ -37,7 +37,12 @@
           </div>
           <p class="text-wrap">
             <span style="text-decoration: underline">Source:</span
-            ><br /><br />{{ this.getsrcFromCode(this.getSourceFromUrl()) }}
+            ><br /><br />{{
+              this.getsrcFromCode(
+                this.getSourceFromUrl(this.srcObj),
+                this.srcObj
+              )
+            }}
           </p>
           <p *ngIf="this.data.title" class="text-wrap">
             <br /><span style="text-decoration: underline">Title:</span

@@ -1,15 +1,23 @@
 <div class="disc-wrapper">
-    <div *ngIf="setSpinner" class="spinner-cont">
-        <div class="loader">Loading...</div>
-    </div>
-    <h1 *ngIf="this.src !== ''">Current Source: {{getsrc(this.src)}}</h1>
-    <div (scroll)="handleScroll()" #scrollCont class="animate__animated animate__fadeIn grid-wrap">
-        <div style="cursor:pointer" *ngFor="let i of dataArr" class="grid-item">
-            <div style="background-image: url({{i.thumb}});" (click)="handleMangaClick(i)" class="item-thumb">
-                <div class="title-background">
-                    <p>{{i.title}}</p>
-                </div>
-            </div>
+  <div *ngIf="setSpinner" class="spinner-cont">
+    <div class="loader">Loading...</div>
+  </div>
+  <h1 *ngIf="this.src !== ''">Current Source: {{ getsrc(src, srcOBJ) }}</h1>
+  <div
+    (scroll)="handleScroll()"
+    #scrollCont
+    class="animate__animated animate__fadeIn grid-wrap"
+  >
+    <div style="cursor: pointer" *ngFor="let i of dataArr" class="grid-item">
+      <div
+        style="background-image: url({{ i.thumb }});"
+        (click)="handleMangaClick(i)"
+        class="item-thumb"
+      >
+        <div class="title-background">
+          <p>{{ i.title }}</p>
         </div>
+      </div>
     </div>
+  </div>
 </div>

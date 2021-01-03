@@ -16,6 +16,7 @@ import {
   prevScrollHeight,
   genreMangaList,
   refreshGenreListPage,
+  sourceObject,
 } from '../actions/app.actions';
 
 export const userFeatureKey = 'AppState';
@@ -101,6 +102,10 @@ const reducerFunc = createReducer(
   on(prevScrollHeight, (state, { prevScrollHeight }) => ({
     ...state,
     prevScrollHeight: prevScrollHeight,
+  })),
+  on(sourceObject, (state, { srcObj }) => ({
+    ...state,
+    srcOBJ: srcObj,
   }))
 );
 

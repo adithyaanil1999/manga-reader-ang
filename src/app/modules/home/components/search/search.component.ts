@@ -6,6 +6,7 @@ import {
   currentMangaLink,
   refreshMangaPage,
 } from '../../../../store/actions/app.actions';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -16,8 +17,20 @@ export class SearchComponent implements OnInit {
   sub;
   getParams;
   data;
+  state;
   setSpinner: boolean = false;
   getSrc = getSourceFromCode;
+
+  getState() {
+    let state;
+    this.store
+      .select((state) => state)
+      .pipe(take(1))
+      .subscribe((s) => {
+        state = s;
+      });
+    return state.reducer;
+  }
 
   constructor(
     private store: Store,
@@ -54,6 +67,7 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.state = this.getState();
     this.sub = this.route.queryParams.subscribe((params) => {
       this.getParams = params;
       this.getResults();

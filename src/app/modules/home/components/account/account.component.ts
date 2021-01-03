@@ -24,6 +24,7 @@ export class AccountComponent implements OnInit {
   setSpinner: boolean = false;
   currentSrc: string = '';
   vno = version;
+  srcArr = [];
   @ViewChild('srcOptions') src: ElementRef;
 
   handleLogout() {
@@ -76,8 +77,22 @@ export class AccountComponent implements OnInit {
       });
   }
 
+  getSrcArray() {
+    let src = this.state['srcOBJ'];
+    let tempArr = [];
+
+    for (let i in src) {
+      tempArr.push({
+        code: i,
+        title: src[i]['name'],
+      });
+    }
+    return tempArr;
+  }
+
   ngOnInit(): void {
     this.state = this.getState();
     this.currentSrc = this.state['currentSource'];
+    this.srcArr = this.getSrcArray();
   }
 }

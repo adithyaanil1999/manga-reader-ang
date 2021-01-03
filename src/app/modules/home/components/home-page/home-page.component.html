@@ -1,32 +1,44 @@
 <div class="homepage-wrapper">
-    <div *ngIf="setSpinner" class="spinner-cont">
-        <div class="loader">Loading...</div>
-    </div>
-    <div *ngIf="!setSpinner" class="animate__animated animate__fadeIn homepage-inner-wrapper">
-
-        <div #scrollCont class="grid-wrap">
-            <div *ngIf="showNoBookmarks" class="noBookmark">
-                <h1>No Bookmarks Found, Add Some!</h1>
+  <div *ngIf="setSpinner" class="spinner-cont">
+    <div class="loader">Loading...</div>
+  </div>
+  <div
+    *ngIf="!setSpinner"
+    class="animate__animated animate__fadeIn homepage-inner-wrapper"
+  >
+    <div #scrollCont class="grid-wrap">
+      <div *ngIf="showNoBookmarks" class="noBookmark">
+        <h1>No Bookmarks Found, Add Some!</h1>
+      </div>
+      <div *ngFor="let i of unreadArr" class="grid-item">
+        <div
+          style="cursor: pointer"
+          (click)="handleMangaClick(i.manga_link)"
+          style="background-image: url({{ i.thumb_link }});"
+          class="item-thumb"
+        >
+          <div class="title-background">
+            <div class="new-wrapper">
+              <p>NEW</p>
             </div>
-            <div *ngFor="let i of unreadArr" class="grid-item">
-                <div style="cursor:pointer" (click)="handleMangaClick(i.manga_link)" style="background-image: url({{i.thumb_link}});" class="item-thumb">
-                    <div class="title-background">
-                        <div class="new-wrapper">
-                            <p>NEW</p>
-                        </div>
-                        <p>{{i.manga_title}}</p>
-                    </div>
-                </div>
-                <span>{{getSourceFromCode(i.source)}}</span>
-            </div>
-            <div *ngFor="let i of readArr" class="grid-item">
-                <div style="cursor:pointer" (click)="handleMangaClick(i.manga_link)" style="background-image: url({{i.thumb_link}});" class="item-thumb">
-                    <div class="title-background">
-                        <p>{{i.manga_title}}</p>
-                    </div>
-                </div>
-                <span>{{getSourceFromCode(i.source)}}</span>
-            </div>
+            <p>{{ i.manga_title }}</p>
+          </div>
         </div>
+        <span>{{ getSourceFromCode(i.source, this.srcObj) }}</span>
+      </div>
+      <div *ngFor="let i of readArr" class="grid-item">
+        <div
+          style="cursor: pointer"
+          (click)="handleMangaClick(i.manga_link)"
+          style="background-image: url({{ i.thumb_link }});"
+          class="item-thumb"
+        >
+          <div class="title-background">
+            <p>{{ i.manga_title }}</p>
+          </div>
+        </div>
+        <span>{{ this.getSourceFromCode(i.source, this.srcObj) }}</span>
+      </div>
     </div>
+  </div>
 </div>

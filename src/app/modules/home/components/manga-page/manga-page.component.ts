@@ -38,6 +38,7 @@ export class MangaPageComponent implements OnInit {
   lastIndex: number = 0;
   link: string = '';
   viewerType;
+  srcObj = {};
   getSourceFromUrl = getsrcFromUrl;
   getsrcFromCode = getSourceFromCode;
 
@@ -67,7 +68,7 @@ export class MangaPageComponent implements OnInit {
     this.setSpinner = true;
     let data = {
       username: this.state['userDetailObject']['username'],
-      src: this.getSourceFromUrl(),
+      src: this.getSourceFromUrl(this.state['srcOBJ']),
       mangaTitle: this.data.title.replace("'", "''"),
       chapTitle: title.replace("'", "''"),
     };
@@ -107,7 +108,7 @@ export class MangaPageComponent implements OnInit {
     this.setSpinner = true;
     let dataSent = {
       username: this.state['userDetailObject']['username'],
-      src: this.getSourceFromUrl(),
+      src: this.getSourceFromUrl(this.state['srcOBJ']),
       mangaTitle: this.data.title.replace("'", "''"),
     };
     fetch(BeURL + 'getLastReadChapter', {
@@ -144,7 +145,7 @@ export class MangaPageComponent implements OnInit {
     this.setSpinner = true;
     let data = {
       username: this.state['userDetailObject']['username'],
-      src: this.getSourceFromUrl(),
+      src: this.getSourceFromUrl(this.state['srcOBJ']),
       mangaTitle: this.data.title.replace("'", "''"),
       mangaLink: this.link,
       thumbLink: this.data.thumb,
@@ -228,9 +229,13 @@ export class MangaPageComponent implements OnInit {
   setViewerType() {
     if (Cookies.get('viewerType') === undefined) {
       if (prodBool) {
-        Cookies.set('viewerType', 'vertical', { domain: 'localhost' });
+        Cookies.set('viewerType', 'vertical', {
+          expires: 365,
+          domain: 'localhost',
+        });
       } else {
         Cookies.set('viewerType', 'vertical', {
+          expires: 365,
           domain: 'adithyaanil1999.github.io',
         });
       }
@@ -243,9 +248,10 @@ export class MangaPageComponent implements OnInit {
   toggleTypeTo(type) {
     this.viewerType = type;
     if (prodBool) {
-      Cookies.set('viewerType', type, { domain: 'localhost' });
+      Cookies.set('viewerType', type, { expires: 365, domain: 'localhost' });
     } else {
       Cookies.set('viewerType', type, {
+        expires: 365,
         domain: 'adithyaanil1999.github.io',
       });
     }
@@ -255,6 +261,7 @@ export class MangaPageComponent implements OnInit {
     this.setSpinner = true;
     this.setViewerType();
     this.state = this.getState();
+    this.srcObj = this.state['srcOBJ'];
     this.sub = this.route.queryParams.subscribe((params) => {
       this.link = params.link;
     });
@@ -269,7 +276,7 @@ export class MangaPageComponent implements OnInit {
       if (this.state['mangaObject']) {
         let dataSent = {
           username: this.state['userDetailObject']['username'],
-          src: this.getSourceFromUrl(),
+          src: this.getSourceFromUrl(this.state['srcOBJ']),
           mangaTitle: this.state['mangaObject']['title'].replace("'", "''"),
         };
         fetch(BeURL + 'getLastReadChapter', {
