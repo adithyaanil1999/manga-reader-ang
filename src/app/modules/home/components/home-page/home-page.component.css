@@ -110,8 +110,8 @@
     width: 100%;
   }
   .grid-item {
-    width: 33%;
-    height: 30vh;
+    width: 50%;
+    height: 40vh;
   }
   .grid-item > p {
     font-size: 1vh;

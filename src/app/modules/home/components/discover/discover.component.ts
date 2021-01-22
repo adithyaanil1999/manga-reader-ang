@@ -81,6 +81,10 @@ export class DiscoverComponent implements OnInit {
           this.dataArr = this.dataArr.concat(data.LatestManga);
           this.store.dispatch(genreMangaList({ genreList: this.dataArr }));
           this.pageNoGenre += 1;
+          console.log(this.pageNoGenre);
+          this.store.dispatch(
+            pageNoObject({ pageNoObj: { genre: this.pageNoGenre } })
+          );
         }
       });
   }
@@ -187,6 +191,7 @@ export class DiscoverComponent implements OnInit {
         this.getGenreManga();
       } else {
         this.dataArr = this.state['genreMangaObject'];
+        this.pageNoGenre = this.state['pageNoObject']['genre'];
         this.scrollTo(this.state['prevScrollHeight']);
       }
     }
