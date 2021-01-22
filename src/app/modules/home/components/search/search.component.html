@@ -22,5 +22,13 @@
         <span>{{ getSrc(i.src, this.state["srcOBJ"]) }}</span>
       </div>
     </div>
+    <div
+      *ngIf="extendSearch === false"
+      (click)="handleExtend()"
+      class="search-extend-wrapper"
+    >
+      <i class="fas fa-search"></i>
+      <span> &nbsp;Extend Search </span>
+    </div>
   </div>
 </div>

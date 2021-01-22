@@ -19,6 +19,8 @@ export class SearchComponent implements OnInit {
   data;
   state;
   setSpinner: boolean = false;
+  maxItems = 1;
+  extendSearch: boolean = false;
   getSrc = getSourceFromCode;
 
   getState() {
@@ -38,6 +40,12 @@ export class SearchComponent implements OnInit {
     private _router: Router
   ) {}
 
+  handleExtend() {
+    this.extendSearch = true;
+    this.maxItems = 20;
+    this.getResults();
+  }
+
   getResults() {
     this.setSpinner = true;
     fetch(scaperURL + 'search', {
@@ -49,6 +57,7 @@ export class SearchComponent implements OnInit {
       body: JSON.stringify({
         type: this.getParams.type,
         title: this.getParams.title,
+        maxItems: this.maxItems,
       }),
     })
       .then((res) => res.json())
