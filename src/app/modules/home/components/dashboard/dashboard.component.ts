@@ -189,10 +189,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.dashbody.nativeElement.addEventListener('touchmove', function (event) {
-      event.preventDefault();
-      return false;
-    });
+    // this.dashbody.nativeElement.addEventListener('touchmove', function (event) {
+    //   event.preventDefault();
+    //   return false;
+    // });
   }
   ngOnInit(): void {
     let username = Cookies.get('username');

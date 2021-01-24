@@ -71,11 +71,11 @@
       <div class="chap-list-wrap">
         <div class="dark-chap-wrap chap-inner-wrap">
           <a
-            *ngIf="this.lastIndex !== data.chapterList.length - 1"
+            *ngIf="this.lastReadIndex !== data.chapterList.length - 1"
             (click)="
               handleLink(
-                data.chapterList[lastIndex + 1].chapterLink,
-                data.chapterList[lastIndex + 1].chapterTitle
+                data.chapterList[lastReadIndex + 1].chapterLink,
+                data.chapterList[lastReadIndex + 1].chapterTitle
               )
             "
             style="margin-bottom: 20px"
@@ -87,7 +87,7 @@
                 </div>
                 <div class="chap-item-right cont-title">
                   <p class="title-wrap">
-                    {{ data.chapterList[lastIndex + 1].chapterTitle }}
+                    {{ data.chapterList[lastReadIndex + 1].chapterTitle }}
                   </p>
                 </div>
               </div>
@@ -100,7 +100,7 @@
                   <h2 #chapterTitle>Continue</h2>
                 </div>
                 <div class="chap-item-right cont-title">
-                  {{
+                  <!-- {{
                     lastRead.toString() === "0"
                       ? getLastChapLink(
                           data.chapterList[data.chapterList.length - 1]
@@ -109,20 +109,24 @@
                             .chapterTitle
                         )
                       : null
-                  }}
+                  }} -->
                   <p class="title-wrap">
-                    {{ lastRead.toString() === "0" ? "Start" : lastRead }}
+                    {{
+                      lastReadIndex === 0
+                        ? "Start"
+                        : data.chapterList[lastReadIndex].chapterTitle
+                    }}
                   </p>
                 </div>
               </div>
             </div>
           </a>
           <a
-            *ngIf="this.lastIndex != 0"
+            *ngIf="this.lastReadIndex != 0"
             (click)="
               handleLink(
-                data.chapterList[lastIndex - 1].chapterLink,
-                data.chapterList[lastIndex - 1].chapterTitle
+                data.chapterList[this.lastReadIndex - 1].chapterLink,
+                data.chapterList[this.lastReadIndex - 1].chapterTitle
               )
             "
             style="margin-bottom: 20px"
@@ -134,7 +138,7 @@
                 </div>
                 <div class="chap-item-right cont-title">
                   <p class="title-wrap">
-                    {{ data.chapterList[lastIndex - 1].chapterTitle }}
+                    {{ data.chapterList[lastReadIndex - 1].chapterTitle }}
                   </p>
                 </div>
               </div>
@@ -142,14 +146,11 @@
           </a>
           <a
             (click)="handleLink(i.chapterLink, i.chapterTitle)"
-            *ngFor="let i of this.data.chapterList"
+            *ngFor="let i of this.data.chapterList; let j = index"
           >
-            <div
-              [class.last-read-item]="i.chapterTitle === lastRead"
-              class="chap-item"
-            >
+            <div [class.last-read-item]="j === lastReadIndex" class="chap-item">
               {{
-                i.chapterTitle === lastRead
+                j === lastReadIndex
                   ? getLastChapLink(i.chapterLink, i.chapterTitle)
                   : null
               }}

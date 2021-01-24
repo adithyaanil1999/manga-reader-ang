@@ -31,7 +31,7 @@ export class MangaPageComponent implements OnInit {
   setSpinner: boolean = false;
   state: Object;
   substate: boolean = false;
-  lastRead: string = '';
+  lastReadIndex: number = 0;
   lastChapLink: string = '';
   lastChapTitle: string = '';
   isBookmarked: string = '';
@@ -55,14 +55,14 @@ export class MangaPageComponent implements OnInit {
     this.lastChapTitle = title;
   }
 
-  findIndexLast() {
-    for (var i = 0; i < this.data.chapterList.length; i++) {
-      if (this.data.chapterList[i].chapterTitle == this.lastRead) {
-        this.lastIndex = i;
-        break;
-      }
-    }
-  }
+  // findIndexLast() {
+  //   for (var i = 0; i < this.data.chapterList.length; i++) {
+  //     if (this.data.chapterList[i].chapterTitle == this.lastRead) {
+  //       this.lastIndex = i;
+  //       break;
+  //     }
+  //   }
+  // }
 
   handleLink(link, title) {
     this.setSpinner = true;
@@ -71,6 +71,7 @@ export class MangaPageComponent implements OnInit {
       src: this.getSourceFromUrl(this.state['srcOBJ']),
       mangaTitle: this.data.title.replace("'", "''"),
       chapTitle: title.replace("'", "''"),
+      chapIndex: this.getChapIndex(title.replace("'", "''")),
     };
     fetch(BeURL + 'updateHistory', {
       method: 'POST',
@@ -124,9 +125,12 @@ export class MangaPageComponent implements OnInit {
       })
       .then((data) => {
         this.setSpinner = false;
-        this.lastRead = data.message;
+        this.lastReadIndex = this.data.chapterList.length - data.message;
+        console.log(this.lastReadIndex);
+        console.log(this.data.chapterList[this.lastReadIndex].chapterTitle);
+
         this.isBookmarked = data.messageBookmarked;
-        this.findIndexLast();
+        // this.findIndexLast();
       });
   }
 
@@ -140,7 +144,17 @@ export class MangaPageComponent implements OnInit {
       });
     return state.reducer;
   }
-
+  getChapIndex(title) {
+    let lastReadIndex = 0;
+    for (let j of this.data.chapterList) {
+      if (title === j.chapterTitle) {
+        return this.data.chapterList.length - lastReadIndex;
+      } else {
+        lastReadIndex++;
+        continue;
+      }
+    }
+  }
   handleBookmark() {
     this.setSpinner = true;
     let data = {
@@ -150,8 +164,12 @@ export class MangaPageComponent implements OnInit {
       mangaLink: this.link,
       thumbLink: this.data.thumb,
       chapTitle: this.lastChapTitle.replace("'", "''"),
+      chapIndex: this.getChapIndex(this.lastChapTitle.replace("'", "''")),
       latestTitle: this.data.chapterList[0].chapterTitle.replace("'", "''"),
+      latestIndex: this.data.chapterList.length,
     };
+
+    console.log(data);
 
     // console.log(data);
     // this.setSpinner = true;
@@ -257,6 +275,11 @@ export class MangaPageComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit() {
+    // this.srcObj = this.state['srcOBJ'];
+    // console.log(this.srcObj);
+  }
+
   ngOnInit(): void {
     this.setSpinner = true;
     this.setViewerType();
@@ -292,9 +315,9 @@ export class MangaPageComponent implements OnInit {
           })
           .then((data) => {
             this.setSpinner = false;
-            this.lastRead = data.message;
+            this.lastReadIndex = this.data.chapterList.length - data.message;
             this.isBookmarked = data.messageBookmarked;
-            this.findIndexLast();
+            // this.findIndexLast();
           });
         this.data = this.state['mangaObject'];
       } else {
