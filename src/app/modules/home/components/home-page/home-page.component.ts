@@ -24,6 +24,7 @@ export class HomePageComponent implements OnInit {
   unreadArr = [];
   readArr = [];
   srcObj = {};
+  dataOrg;
   getSourceFromCode = getSourceFromCode;
 
   constructor(private store: Store, private _router: Router) {}
@@ -39,6 +40,23 @@ export class HomePageComponent implements OnInit {
     return state.reducer;
   }
 
+  handleHomePageSearch(e, title) {
+    if (title === '') {
+      this.data = this.dataOrg;
+      this.splitData();
+    } else {
+      let tempData = [];
+      // console.log(this.dataOrg);
+      for (let i of this.dataOrg) {
+        // console.log(i.manga_title);
+        if (i.manga_title.toLowerCase().includes(title)) {
+          tempData.push(i);
+        }
+      }
+      this.data = tempData;
+      this.splitData();
+    }
+  }
   handleMangaClick(link) {
     this.store.dispatch(currentMangaLink({ currentMangaLink: link }));
     this.store.dispatch(refreshMangaPage({ refreshMangaPage: true }));
@@ -60,16 +78,18 @@ export class HomePageComponent implements OnInit {
       indexOfMangaFromArr2 = returnIndexOfMangaFromArr2(arr1[i].manga_title);
       this.data.push({ ...arr1[i], ...arr2[indexOfMangaFromArr2] });
     }
+    this.dataOrg = this.data;
     this.store.dispatch(bookmarkedList({ bookMarkedList: this.data }));
     this.splitData();
     this.setSpinner = false;
   }
 
   splitData() {
-    // console.log(this.data);
+    this.unreadArr = [];
+    this.readArr = [];
     for (let i = 0; i < this.data.length; i++) {
       if (
-        this.data[i].latest_chapter_index - this.data[i].last_read_index >
+        this.data[i].latest_chapter_index - this.data[i].last_read_index - 1 >
         0
       ) {
         this.unreadArr.push(this.data[i]);

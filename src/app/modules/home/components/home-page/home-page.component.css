@@ -14,6 +14,29 @@
   align-items: center;
 }
 
+.home-search-wrap {
+  width: 95%;
+  height: 5%;
+  margin: auto;
+  background: #885b5b;
+  border-radius: 9px;
+  display: flex;
+  justify-content: center;
+}
+
+.home-search-wrap > input {
+  background: none;
+  width: 90%;
+  height: 100%;
+  border: none;
+  color: white;
+}
+.home-search-wrap > input:focus {
+  outline: none;
+}
+.home-search-wrap > input::placeholder {
+  color: white;
+}
 .new-wrapper {
   width: 30px;
   height: 30px;

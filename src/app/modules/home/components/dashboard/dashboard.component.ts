@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import Cookies from 'js-cookie';
 import { Store } from '@ngrx/store';
 import { Router, NavigationEnd } from '@angular/router';
-
+import { take } from 'rxjs/operators';
 import {
   checklogin,
   currentSource,
@@ -25,6 +25,10 @@ export class DashboardComponent implements OnInit {
   focusBool: boolean = false;
   data = [];
   setSpin = false;
+  state;
+  checkSrcObj;
+  srcObjSub;
+  loadApp: boolean = false;
   @ViewChild('searchInp') searchInp: ElementRef;
   @ViewChild('dashbodywrap') dashbody: ElementRef;
 
@@ -113,6 +117,17 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  getState() {
+    let state;
+    this.store
+      .select((state) => state)
+      .pipe(take(1))
+      .subscribe((s) => {
+        state = s;
+      });
+    return state.reducer;
+  }
+
   handleSearchRedirect(e, name) {
     // console.log(e.keyCode)
     if (e === null) {
@@ -196,6 +211,18 @@ export class DashboardComponent implements OnInit {
   }
   ngOnInit(): void {
     let username = Cookies.get('username');
+    this.state = this.getState();
+
+    this.srcObjSub = this.store
+      .select((state) => state)
+      .subscribe((s) => {
+        if (s['reducer']['srcOBJ'] !== undefined) {
+          console.log('load app');
+          this.srcObjSub.unsubscribe();
+          this.loadApp = true;
+        }
+      });
+
     if (username == '' || username == undefined) {
       this._router.navigate(['login']);
     } else {
