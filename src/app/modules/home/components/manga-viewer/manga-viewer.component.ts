@@ -182,12 +182,11 @@ export class MangaViewerComponent implements OnInit {
   }
 
   incrementPageNo(len) {
-    console.log(this.pageNo);
+    // console.log(this.pageNo);
     const sb = this.snackBar.nativeElement;
     if (this.pageNo <= len - 2) {
       this.pageNo++;
     } else if (this.pageNo === len - 1) {
-      console.log('end');
       function slideUpEnd() {
         sb.removeEventListener('animationend', slideUpEnd);
         sb.classList.remove('animate__animated', 'animate__slideInUp');

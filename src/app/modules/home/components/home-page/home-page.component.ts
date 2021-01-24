@@ -66,7 +66,7 @@ export class HomePageComponent implements OnInit {
   }
 
   splitData() {
-    console.log(this.data);
+    // console.log(this.data);
     for (let i = 0; i < this.data.length; i++) {
       if (
         this.data[i].latest_chapter_index - this.data[i].last_read_index >

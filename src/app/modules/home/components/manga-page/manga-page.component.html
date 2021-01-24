@@ -112,7 +112,7 @@
                   }} -->
                   <p class="title-wrap">
                     {{
-                      lastReadIndex === 0
+                      lastReadIndex === data.chapterList.length - 1
                         ? "Start"
                         : data.chapterList[lastReadIndex].chapterTitle
                     }}

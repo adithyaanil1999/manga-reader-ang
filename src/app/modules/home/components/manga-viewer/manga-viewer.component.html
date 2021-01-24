@@ -9,7 +9,10 @@
   </div>
   <div #snackBar class="snackbar-outer">
     <div
-      *ngIf="(isEnd || isEndOnePage) && viewerType === 'vertical'"
+      *ngIf="
+        (isEnd && viewerType === 'vertical') ||
+        (isEndOnePage && viewerType === 'onePage')
+      "
       class="snackbar-wrap"
     >
       <div class="snackbar-left">

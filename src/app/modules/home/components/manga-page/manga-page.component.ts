@@ -73,6 +73,7 @@ export class MangaPageComponent implements OnInit {
       chapTitle: title.replace("'", "''"),
       chapIndex: this.getChapIndex(title.replace("'", "''")),
     };
+    // console.log(data);
     fetch(BeURL + 'updateHistory', {
       method: 'POST',
       headers: {
@@ -125,10 +126,8 @@ export class MangaPageComponent implements OnInit {
       })
       .then((data) => {
         this.setSpinner = false;
-        this.lastReadIndex = this.data.chapterList.length - data.message;
-        console.log(this.lastReadIndex);
-        console.log(this.data.chapterList[this.lastReadIndex].chapterTitle);
-
+        this.lastReadIndex = this.data.chapterList.length - data.message - 1;
+        // console.log(this.data.chapterList[this.lastReadIndex].chapterTitle);
         this.isBookmarked = data.messageBookmarked;
         // this.findIndexLast();
       });
@@ -148,7 +147,7 @@ export class MangaPageComponent implements OnInit {
     let lastReadIndex = 0;
     for (let j of this.data.chapterList) {
       if (title === j.chapterTitle) {
-        return this.data.chapterList.length - lastReadIndex;
+        return this.data.chapterList.length - lastReadIndex - 1;
       } else {
         lastReadIndex++;
         continue;
@@ -169,7 +168,7 @@ export class MangaPageComponent implements OnInit {
       latestIndex: this.data.chapterList.length,
     };
 
-    console.log(data);
+    // console.log(data);
 
     // console.log(data);
     // this.setSpinner = true;
@@ -315,7 +314,8 @@ export class MangaPageComponent implements OnInit {
           })
           .then((data) => {
             this.setSpinner = false;
-            this.lastReadIndex = this.data.chapterList.length - data.message;
+            this.lastReadIndex =
+              this.data.chapterList.length - data.message - 1;
             this.isBookmarked = data.messageBookmarked;
             // this.findIndexLast();
           });

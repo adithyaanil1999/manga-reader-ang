@@ -99,6 +99,9 @@
   .title-background {
     font-size: 3vw;
   }
+  .search-extend-wrapper {
+    width: 57%;
+  }
   .grid-wrap {
     width: 100%;
   }
