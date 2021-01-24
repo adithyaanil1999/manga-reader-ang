@@ -91,6 +91,7 @@ export class HomePageComponent implements OnInit {
   splitData() {
     this.unreadArr = [];
     this.readArr = [];
+    // console.log(this.data);
     for (let i = 0; i < this.data.length; i++) {
       if (
         Math.abs(
@@ -159,6 +160,7 @@ export class HomePageComponent implements OnInit {
       this.getAllBookmarked();
     } else {
       this.data = this.state['bookMarkedObj'];
+      this.dataOrg = this.data;
       this.splitData();
       this.setSpinner = false;
     }

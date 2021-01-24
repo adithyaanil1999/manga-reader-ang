@@ -124,18 +124,57 @@ export class MangaPageComponent implements OnInit {
       .then((res) => {
         return res.json();
       })
-      .then((data) => {
+      .then(async (data) => {
         this.setSpinner = false;
-        // console.log(data.message);
+        console.log(this.data);
         this.lastReadIndex = this.data.chapterList.length - data.message - 1;
+        console.log();
         if (this.lastReadIndex < 0) {
           this.lastReadIndex = Math.abs(this.lastReadIndex);
+        } else if (
+          this.data.chapterList.length -
+            (await this.getLatestIndex(this.data.title)) !==
+          0
+        ) {
+          this.lastReadIndex = Math.abs(
+            this.data.chapterList.length -
+              (await this.getLatestIndex(this.data.title))
+          );
         }
-        // console.log(this.lastReadIndex);
-        // console.log(this.data.chapterList[this.lastReadIndex].chapterTitle);
         this.isBookmarked = data.messageBookmarked;
-        // this.findIndexLast();
       });
+  }
+
+  async getLatestIndex(title) {
+    // console.log(this.state);
+    if (Object.keys(this.state['bookMarkedObj']).length !== 0) {
+      for (let i of this.state['bookMarkedObj']) {
+        if (i.manga_title === title) {
+          return i.latest_chapter_index;
+        }
+      }
+    } else {
+      this.setSpinner = true;
+      let data = {
+        title: this.data.title,
+        src: this.getSourceFromUrl(this.state['srcOBJ']),
+      };
+      // console.log(data);
+      let result = await fetch(BeURL + 'getLatestChapter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          this.setSpinner = false;
+          return data.message.latest_chapter_index;
+        });
+      return result;
+    }
   }
 
   getState() {

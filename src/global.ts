@@ -8,12 +8,17 @@ let currentUrl = window.location.href;
 
 export const prodBool = currentUrl.indexOf('github.io') !== -1 ? false : true;
 
-export const version = '1.3.5';
+export const version = '1.3.6';
 
 export const defaultSRC = 'MGFX';
 
 export const getSourceFromCode = function (code, srcObj) {
-  return srcObj[code].name;
+  try {
+    // console.log(srcObj);
+    return srcObj[code].name;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const getsrcFromUrl = function (srcObj) {
