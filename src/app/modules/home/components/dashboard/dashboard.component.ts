@@ -218,8 +218,10 @@ export class DashboardComponent implements OnInit {
       .subscribe((s) => {
         if (s['reducer']['srcOBJ'] !== undefined) {
           console.log('load app');
-          this.srcObjSub.unsubscribe();
           this.loadApp = true;
+          if (this.srcObjSub) {
+            this.srcObjSub.unsubscribe();
+          }
         }
       });
 
