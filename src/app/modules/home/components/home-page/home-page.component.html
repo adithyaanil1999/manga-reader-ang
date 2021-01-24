@@ -13,7 +13,9 @@
       <div class="home-search-wrap">
         <input
           #searchHome
-          (keyup)="handleHomePageSearch($event, searchHome.value.toLowerCase())"
+          (keydown)="
+            handleHomePageSearch($event, searchHome.value.toLowerCase())
+          "
           type="text"
           placeholder="Search Home Page"
         />
@@ -27,7 +29,9 @@
         >
           <div class="title-background">
             <div class="new-wrapper">
-              <p>{{ i.latest_chapter_index - i.last_read_index - 1 }}</p>
+              <p>
+                {{ returnAbs(i.latest_chapter_index - i.last_read_index - 1) }}
+              </p>
             </div>
             <p>{{ i.manga_title }}</p>
           </div>

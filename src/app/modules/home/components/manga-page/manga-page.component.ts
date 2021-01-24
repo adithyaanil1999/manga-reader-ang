@@ -129,7 +129,7 @@ export class MangaPageComponent implements OnInit {
         // console.log(data.message);
         this.lastReadIndex = this.data.chapterList.length - data.message - 1;
         if (this.lastReadIndex < 0) {
-          this.lastReadIndex = 0;
+          this.lastReadIndex = Math.abs(this.lastReadIndex);
         }
         // console.log(this.lastReadIndex);
         // console.log(this.data.chapterList[this.lastReadIndex].chapterTitle);
@@ -322,7 +322,7 @@ export class MangaPageComponent implements OnInit {
             this.lastReadIndex =
               this.data.chapterList.length - data.message - 1;
             if (this.lastReadIndex < 0) {
-              this.lastReadIndex = 0;
+              this.lastReadIndex = Math.abs(this.lastReadIndex);
             }
             this.isBookmarked = data.messageBookmarked;
             // this.findIndexLast();

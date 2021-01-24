@@ -29,6 +29,10 @@ export class HomePageComponent implements OnInit {
 
   constructor(private store: Store, private _router: Router) {}
 
+  returnAbs(num) {
+    return Math.abs(num);
+  }
+
   getState() {
     let state;
     this.store
@@ -89,8 +93,9 @@ export class HomePageComponent implements OnInit {
     this.readArr = [];
     for (let i = 0; i < this.data.length; i++) {
       if (
-        this.data[i].latest_chapter_index - this.data[i].last_read_index - 1 >
-        0
+        Math.abs(
+          this.data[i].latest_chapter_index - this.data[i].last_read_index - 1
+        ) > 0
       ) {
         this.unreadArr.push(this.data[i]);
       } else {
