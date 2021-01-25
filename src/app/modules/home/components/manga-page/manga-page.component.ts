@@ -126,21 +126,23 @@ export class MangaPageComponent implements OnInit {
       })
       .then(async (data) => {
         this.setSpinner = false;
-        console.log(this.data);
+        // console.log(this.data);
         this.lastReadIndex = this.data.chapterList.length - data.message - 1;
-        console.log();
         if (this.lastReadIndex < 0) {
           this.lastReadIndex = Math.abs(this.lastReadIndex);
-        } else if (
-          this.data.chapterList.length -
-            (await this.getLatestIndex(this.data.title)) !==
-          0
-        ) {
-          this.lastReadIndex = Math.abs(
-            this.data.chapterList.length -
-              (await this.getLatestIndex(this.data.title))
-          );
-        }
+        } else{
+          this.getLatestIndex(this.data.title)
+          .then(index=>{
+          let temp = Math.abs( this.data.chapterList.length - index);
+          if (temp !== temp) {
+            this.lastReadIndex = this.data.chapterList.length-1;
+          }else{
+            console.log('here')
+            this.lastReadIndex = Math.abs(this.data.chapterList.length - data.message - 1);
+          }  
+          })
+        } 
+
         this.isBookmarked = data.messageBookmarked;
       });
   }

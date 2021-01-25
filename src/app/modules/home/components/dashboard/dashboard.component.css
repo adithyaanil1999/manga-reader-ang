@@ -174,11 +174,11 @@
 .bottom-nav-dash {
   width: calc(100% - 2px);
   height: 10%;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  /* border-top-left-radius: 15px;
+  border-top-right-radius: 15px; */
   display: flex;
   align-items: flex-end;
-  border-top: 2px solid #ff5400;
+  border-top: 3px solid #ff5400;
   /* background: linear-gradient(20deg, #3E3E3E, #282828); */
   /* border-radius: 15%; */
   /* box-shadow: -1px -9px 19px 1px #1A1A1A, -6.91px -6.91px 60px #4D4D4D; */

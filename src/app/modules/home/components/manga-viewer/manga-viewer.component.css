@@ -100,6 +100,7 @@
 .one-page-viewer {
   max-width: 60%;
   position: relative;
+  height: 100%;
 }
 .one-page-viewer > img {
   max-width: 100%;

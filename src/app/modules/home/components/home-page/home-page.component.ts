@@ -93,11 +93,7 @@ export class HomePageComponent implements OnInit {
     this.readArr = [];
     // console.log(this.data);
     for (let i = 0; i < this.data.length; i++) {
-      if (
-        Math.abs(
-          this.data[i].latest_chapter_index - this.data[i].last_read_index - 1
-        ) > 0
-      ) {
+      if ( Math.abs(this.data[i].latest_chapter_index - this.data[i].last_read_index - 1) > 0 && this.data[i].latest_chapter_index > this.data[i].last_read_index ) {
         this.unreadArr.push(this.data[i]);
       } else {
         this.readArr.push(this.data[i]);
