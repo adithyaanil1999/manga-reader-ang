@@ -13,6 +13,7 @@ import {
   refreshHomePage,
   genreMangaList,
   refreshGenreListPage,
+  homeScrollHeight
 } from '../../../../store/actions/app.actions';
 
 @Component({
@@ -161,6 +162,9 @@ export class DiscoverComponent implements OnInit {
   }
 
   initPage() {
+    this.store.dispatch(
+      homeScrollHeight({ homeScrollHeight: 0 })
+    );
     if ('type' in this.params) {
       this.mode = 'latest';
       this.end = false;

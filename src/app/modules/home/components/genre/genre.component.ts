@@ -8,6 +8,7 @@ import {
   genreObject,
   refreshGenrePage,
   refreshGenreListPage,
+  homeScrollHeight
 } from '../../../../store/actions/app.actions';
 
 @Component({
@@ -62,8 +63,9 @@ export class GenreComponent implements OnInit {
   }
   initPage() {
     this.state = this.getState();
-    // console.log(Object.keys(this.state['genreObj']).length === 0);
-    // console.log(this.state['refreshGenrePageBool'])
+    this.store.dispatch(
+      homeScrollHeight({ homeScrollHeight: 0 })
+    );
     if (
       Object.keys(this.state['genreObj']).length === 0 ||
       this.state['refreshGenrePageBool'] === true

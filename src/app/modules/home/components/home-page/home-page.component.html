@@ -6,7 +6,7 @@
     *ngIf="!setSpinner"
     class="animate__animated animate__fadeIn homepage-inner-wrapper"
   >
-    <div #scrollCont class="grid-wrap">
+    <div (scroll)="handleScroll()" #scrollCont class="grid-wrap">
       <div *ngIf="showNoBookmarks" class="noBookmark">
         <h1>No Bookmarks Found, Add Some!</h1>
       </div>
@@ -17,7 +17,7 @@
             handleHomePageSearch($event, searchHome.value.toLowerCase())
           "
           type="text"
-          placeholder="Search Home Page"
+          placeholder="Search Bookmarks"
         />
       </div>
       <div *ngFor="let i of unreadArr" class="grid-item">

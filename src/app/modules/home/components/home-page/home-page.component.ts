@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { BeURL, getSourceFromCode } from '../../../../../global';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import {
   refreshMangaPage,
   bookmarkedList,
   refreshHomePage,
+  homeScrollHeight
 } from '../../../../store/actions/app.actions';
 
 @Component({
@@ -25,6 +26,7 @@ export class HomePageComponent implements OnInit {
   readArr = [];
   srcObj = {};
   dataOrg;
+  @ViewChild('scrollCont') scrollCont: any;
   getSourceFromCode = getSourceFromCode;
 
   constructor(private store: Store, private _router: Router) {}
@@ -42,6 +44,24 @@ export class HomePageComponent implements OnInit {
         state = s;
       });
     return state.reducer;
+  }
+  handleScroll() {
+    const element = this.scrollCont.nativeElement;
+    this.store.dispatch(
+      homeScrollHeight({ homeScrollHeight: element.scrollTop })
+    );
+  }
+
+  scrollTo(top) {
+    this.setSpinner = true;
+    setTimeout(() => {
+      const element = this.scrollCont.nativeElement;
+      element.scrollTo({
+        top: top,
+        behavior: 'smooth',
+      });
+      this.setSpinner = false;
+    }, 500);
   }
 
   handleHomePageSearch(e, title) {
@@ -85,20 +105,27 @@ export class HomePageComponent implements OnInit {
     this.dataOrg = this.data;
     this.store.dispatch(bookmarkedList({ bookMarkedList: this.data }));
     this.splitData();
-    this.setSpinner = false;
   }
 
   splitData() {
     this.unreadArr = [];
     this.readArr = [];
-    // console.log(this.data);
+    let diff = 0;
+    let unreadIndex = 0;
     for (let i = 0; i < this.data.length; i++) {
-      if ( Math.abs(this.data[i].latest_chapter_index - this.data[i].last_read_index - 1) > 0 && this.data[i].latest_chapter_index > this.data[i].last_read_index ) {
+      diff = this.data[i].latest_chapter_index - this.data[i].last_read_index - 1
+      if ( diff > 0 ) {
         this.unreadArr.push(this.data[i]);
+        this.unreadArr[unreadIndex] = {...this.unreadArr[unreadIndex],diff:diff}
+        unreadIndex++;
       } else {
         this.readArr.push(this.data[i]);
       }
+      if(i === this.data.length-1){
+        this.setSpinner = false;
+      }
     }
+    this.unreadArr = this.unreadArr.sort((a, b) => a.diff - b.diff)
   }
 
   getAllBookmarked() {
@@ -136,7 +163,6 @@ export class HomePageComponent implements OnInit {
             });
         } else {
           this.showNoBookmarks = true;
-          this.setSpinner = false;
         }
       })
       .catch((e) => {
@@ -156,9 +182,9 @@ export class HomePageComponent implements OnInit {
       this.getAllBookmarked();
     } else {
       this.data = this.state['bookMarkedObj'];
+      this.scrollTo(this.state['homeScrollHeight']);
       this.dataOrg = this.data;
       this.splitData();
-      this.setSpinner = false;
     }
   }
 }

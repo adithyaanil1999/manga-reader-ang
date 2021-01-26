@@ -9,6 +9,7 @@ import {
   currentSource,
   refreshHomePage,
   refreshGenrePage,
+  homeScrollHeight
 } from '../../../../store/actions/app.actions';
 import { prodBool, BeURL, version } from '../../../../../global';
 
@@ -91,6 +92,9 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(
+      homeScrollHeight({ homeScrollHeight: 0 })
+    );
     this.state = this.getState();
     this.currentSrc = this.state['currentSource'];
     this.srcArr = this.getSrcArray();
