@@ -27,8 +27,8 @@
   width: 95%;
   height: 80%;
   display: flex;
-  /* background: linear-gradient(145deg, #3B3B3B, #2B2B2B); */
-  border-radius: 5px;
+  background: #bbbbbb33;
+  border-radius: 10px;
   position: relative;
   margin-top: 20px;
 }
@@ -55,12 +55,13 @@
   /* background: linear-gradient(2deg, #636363, #444444); */
   position: absolute;
   top: 100%;
-  left: -2px;
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  background: #252525;
+  /* border-radius: 10px; */
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .suggest-wrap {
@@ -97,8 +98,8 @@
 }
 
 .search-open {
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }
@@ -109,9 +110,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #000000;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  background: #252525;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .search-text-cont {
@@ -155,7 +156,7 @@
 
 .dash-body {
   width: 100%;
-  height: 82%;
+  height: 100vh;
   overflow: scroll;
   display: flex;
   justify-content: center;
@@ -172,16 +173,17 @@
 }
 
 .bottom-nav-dash {
-  width: calc(100% - 2px);
-  height: 10%;
-  /* border-top-left-radius: 15px;
-  border-top-right-radius: 15px; */
+  /* width: calc(100% - 2px); */
+  width: 100%;
+  height: 8%;
   display: flex;
   align-items: flex-end;
-  border-top: 3px solid #ff5400;
-  /* background: linear-gradient(20deg, #3E3E3E, #282828); */
-  /* border-radius: 15%; */
-  /* box-shadow: -1px -9px 19px 1px #1A1A1A, -6.91px -6.91px 60px #4D4D4D; */
+  position: fixed;
+  bottom: 0;
+  background-color: rgb(187 184 184 / 15%);
+  backdrop-filter: blur(30px); 
+  /* border-top: 3px solid #ff5400; */
+  z-index: 1;
 }
 
 .bottom-dash-cont {
@@ -256,14 +258,14 @@
 
 @media screen and (max-width: 1028px) {
   .search-icon-cont {
-    width: 30%;
+    width: 20%;
   }
   .suggest-wrap > p {
     width: 84%;
     font-size: 3vh;
   }
   .search-text-cont {
-    width: 70%;
+    width: 80%;
   }
   .nav-border {
     width: 45px;

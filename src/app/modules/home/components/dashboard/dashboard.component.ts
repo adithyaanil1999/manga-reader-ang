@@ -151,6 +151,7 @@ export class DashboardComponent implements OnInit {
     setTimeout(() => {
       this.focusBool = false;
       this.searchInp.nativeElement.value = '';
+      this.searchInp.nativeElement.blur();
       this.data = [];
     }, 150);
   }

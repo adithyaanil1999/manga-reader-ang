@@ -5,7 +5,7 @@
   <div class="top-nav-dash">
     <div
       [class.search-open]="focusBool"
-      class="slideInDown2 border-orange search-btn-cont"
+      class="slideInDown2 search-btn-cont"
     >
       <div class="search-icon-cont">
         <div class="search-border">
@@ -36,7 +36,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="focusBool" class="black border-orange auto-wrap">
+      <div *ngIf="focusBool" class="auto-wrap">
         <div *ngIf="data.length === 0" class="search-spinner">
           <div class="lds-roller">
             <div></div>
