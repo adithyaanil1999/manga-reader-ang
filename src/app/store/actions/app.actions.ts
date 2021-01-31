@@ -84,6 +84,11 @@ export const homeScrollHeight = createAction(
   props<{ homeScrollHeight: number }>()
 );
 
+export const homeSearchString = createAction(
+  '[searchModule] homeSearch',
+  props<{ homeSearchString: string }>()
+);
+
 export const sourceObject = createAction(
   '[appModule] sourceOBJ',
   props<{ srcObj: {} }>()

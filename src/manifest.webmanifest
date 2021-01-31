@@ -1,8 +1,8 @@
 {
   "name": "MangaReader",
   "short_name": "MangaReader",
-  "theme_color": "#000000",
-  "background_color": "#000000",
+  "theme_color": "#252525",
+  "background_color": "#252525",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

@@ -3,7 +3,7 @@
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .account-option-wrap {
@@ -33,9 +33,17 @@
   border-radius: 5px;
 }
 
+.title-h1{
+  color: #b1abab;
+  margin: 7% 2%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 800;
+  border-bottom: 1px solid #ab8482;
+}
+
 .account-wrap {
   width: 100%;
-  height: 100%;
+  height: 75%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

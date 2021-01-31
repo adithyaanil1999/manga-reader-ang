@@ -8,6 +8,7 @@ import {
   currentSource,
   refreshGenrePage,
   refreshHomePage,
+  homeSearchString
 } from '../../../../store/actions/app.actions';
 import { scaperURL, BeURL } from '../../../../../global';
 
@@ -28,6 +29,7 @@ export class DashboardComponent implements OnInit {
   state;
   checkSrcObj;
   srcObjSub;
+  showSearch = true;
   loadApp: boolean = false;
   @ViewChild('searchInp') searchInp: ElementRef;
   @ViewChild('dashbodywrap') dashbody: ElementRef;
@@ -131,22 +133,28 @@ export class DashboardComponent implements OnInit {
   }
 
   handleSearchRedirect(e, name) {
-    // console.log(e.keyCode)
-    if (e === null) {
-      this.isNotFocused();
-      this._router.navigate(['dashboard/search'], {
-        queryParams: { type: this.mode, title: name },
-      });
-    } else if (e.keyCode === 13 && name !== '') {
-      this.isNotFocused();
-      this._router.navigate(['dashboard/search'], {
-        queryParams: { type: this.mode, title: name },
-      });
+    if(this.isHome){      
+      this.store.dispatch(homeSearchString({homeSearchString:name}));
+    }else{
+      this.store.dispatch(homeSearchString({homeSearchString:""}));
+      if (e === null) {
+        this.isNotFocused();
+        this._router.navigate(['dashboard/search'], {
+          queryParams: { type: this.mode, title: name },
+        });
+      } else if (e.keyCode === 13 && name !== '') {
+        this.isNotFocused();
+        this._router.navigate(['dashboard/search'], {
+          queryParams: { type: this.mode, title: name },
+        });
+      }
     }
   }
 
   isFocused() {
-    this.focusBool = true;
+    if(!this.isHome){
+      this.focusBool = true;
+    }
   }
 
   isNotFocused() {
@@ -166,11 +174,16 @@ export class DashboardComponent implements OnInit {
       currentUrl.indexOf('chapViewer') !== -1
     ) {
       this.selectItem(0);
+      this.showSearch = true;
     } else if (currentUrl.indexOf('home') !== -1) {
+      this.showSearch = true;
       this.selectItem(1);
+      this.checkHomePage();
     } else if (currentUrl.indexOf('genre') !== -1) {
+      this.showSearch = false;
       this.selectItem(2);
     } else if (currentUrl.indexOf('account') !== -1) {
+      this.showSearch = false;
       this.selectItem(3);
     } else if (
       currentUrl.indexOf('login') !== -1 ||
@@ -205,20 +218,23 @@ export class DashboardComponent implements OnInit {
         this.store.dispatch(refreshGenrePage({ refreshGenrePageBool: true }));
       });
   }
-
-
-  setDashHeight(){
-    let currentUrl = window.location.href;
-    if (
-      currentUrl.indexOf('discover') !== -1 ||
-      currentUrl.indexOf('home') !== -1
-    ) {
-      this.dashMain.nativeElement.style.height = "93%";
-    } else {
-      this.dashMain.nativeElement.style.height = "84%";
-    } 
+  checkHomePage(){
+    setTimeout(() => {
+      if(this.isHome){
+        this.searchInp.nativeElement.placeholder = "Search Bookmarks";
+      }else if(this.isDiscover){
+        this.searchInp.nativeElement.placeholder = "Search";
+      }
+    }, 20);
   }
 
+  ngAfterViewInit(){
+    this._router.events.forEach((event) => {
+      if (event instanceof NavigationEnd) {
+        this.checkHomePage();
+      }
+    });
+  }
 
   ngOnInit(): void {
     let username = Cookies.get('username');
@@ -245,7 +261,6 @@ export class DashboardComponent implements OnInit {
     this._router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         this.selectButton();
-        this.setDashHeight();
       }
     });
 

@@ -10,7 +10,7 @@
       <div *ngIf="showNoBookmarks" class="noBookmark">
         <h1>No Bookmarks Found, Add Some!</h1>
       </div>
-      <div class="home-search-wrap">
+      <!-- <div class="home-search-wrap">
         <input
           #searchHome
           (keydown)="
@@ -19,7 +19,7 @@
           type="text"
           placeholder="Search Bookmarks"
         />
-      </div>
+      </div> -->
       <div *ngFor="let i of unreadArr" class="grid-item">
         <div
           style="cursor: pointer"

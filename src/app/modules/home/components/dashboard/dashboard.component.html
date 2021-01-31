@@ -2,10 +2,10 @@
   <div *ngIf="setSpin" class="spinner-cont">
     <div class="loader">Loading...</div>
   </div>
-  <div class="top-nav-dash">
+  <div *ngIf="showSearch" class="top-nav-dash slideInDown2">
     <div
       [class.search-open]="focusBool"
-      class="slideInDown2 search-btn-cont"
+      class="search-btn-cont"
     >
       <div class="search-icon-cont">
         <div class="search-border">
@@ -27,7 +27,7 @@
           type="text"
           class="search-inp"
         />
-        <div class="search-type-wrap">
+        <div *ngIf="!isHome" class="search-type-wrap">
           <div (click)="toggleType('comic')" class="type-wrap">
             <span [class.type-selected]="mode === 'comic'"> COMIC</span>
           </div>

@@ -2,6 +2,9 @@
     <div *ngIf="setSpinner" class="spinner-cont">
         <div class="loader">Loading...</div>
     </div>
+    <h1>
+        Genre:
+    </h1>
     <div *ngIf="!setSpinner" class="animate__animated animate__fadeIn genre-wrap">
         <div class="genre-flex-wrap">
             <div *ngFor="let i of data" class="anchor-wrap">

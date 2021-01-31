@@ -17,7 +17,8 @@ import {
   genreMangaList,
   refreshGenreListPage,
   sourceObject,
-  homeScrollHeight
+  homeScrollHeight,
+  homeSearchString
 } from '../actions/app.actions';
 
 export const userFeatureKey = 'AppState';
@@ -36,7 +37,8 @@ const initalState = {
   refreshGenreListBool: false,
   genreObj: {},
   prevScrollHeight: 0,
-  homeScrollHeight:0
+  homeScrollHeight:0,
+  homeSearchString: ""
 };
 
 const reducerFunc = createReducer(
@@ -112,6 +114,10 @@ const reducerFunc = createReducer(
   on(sourceObject, (state, { srcObj }) => ({
     ...state,
     srcOBJ: srcObj,
+  })),
+  on(homeSearchString, (state, { homeSearchString }) => ({
+    ...state,
+    homeSearchString: homeSearchString,
   }))
 );
 

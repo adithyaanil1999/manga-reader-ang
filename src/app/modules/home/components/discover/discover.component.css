@@ -23,6 +23,7 @@
   flex-wrap: wrap;
   align-content: flex-start;
   overflow: scroll;
+  padding: 4% 0 14% 0;
 }
 
 .ending-padding{
@@ -83,6 +84,8 @@
   }
   .grid-wrap {
     width: 100%;
+    padding: 14% 0 14% 0;
+
   }
   .disc-wrapper > h1 {
     font-size: 2vh;

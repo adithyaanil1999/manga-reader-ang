@@ -26,6 +26,7 @@ export class HomePageComponent implements OnInit {
   readArr = [];
   srcObj = {};
   dataOrg;
+  searchSub;
   @ViewChild('scrollCont') scrollCont: any;
   getSourceFromCode = getSourceFromCode;
 
@@ -65,14 +66,14 @@ export class HomePageComponent implements OnInit {
   }
 
   handleHomePageSearch(e, title) {
-    if (title === '') {
-      this.data = this.dataOrg;
-      this.splitData();
+    if (title === '' || title === undefined) {
+      if(this.dataOrg !== undefined){
+         this.data = this.dataOrg;
+        this.splitData();
+      }
     } else {
       let tempData = [];
-      // console.log(this.dataOrg);
       for (let i of this.dataOrg) {
-        // console.log(i.manga_title);
         if (i.manga_title.toLowerCase().includes(title)) {
           tempData.push(i);
         }
@@ -125,7 +126,7 @@ export class HomePageComponent implements OnInit {
         this.setSpinner = false;
       }
     }
-    this.unreadArr = this.unreadArr.sort((a, b) => a.diff - b.diff)
+    this.unreadArr.sort((a, b) => a.diff - b.diff)
   }
 
   getAllBookmarked() {
@@ -186,5 +187,8 @@ export class HomePageComponent implements OnInit {
       this.dataOrg = this.data;
       this.splitData();
     }
+    this.searchSub = this.store.subscribe(d=>{
+      this.handleHomePageSearch(null,d['reducer']['homeSearchString'])
+    })
   }
 }
