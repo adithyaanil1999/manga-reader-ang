@@ -68,7 +68,7 @@
   flex-wrap: wrap;
   align-content: flex-start;
   overflow: scroll;
-  padding: 30% 0 0 0;
+  padding: 10% 0 0 0;
 
 }
 .ending-padding{
@@ -146,6 +146,7 @@
   }
   .grid-wrap {
     width: 100%;
+    padding: 30% 0 0 0;
   }
   .grid-item {
     width: 50%;

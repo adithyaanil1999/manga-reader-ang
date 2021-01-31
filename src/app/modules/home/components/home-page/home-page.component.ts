@@ -1,8 +1,9 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { BeURL, getSourceFromCode } from '../../../../../global';
-import { Store } from '@ngrx/store';
+import { Store,createFeatureSelector,createSelector } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { ofType } from '@ngrx/effects'
 import {
   currentMangaLink,
   refreshMangaPage,
@@ -27,6 +28,8 @@ export class HomePageComponent implements OnInit {
   srcObj = {};
   dataOrg;
   searchSub;
+  searchSelect = createFeatureSelector('reducer');
+  searchSelect2 = createSelector(this.searchSelect,s=>s['homeSearchString'])
   @ViewChild('scrollCont') scrollCont: any;
   getSourceFromCode = getSourceFromCode;
 
@@ -67,6 +70,7 @@ export class HomePageComponent implements OnInit {
 
   handleHomePageSearch(e, title) {
     if (title === '' || title === undefined) {
+      console.log(title)
       if(this.dataOrg !== undefined){
          this.data = this.dataOrg;
         this.splitData();
@@ -187,8 +191,8 @@ export class HomePageComponent implements OnInit {
       this.dataOrg = this.data;
       this.splitData();
     }
-    this.searchSub = this.store.subscribe(d=>{
-      this.handleHomePageSearch(null,d['reducer']['homeSearchString'])
-    })
+    this.searchSub = this.store.select(this.searchSelect2).subscribe(d=>{
+      this.handleHomePageSearch(null,d)
+    });
   }
 }

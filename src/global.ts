@@ -8,7 +8,7 @@ let currentUrl = window.location.href;
 
 export const prodBool = currentUrl.indexOf('github.io') !== -1 ? false : true;
 
-export const version = '1.4.3';
+export const version = '1.4.4';
 
 export const defaultSRC = 'MGFX';
 
