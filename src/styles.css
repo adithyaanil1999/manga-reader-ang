@@ -159,3 +159,9 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+/* @media all and (display-mode: standalone) {
+  body {
+   margin-top: 10%;
+  }
+} */
