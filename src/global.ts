@@ -1,14 +1,14 @@
 // export const BeURL = 'http://localhost:3000/';
 export const BeURL = 'https://manga-reader-be.herokuapp.com/';
 
-// export const scaperURL = 'https://manga-reader-express.herokuapp.com/';
-export const scaperURL = 'http://localhost:4000/';
+export const scaperURL = 'https://manga-reader-express.herokuapp.com/';
+// export const scaperURL = 'http://localhost:4000/';
 
 let currentUrl = window.location.href;
 
 export const prodBool = currentUrl.indexOf('github.io') !== -1 ? false : true;
 
-export const version = '1.4.2';
+export const version = '1.4.3';
 
 export const defaultSRC = 'MGFX';
 
