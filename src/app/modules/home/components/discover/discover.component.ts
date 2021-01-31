@@ -34,6 +34,7 @@ export class DiscoverComponent implements OnInit {
   end: boolean = false;
   params;
   mode: string = '';
+  discoverEnd = false;
   getsrc = getSourceFromCode;
 
   @ViewChild('scrollCont') scrollCont: any;
@@ -79,10 +80,14 @@ export class DiscoverComponent implements OnInit {
           // console.log('end');
         } else {
           this.setSpinner = false;
+          // console.log(data.LatestManga.length)
+          if(data.LatestManga.length === 0 ){
+            this.discoverEnd = true;
+          }
           this.dataArr = this.dataArr.concat(data.LatestManga);
           this.store.dispatch(genreMangaList({ genreList: this.dataArr }));
           this.pageNoGenre += 1;
-          console.log(this.pageNoGenre);
+          // console.log(this.pageNoGenre);
           this.store.dispatch(
             pageNoObject({ pageNoObj: { genre: this.pageNoGenre } })
           );
@@ -110,6 +115,9 @@ export class DiscoverComponent implements OnInit {
       })
       .then((data) => {
         this.setSpinner = false;
+        if(data.LatestManga.length ===0 ){
+          this.discoverEnd = true;
+        }
         this.dataArr = this.dataArr.concat(data.LatestManga);
         this.store.dispatch(latestMangaList({ latestList: this.dataArr }));
         this.pageNo += 1;
@@ -126,15 +134,18 @@ export class DiscoverComponent implements OnInit {
       this.store.dispatch(
         prevScrollHeight({ prevScrollHeight: element.scrollTop })
       );
-
-      if (
-        Math.ceil(element.scrollHeight - element.scrollTop) ===
-        element.clientHeight
-      ) {
-        if (this.mode === 'latest') {
-          this.getHotManga(this.pageNo);
-        } else {
-          this.getGenreManga();
+      if(this.discoverEnd === false){
+        // console.log(Math.ceil(element.scrollHeight - element.scrollTop) )
+        // console.log(element.clientHeight)
+        if (
+          Math.ceil(element.scrollHeight - element.scrollTop -5 ) <
+          element.clientHeight
+        ) {
+          if (this.mode === 'latest') {
+            this.getHotManga(this.pageNo);
+          } else {
+            this.getGenreManga();
+          }
         }
       }
     }

@@ -31,6 +31,8 @@ export class DashboardComponent implements OnInit {
   loadApp: boolean = false;
   @ViewChild('searchInp') searchInp: ElementRef;
   @ViewChild('dashbodywrap') dashbody: ElementRef;
+  @ViewChild('dashbody') dashMain: ElementRef;
+
 
   constructor(private _router: Router, private store: Store) {}
 
@@ -204,16 +206,23 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  ngAfterViewInit() {
-    // this.dashbody.nativeElement.addEventListener('touchmove', function (event) {
-    //   event.preventDefault();
-    //   return false;
-    // });
+
+  setDashHeight(){
+    let currentUrl = window.location.href;
+    if (
+      currentUrl.indexOf('discover') !== -1 ||
+      currentUrl.indexOf('home') !== -1
+    ) {
+      this.dashMain.nativeElement.style.height = "93%";
+    } else {
+      this.dashMain.nativeElement.style.height = "84%";
+    } 
   }
+
+
   ngOnInit(): void {
     let username = Cookies.get('username');
     this.state = this.getState();
-
     this.srcObjSub = this.store
       .select((state) => state)
       .subscribe((s) => {
@@ -236,6 +245,7 @@ export class DashboardComponent implements OnInit {
     this._router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         this.selectButton();
+        this.setDashHeight();
       }
     });
 

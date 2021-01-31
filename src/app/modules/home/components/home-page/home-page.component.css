@@ -132,6 +132,11 @@
   font-family: "Zilla Slab";
 }
 
+.ending-padding{
+  width: 100%;
+  height: 14%;
+}
+
 @media screen and (max-width: 1028px) {
   .title-background {
     font-size: 3vw;
