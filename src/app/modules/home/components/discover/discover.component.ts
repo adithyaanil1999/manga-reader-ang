@@ -119,6 +119,7 @@ export class DiscoverComponent implements OnInit {
           this.discoverEnd = true;
         }
         this.dataArr = this.dataArr.concat(data.LatestManga);
+
         this.store.dispatch(latestMangaList({ latestList: this.dataArr }));
         this.pageNo += 1;
         this.store.dispatch(
@@ -135,11 +136,10 @@ export class DiscoverComponent implements OnInit {
         prevScrollHeight({ prevScrollHeight: element.scrollTop })
       );
       if(this.discoverEnd === false){
-        // console.log(Math.ceil(element.scrollHeight - element.scrollTop) )
-        // console.log(element.clientHeight)
+        let diff  = (Math.ceil(element.scrollHeight - element.scrollTop) - element.clientHeight )
+        // console.log()
         if (
-          Math.ceil(element.scrollHeight - element.scrollTop -5 ) <
-          element.clientHeight
+          diff === 0 || diff === 1 
         ) {
           if (this.mode === 'latest') {
             this.getHotManga(this.pageNo);
