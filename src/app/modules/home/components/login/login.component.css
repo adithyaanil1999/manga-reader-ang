@@ -13,6 +13,14 @@
     /* background: white; */
 }
 
+@media all and (display-mode: standalone) {
+    @media screen and (max-width: 1028px) {
+      .login-box{
+        padding-top: 25%;
+      }
+    }
+}
+
 .login-box-left {
     background: greenyellow;
     width: 40%;

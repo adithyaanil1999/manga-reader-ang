@@ -43,9 +43,12 @@ html {
 
 body {
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  /* background: blue; */
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   overscroll-behavior-y: none;
-  background: #0d0d0d;
+  background: #272727;
 }
 
 .loader {
@@ -150,15 +153,7 @@ body {
   background: #36363686;
 }
 
-html,
-body {
-  height: 100%;
-}
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
 
 /* @media all and (display-mode: standalone) {
   body {
