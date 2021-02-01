@@ -2,7 +2,7 @@
   <div class="loader">Loading...</div>
 </div>
 <div
-  *ngIf="!setSpinner"
+  *ngIf="!setSpinner && !isMobile"
   class="animate__animated animate__fadeIn manga-view-wrap"
 >
   <div class="manga-grid">
@@ -162,6 +162,174 @@
               </div>
             </div>
           </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isMobile && !setSpinner" class="manga-page-mob">
+  <div class="mobile-flex-wrap">
+    <div class="thumb-wrap-mob" style="background-image: url({{ this.data.thumb }});">
+      <div>
+        <div class="manga-detail-wrap">
+          <div class="manga-thumb-wrap">
+            <img src="{{this.data.thumb}}" alt="">
+          </div>
+          <div class="detail-item">
+            <div class="manga-title">
+              <span>
+                {{ this.data.title }}
+              </span>
+            </div>
+            <div *ngIf="this.data.author" class="manga-author detail-8px-margin">
+              <span>
+                {{ this.data.author }}
+              </span>
+            </div>
+            <div *ngIf="this.data.status"class="manga-status detail-50p-margin" >
+              <span>
+                {{ this.data.status }}
+              </span>
+            </div>
+            <div class="manga-source detail-8px-margin" >
+              <span>
+                {{
+                  this.getsrcFromCode(
+                    this.getSourceFromUrl(this.srcObj),
+                    this.srcObj
+                  )
+                }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="this.data.desc" class="desc-mob-wrap">
+      <h3>Description:</h3>
+      <span>
+          {{this.data.desc}}
+      </span>
+    </div>
+    <div class="manga-data">
+      <div class="viwer-type-toggle mobile-toggle">
+        <div (click)="toggleTypeTo('vertical')" class="toggle-type">
+          <span [class.selected-type]="viewerType === 'vertical'"
+            >Vertical</span
+          >
+        </div>
+        <div (click)="toggleTypeTo('onePage')" class="toggle-type">
+          <span [class.selected-type]="viewerType === 'onePage'"
+            >One Page</span
+          >
+        </div>
+      </div>
+      <div (click)="handleBookmark()" class="bookmark-wrapper mobile-toggle">
+        <i class="fas fa-bookmark"></i>
+        <span *ngIf="isBookmarked === undefined || isBookmarked === 'NO'">
+          &nbsp;Bookmark this page
+        </span>
+        <span *ngIf="isBookmarked === 'YES'">
+          &nbsp;Unbookmark this page
+        </span>
+      </div>
+      <div class="chap-list-flex-wrap">
+        <div class="chap-list-wrap">
+          <div class="dark-chap-wrap chap-inner-wrap">
+            <a
+              *ngIf="this.lastReadIndex !== data.chapterList.length - 1"
+              (click)="
+                handleLink(
+                  data.chapterList[lastReadIndex + 1].chapterLink,
+                  data.chapterList[lastReadIndex + 1].chapterTitle
+                )
+              "
+              style="margin-bottom: 20px"
+            >
+              <div class="continue-button">
+                <div class="chap-item cont-item prev-button">
+                  <div class="chap-item-left">
+                    <h2 #chapterTitle>Previous</h2>
+                  </div>
+                  <div class="chap-item-right cont-title">
+                    <p class="title-wrap">
+                      {{ data.chapterList[lastReadIndex + 1].chapterTitle }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <a (click)="handleLastRead()" style="margin-bottom: 20px">
+              <div class="continue-button">
+                <div class="chap-item cont-item">
+                  <div class="chap-item-left">
+                    <h2 #chapterTitle>Continue</h2>
+                  </div>
+                  <div class="chap-item-right cont-title">
+                    <!-- {{
+                      lastRead.toString() === "0"
+                        ? getLastChapLink(
+                            data.chapterList[data.chapterList.length - 1]
+                              .chapterLink,
+                            data.chapterList[data.chapterList.length - 1]
+                              .chapterTitle
+                          )
+                        : null
+                    }} -->
+                    <p class="title-wrap">
+                      {{
+                        lastReadIndex === data.chapterList.length - 1
+                          ? "Start"
+                          : data.chapterList[lastReadIndex].chapterTitle
+                      }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <a
+              *ngIf="this.lastReadIndex != 0"
+              (click)="
+                handleLink(
+                  data.chapterList[this.lastReadIndex - 1].chapterLink,
+                  data.chapterList[this.lastReadIndex - 1].chapterTitle
+                )
+              "
+              style="margin-bottom: 20px"
+            >
+              <div class="continue-button">
+                <div class="chap-item cont-item next-button">
+                  <div class="chap-item-left">
+                    <h2 #chapterTitle>Next</h2>
+                  </div>
+                  <div class="chap-item-right cont-title">
+                    <p class="title-wrap">
+                      {{ data.chapterList[lastReadIndex - 1].chapterTitle }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <a
+              (click)="handleLink(i.chapterLink, i.chapterTitle)"
+              *ngFor="let i of this.data.chapterList; let j = index"
+            >
+              <div [class.last-read-item]="j === lastReadIndex" class="chap-item">
+                {{
+                  j === lastReadIndex
+                    ? getLastChapLink(i.chapterLink, i.chapterTitle)
+                    : null
+                }}
+                <div class="chap-item-left">
+                  <h2 #chapterTitle>{{ i.chapterTitle }}</h2>
+                </div>
+                <div class="chap-item-right">
+                  <p>{{ i.chapDate }}</p>
+                </div>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>

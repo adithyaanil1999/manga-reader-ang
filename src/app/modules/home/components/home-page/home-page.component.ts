@@ -167,6 +167,7 @@ export class HomePageComponent implements OnInit {
               this.mergeDataArrays(this.dataArr, data.message);
             });
         } else {
+          this.setSpinner = false;
           this.showNoBookmarks = true;
         }
       })

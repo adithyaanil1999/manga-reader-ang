@@ -207,7 +207,6 @@
 }
 
 .bottom-nav-dash {
-  /* width: calc(100% - 2px); */
   width: 100%;
   height: 8%;
   display: flex;
@@ -215,9 +214,6 @@
   position: fixed;
   bottom: 0;
   background: #272727;
-  /* background: #2525255d; */
-  /* backdrop-filter: blur(30px);  */
-  /* border-top: 3px solid #ff5400; */
   z-index: 1;
 }
 
