@@ -41,8 +41,10 @@
 }
 
 @media screen and (orientation:landscape) {
-  .rotate-cont{
-    display: flex;
+  @media screen and (max-width: 1028px) {
+    .rotate-cont{
+      display: flex;
+    }
   }
 }
 
@@ -212,8 +214,9 @@
   align-items: flex-end;
   position: fixed;
   bottom: 0;
-  background: #2525255d;
-  backdrop-filter: blur(30px); 
+  background: #272727;
+  /* background: #2525255d; */
+  /* backdrop-filter: blur(30px);  */
   /* border-top: 3px solid #ff5400; */
   z-index: 1;
 }
