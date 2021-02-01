@@ -272,9 +272,10 @@ export class MangaPageComponent implements OnInit {
         );
         this.setSpinner = false;
         this.highlightLastRead();
-        if (this.data.desc.indexOf(':') !== -1) {
-          this.data.desc = this.data.desc.split(':')[1];
-        }
+        // this.data.
+        // if (this.data.desc.indexOf(':') !== -1) {
+        //   this.data.desc = this.data.desc.split(':')[1];
+        // }
       });
   }
 
