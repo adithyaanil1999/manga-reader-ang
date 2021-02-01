@@ -2,6 +2,10 @@
   <div *ngIf="setSpin" class="spinner-cont">
     <div class="loader">Loading...</div>
   </div>
+  <div class="rotate-cont">
+    <img src="https://media1.giphy.com/media/XH4uWIEFT8h9NDhiE7/giphy.gif" alt="">
+    <span>Please Use The App In Potrait Mode.</span>
+  </div>
   <div *ngIf="showSearch" class="top-nav-dash slideInDown2">
     <div
       [class.search-open]="focusBool"
@@ -23,18 +27,18 @@
           (focus)="isFocused()"
           (keyup)="getAutoCompleteResults()"
           #searchInp
-          placeholder="Search"
+          placeholder="Search {{mode}}"
           type="text"
           class="search-inp"
         />
-        <div *ngIf="!isHome" class="search-type-wrap">
+        <!-- <div *ngIf="!isHome" class="search-type-wrap">
           <div (click)="toggleType('comic')" class="type-wrap">
             <span [class.type-selected]="mode === 'comic'"> COMIC</span>
           </div>
           <div (click)="toggleType('manga')" class="type-wrap">
             <span [class.type-selected]="mode === 'manga'"> MANGA</span>
           </div>
-        </div>
+        </div> -->
       </div>
       <div *ngIf="focusBool" class="auto-wrap">
         <div *ngIf="data.length === 0" class="search-spinner">

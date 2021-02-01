@@ -195,4 +195,8 @@ export class HomePageComponent implements OnInit {
       this.handleHomePageSearch(null,d)
     });
   }
+
+  ngOnDestroy(){
+    this.searchSub.unsubscribe();
+  }
 }

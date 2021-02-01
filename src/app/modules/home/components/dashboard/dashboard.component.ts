@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import Cookies from 'js-cookie';
-import { Store } from '@ngrx/store';
+import { Store,createFeatureSelector,createSelector } from '@ngrx/store';
 import { Router, NavigationEnd } from '@angular/router';
 import { take } from 'rxjs/operators';
 import {
@@ -29,12 +29,14 @@ export class DashboardComponent implements OnInit {
   state;
   checkSrcObj;
   srcObjSub;
+  modeSub;
   showSearch = true;
   loadApp: boolean = false;
   @ViewChild('searchInp') searchInp: ElementRef;
   @ViewChild('dashbodywrap') dashbody: ElementRef;
   @ViewChild('dashbody') dashMain: ElementRef;
-
+  modeSelect = createFeatureSelector('reducer');
+  modeSelect2 = createSelector(this.modeSelect,s=>s['currentSource'])
 
   constructor(private _router: Router, private store: Store) {}
 
@@ -223,7 +225,7 @@ export class DashboardComponent implements OnInit {
       if(this.isHome){
         this.searchInp.nativeElement.placeholder = "Search Bookmarks";
       }else if(this.isDiscover){
-        this.searchInp.nativeElement.placeholder = "Search";
+        this.searchInp.nativeElement.placeholder = "Search "+this.mode;
       }
     }, 20);
   }
@@ -236,13 +238,28 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  selectMode(currentSRC){
+    this.state = this.getState();
+    let isComic = this.state['srcOBJ'][currentSRC]['isComic']
+    if(isComic === true){
+      this.mode = 'comic';
+    }else{
+      this.mode = 'manga';
+    }
+  }
+
   ngOnInit(): void {
     let username = Cookies.get('username');
     this.state = this.getState();
+    this.modeSub = this.store.select(this.modeSelect2).subscribe(d=>{
+      if(d !== ""){
+        this.selectMode(d);
+      }
+    })
     this.srcObjSub = this.store
       .select((state) => state)
       .subscribe((s) => {
-        if (s['reducer']['srcOBJ'] !== undefined) {
+        if (s['reducer']['srcOBJ'] !== undefined && s['reducer']['currentSource'] !== "") {
           console.log('load app');
           this.loadApp = true;
           if (this.srcObjSub) {

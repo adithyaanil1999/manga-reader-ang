@@ -47,7 +47,7 @@
   height: 100%;
   background: linear-gradient(
     0deg,
-    rgb(0 0 0) 0%,
+    rgb(0 0 0 / 47%) 0%,
     rgb(255 255 255 / 0%) 100%,
     rgb(56 56 162) 100%,
     rgb(12 12 12 / 0%) 100%
@@ -92,8 +92,8 @@
     margin-left: 6%;
   }
   .grid-item {
-    width: 33%;
-    height: 33vh;
+    width: 50%;
+    height: 40vh;
   }
   .grid-item > p {
     font-size: 1vh;
