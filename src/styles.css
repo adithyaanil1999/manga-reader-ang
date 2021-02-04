@@ -4,9 +4,7 @@
   margin: 0;
   -webkit-tap-highlight-color: transparent;
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
-  /* Firefox */
 }
 
 *::-webkit-scrollbar {
@@ -18,19 +16,18 @@
 }
 
 html {
-  /* position: static; */
-  /* overflow-y: hidden; */
-  overflow: auto;
-  position: fixed;
-  height: 100%;
-  width: 100%;
+
+  /* overflow: auto; */
+  /* position: fixed; */
+  /* height: 100vh;
+  width: 100%; 
   margin: 0;
-  padding: 0;
+  padding: 0; */
   overflow: hidden;
 }
 
 .black {
-  background: black !important;
+  background: rgb(17, 5, 5) !important;
 }
 
 .border-orange {
@@ -44,11 +41,20 @@ html {
 body {
   width: 100%;
   height: 100vh;
-  /* background: blue; */
-  margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  overscroll-behavior-y: none;
+  overflow: auto;
+  /* overscroll-behavior-y: none; */
+  /* background: blue; */
   background: #272727;
+}
+
+.scroll-fix{
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* background: red; */
+  height: 100vh;
+  width: 100vw;
 }
 
 .loader {
