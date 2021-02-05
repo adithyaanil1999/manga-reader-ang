@@ -41,7 +41,13 @@
 
     .dash-body-wrapper {
       /* height: 80% !important; */
-      margin-top: calc(env(safe-area-inset-top) + 12%);
+      height: 100vh !important;
+      position: fixed;
+      top: 0;
+      left: auto;
+      right: auto;
+      /* background: red; */
+      /* margin-top: calc(env(safe-area-inset-top) + 12%); */
     }
   }
 }

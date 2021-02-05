@@ -7,6 +7,14 @@
   flex-direction: column;
 }
 
+@media all and (display-mode: standalone) {
+  @media screen and (max-width: 1028px) {
+      .grid-wrap{
+        padding: 18% 0 14% 0 !important;
+      }
+  }
+}
+
 .disc-wrapper > h1 {
   color: #a7a7a7;
   justify-self: flex-end;

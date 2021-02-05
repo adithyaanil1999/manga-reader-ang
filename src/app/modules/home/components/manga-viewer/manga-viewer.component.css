@@ -5,6 +5,14 @@
   /* background: black; */
 }
 
+@media all and (display-mode: standalone) {
+  @media screen and (max-width: 1028px) {
+      .mobile-main {
+          margin-top: 10%;
+      }
+  }
+}
+
 .back-btn-cont {
   display: flex;
   color: #ffffff6b;
