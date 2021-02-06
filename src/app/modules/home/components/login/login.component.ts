@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   signUpBool : Boolean = false;
   errorString : string = '';
   showSpinner: Boolean = false;
+  noReg= 0;
 
   constructor(private recaptchaV3Service: ReCaptchaV3Service,private _router: Router,private store:Store) {
    }
@@ -148,13 +149,25 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  getNoReg(){
+    this.showSpinner = true;
+    fetch(BeURL+"numberReg",{
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" }
+    }).then(res=>res.json())
+    .then(data=>{
+      this.showSpinner = false;
+      this.noReg = data.message;
+    })
+  }
+
   ngOnInit(): void {
     let currentState = this.getState(this.store);
     this.checkMobile = currentState.mobileBool;
     console.log("PROTECTED BY reCAPTCHAv3")
-
     let username = Cookies.get('username');
     console.log(username);
+    this.getNoReg();
     if(username == '' || username == undefined ){
       
     }else{
