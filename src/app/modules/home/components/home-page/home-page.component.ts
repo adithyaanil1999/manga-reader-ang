@@ -95,16 +95,16 @@ export class HomePageComponent implements OnInit {
   }
 
   mergeDataArrays(arr1, arr2) {
-    function returnIndexOfMangaFromArr2(chapterTitle) {
+    function returnIndexOfMangaFromArr2(chapterTitle,src) {
       for (let i = 0; i < arr2.length; i++) {
-        if (arr2[i].manga_title === chapterTitle) {
+        if (arr2[i].manga_title === chapterTitle && arr2[i].source === src) {
           return i;
         }
       }
     }
     let indexOfMangaFromArr2 = 0;
     for (let i = 0; i < arr1.length; i++) {
-      indexOfMangaFromArr2 = returnIndexOfMangaFromArr2(arr1[i].manga_title);
+      indexOfMangaFromArr2 = returnIndexOfMangaFromArr2(arr1[i].manga_title,arr1[i].source);
       this.data.push({ ...arr1[i], ...arr2[indexOfMangaFromArr2] });
     }
     this.dataOrg = this.data;

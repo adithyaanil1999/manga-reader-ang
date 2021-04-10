@@ -41,6 +41,9 @@ export class DashboardComponent implements OnInit {
   constructor(private _router: Router, private store: Store) {}
 
   selectItem(index) {
+    if(index !== 1){
+      this.store.dispatch(homeSearchString({homeSearchString:""}));
+    }
     if (index === 0) {
       this.isDiscover = true;
       this.isHome = false;
