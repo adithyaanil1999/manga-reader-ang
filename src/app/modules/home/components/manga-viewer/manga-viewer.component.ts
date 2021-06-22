@@ -54,6 +54,7 @@ export class MangaViewerComponent implements OnInit {
 
   handleImageError(e) {
     let src = getsrcFromUrl(this.state['srcOBJ']);
+    // console.log(src)
     if ((src === 'MGFX' || src === 'MGHR') && this.calledReliable === false) {
       this.reliableMode = true;
       this.calledReliable = true;
@@ -61,7 +62,7 @@ export class MangaViewerComponent implements OnInit {
       this.showSnackBarReliable();
       this.getImages();
     } else if (!(src == 'MGFX' || src === 'MGHR')) {
-      this.location.back();
+      // this.location.back();
     }
   }
 
