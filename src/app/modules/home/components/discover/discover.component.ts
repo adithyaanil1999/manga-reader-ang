@@ -74,9 +74,10 @@ export class DiscoverComponent implements OnInit {
         return res.json();
       })
       .then((data) => {
-        if (data.LatestManga === 'end') {
+        if (data.LatestManga === 'end' || data.LatestManga.length === 0) {
           this.setSpinner = false;
           this.end = true;
+          console.log('No more manga')
           // console.log('end');
         } else {
           this.setSpinner = false;

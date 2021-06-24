@@ -14,27 +14,7 @@
       </div>
       <div class="desc-wrap">
         <div class="desc-flex-wrap">
-          <div class="viwer-type-toggle">
-            <div (click)="toggleTypeTo('vertical')" class="toggle-type">
-              <span [class.selected-type]="viewerType === 'vertical'"
-                >Vertical</span
-              >
-            </div>
-            <div (click)="toggleTypeTo('onePage')" class="toggle-type">
-              <span [class.selected-type]="viewerType === 'onePage'"
-                >One Page</span
-              >
-            </div>
-          </div>
-          <div (click)="handleBookmark()" class="bookmark-wrapper">
-            <i class="fas fa-bookmark"></i>
-            <span *ngIf="isBookmarked === undefined || isBookmarked === 'NO'">
-              &nbsp;Bookmark this page
-            </span>
-            <span *ngIf="isBookmarked === 'YES'">
-              &nbsp;Unbookmark this page
-            </span>
-          </div>
+          
           <p class="text-wrap">
             <span style="text-decoration: underline">Source:</span
             ><br /><br />{{
@@ -68,6 +48,29 @@
       </div>
     </div>
     <div class="grid-right">
+      <div class="desktop-btns-wrap">
+        <div class="viwer-type-toggle">
+          <div (click)="toggleTypeTo('vertical')" class="toggle-type">
+            <span [class.selected-type]="viewerType === 'vertical'"
+              >Vertical</span
+            >
+          </div>
+          <div (click)="toggleTypeTo('onePage')" class="toggle-type">
+            <span [class.selected-type]="viewerType === 'onePage'"
+              >One Page</span
+            >
+          </div>
+        </div>
+        <div (click)="handleBookmark()" class="bookmark-wrapper">
+          <i class="fas fa-bookmark"></i>
+          <span *ngIf="isBookmarked === undefined || isBookmarked === 'NO'">
+            &nbsp;Bookmark this page
+          </span>
+          <span *ngIf="isBookmarked === 'YES'">
+            &nbsp;Unbookmark this page
+          </span>
+        </div>
+      </div>
       <div class="chap-list-wrap">
         <div class="dark-chap-wrap chap-inner-wrap">
           <a
