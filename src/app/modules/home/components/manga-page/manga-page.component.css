@@ -77,6 +77,10 @@
   align-items: center;
 }
 
+.chap-bottom-spacer{
+  width: 100%;
+  height: 15%;
+}
 
 
 .desc-flex-wrap {
@@ -413,5 +417,10 @@
   }
   .chap-inner-wrap {
     width: 98%;
+  }
+
+  .chap-bottom-spacer{
+    width: 100%;
+    height: 10%;
   }
 }

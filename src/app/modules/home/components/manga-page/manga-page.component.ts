@@ -191,9 +191,10 @@ export class MangaPageComponent implements OnInit {
     return state.reducer;
   }
   getChapIndex(title) {
+
     let lastReadIndex = 0;
     for (let j of this.data.chapterList) {
-      if (title === j.chapterTitle) {
+      if (title === j.chapterTitle.replace("'", "''")) {
         return this.data.chapterList.length - lastReadIndex - 1;
       } else {
         lastReadIndex++;
@@ -215,7 +216,8 @@ export class MangaPageComponent implements OnInit {
       latestIndex: this.data.chapterList.length,
     };
 
-    // console.log(data);
+
+    console.log(data);
 
     // console.log(data);
     // this.setSpinner = true;
@@ -242,7 +244,7 @@ export class MangaPageComponent implements OnInit {
           }
         } else {
           alert('Some error has occured');
-          location.reload();
+          // location.reload();
         }
       });
   }
